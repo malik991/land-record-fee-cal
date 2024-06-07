@@ -26,9 +26,7 @@ export const formSchema = z
     landArea: z.number().optional(),
     tmaMapApprovedOrNot: z.string().optional(),
     constructedArea: z.number().optional(),
-    //   numberOfFloors: z.enum(["0", "1", "2", "3", "4", "5", "6"], {
-    //     message: "please select number of floors",
-    //   }),
+    numberOfFloors: z.string().optional(),
   })
   .refine(
     (data) => {
@@ -93,5 +91,22 @@ export const formSchema = z
     {
       message: "please enter constructed area",
       path: ["constructedArea"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.plotType === "construct" &&
+        data.tmaMapApprovedOrNot === "yes" &&
+        data.mutationType !== "وراثت" &&
+        !data.numberOfFloors
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "please select a value from floor list",
+      path: ["numberOfFloors"],
     }
   );

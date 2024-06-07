@@ -31,7 +31,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formSchema } from "@/schemas/MainFormSchema";
-import { fromTheme } from "tailwind-merge";
 
 export default function FormCalculatorPage() {
   const [isLandValueVisible, setIsLandValue] = useState(true);
@@ -45,6 +44,7 @@ export default function FormCalculatorPage() {
       landArea: 0,
       tmaMapApprovedOrNot: "",
       constructedArea: 0,
+      numberOfFloors: "",
     },
   });
   const transferMode = form.watch("transferType");
@@ -65,6 +65,7 @@ export default function FormCalculatorPage() {
       form.setValue("constructedArea", 0);
     } else {
       form.setValue("constructedArea", 0);
+      form.setValue("numberOfFloors", "");
     }
   }, [plotType, tmaMapAvailableOrNot]);
 
@@ -74,6 +75,7 @@ export default function FormCalculatorPage() {
     form.setValue("constructedArea", 0);
     form.setValue("plotType", "");
     form.setValue("landArea", 0);
+    form.setValue("numberOfFloors", "");
   }, [transferMode]);
 
   useEffect(() => {
@@ -341,39 +343,71 @@ export default function FormCalculatorPage() {
                           )}
                         />
                       )}
-                      {plotType === "construct" && (
-                        <FormField
-                          control={form.control}
-                          name="constructedArea"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>
-                                <div className="flex gap-x-2 items-center ">
-                                  <span>Covered Area(Marla)</span>
-                                  <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                    (تعمیر شدہ رقبہ مرلہ میں)
-                                  </span>
-                                </div>
-                              </FormLabel>
-                              <FormControl>
-                                <Input
-                                  className="text-nafeed"
-                                  type="number"
-                                  disabled={
-                                    tmaMapAvailableOrNot === "no" ? true : false
-                                  }
-                                  placeholder="رقبہ کو مرلہ میں لکھیں"
-                                  {...field}
-                                  onChange={(e) =>
-                                    field.onChange(Number(e.target.value))
-                                  }
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      )}
+                      {plotType === "construct" &&
+                        tmaMapAvailableOrNot === "yes" && (
+                          <>
+                            <FormField
+                              control={form.control}
+                              name="constructedArea"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>
+                                    <div className="flex gap-x-2 items-center ">
+                                      <span>Covered Area(Marla)</span>
+                                      <span className="text-nafees md:text-md text-sm font-bold text-dooja">
+                                        (تعمیر شدہ رقبہ مرلہ میں)
+                                      </span>
+                                    </div>
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      className="text-nafeed"
+                                      type="number"
+                                      placeholder="رقبہ کو مرلہ میں لکھیں"
+                                      {...field}
+                                      onChange={(e) =>
+                                        field.onChange(Number(e.target.value))
+                                      }
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="numberOfFloors"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="">
+                                    Total Floors
+                                  </FormLabel>
+                                  <Select onValueChange={field.onChange}>
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue
+                                          className="text-nafees text-sm font-semibold"
+                                          placeholder="عمارت کی منزلیں"
+                                        />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value="0">0</SelectItem>
+                                      <SelectItem value="1">1</SelectItem>
+                                      <SelectItem value="2">2</SelectItem>
+                                      <SelectItem value="3">3</SelectItem>
+                                      <SelectItem value="4">4</SelectItem>
+                                      <SelectItem value="5">5</SelectItem>
+                                      <SelectItem value="6">6</SelectItem>
+                                    </SelectContent>
+                                  </Select>
+
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </>
+                        )}
 
                       <FormField
                         control={form.control}
