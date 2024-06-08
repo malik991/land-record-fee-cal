@@ -27,6 +27,7 @@ export const formSchema = z
     tmaMapApprovedOrNot: z.string().optional(),
     constructedArea: z.number().optional(),
     numberOfFloors: z.string().optional(),
+    floorsArea: z.number().optional(),
   })
   .refine(
     (data) => {
@@ -108,5 +109,23 @@ export const formSchema = z
     {
       message: "please select a value from floor list",
       path: ["numberOfFloors"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.type === "urban" &&
+        data.mutationType !== "وراثت" &&
+        data.numberOfFloors !== undefined &&
+        data.numberOfFloors > "0" &&
+        (data.floorsArea === undefined || data.floorsArea <= 0)
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "enter valid area in Marla",
+      path: ["floorsArea"],
     }
   );

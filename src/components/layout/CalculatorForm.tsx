@@ -3,6 +3,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
@@ -52,6 +54,7 @@ export default function FormCalculatorPage() {
       tmaMapApprovedOrNot: "",
       constructedArea: 0,
       numberOfFloors: "",
+      floorsArea: 0,
     },
   });
   const transferMode = form.watch("transferType");
@@ -59,6 +62,7 @@ export default function FormCalculatorPage() {
   const areaType = form.watch("type");
   const plotType = form.watch("plotType");
   const tmaMapAvailableOrNot = form.watch("tmaMapApprovedOrNot");
+  const numberOfFloors = form.watch("numberOfFloors");
   const [finalAmountResult, setFinalAmountResult] = useState<any[]>([]);
 
   useEffect(() => {
@@ -70,6 +74,8 @@ export default function FormCalculatorPage() {
     if (plotType === "empty") {
       form.setValue("tmaMapApprovedOrNot", "");
       form.setValue("constructedArea", 0);
+      form.setValue("floorsArea", 0);
+      form.setValue("numberOfFloors", "");
     } else {
       form.setValue("constructedArea", 0);
       form.setValue("numberOfFloors", "");
@@ -83,6 +89,7 @@ export default function FormCalculatorPage() {
     form.setValue("plotType", "");
     form.setValue("landArea", 0);
     form.setValue("numberOfFloors", "");
+    form.setValue("floorsArea", 0);
   }, [transferMode]);
 
   useEffect(() => {
@@ -193,17 +200,23 @@ export default function FormCalculatorPage() {
                                 <SelectValue placeholder="please select type" />
                               </SelectTrigger>
                             </FormControl>
+
                             <SelectContent className="text-nafees">
-                              {mutationTypeArray.map((type) => (
-                                <SelectItem
-                                  key={type}
-                                  value={type}
-                                  className="text-nafees font-bold text-lg"
-                                  style={{ textAlign: "right" }}
-                                >
-                                  {type}
-                                </SelectItem>
-                              ))}
+                              <ScrollArea className="h-20 w-full">
+                                {mutationTypeArray.map((type) => (
+                                  <>
+                                    <SelectItem
+                                      key={type}
+                                      value={type}
+                                      className="text-nafees font-bold text-lg"
+                                      style={{ textAlign: "right" }}
+                                    >
+                                      {type}
+                                    </SelectItem>
+                                    <Separator className="my-2" />
+                                  </>
+                                ))}
+                              </ScrollArea>
                             </SelectContent>
                           </Select>
 
@@ -428,6 +441,40 @@ export default function FormCalculatorPage() {
                                   </FormItem>
                                 )}
                               />
+                              {numberOfFloors !== "0" &&
+                                numberOfFloors !== "" && (
+                                  <FormField
+                                    control={form.control}
+                                    name="floorsArea"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>
+                                          <div className="flex gap-x-2 items-center ">
+                                            <span>All Floors Area(Marla)</span>
+                                            <span className="text-nafees md:text-md text-sm font-bold text-dooja">
+                                              (منازل رقبہ مرلہ میں)
+                                            </span>
+                                          </div>
+                                        </FormLabel>
+                                        <FormControl>
+                                          <Input
+                                            className="text-nafees"
+                                            type="number"
+                                            //disabled={!isLandValueVisible}
+                                            placeholder="رقبہ کو مرلہ میں لکھیں"
+                                            {...field}
+                                            onChange={(e) =>
+                                              field.onChange(
+                                                Number(e.target.value)
+                                              )
+                                            }
+                                          />
+                                        </FormControl>
+                                        <FormMessage className="font-semibold text-pehla" />
+                                      </FormItem>
+                                    )}
+                                  />
+                                )}
                             </>
                           )}
 
