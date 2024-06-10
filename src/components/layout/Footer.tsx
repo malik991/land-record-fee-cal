@@ -29,12 +29,12 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-x-3">
               <Link
-                href={"/https://www.linkedin.com/in/mubashar-hassan-sci/"}
+                href={"https://www.linkedin.com/in/mubashar-hassan-sci/"}
                 target="_blank"
               >
                 <Linkedin className="w-6 h-6" />
               </Link>
-              <Link href={"/https://github.com/malik991"} target="_blank">
+              <Link href={"https://github.com/malik991"} target="_blank">
                 <Image src={github} alt="github" />
               </Link>
               <Link href={"/"}>
