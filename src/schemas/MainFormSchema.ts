@@ -23,11 +23,20 @@ export const formSchema = z
         message: "Amount cannot exceed 11 digits.",
       }),
     plotType: z.string().optional(),
-    landArea: z.number().optional(),
+    landArea: z
+      .number()
+      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .optional(),
     tmaMapApprovedOrNot: z.string().optional(),
-    constructedArea: z.number().optional(),
+    constructedArea: z
+      .number()
+      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .optional(),
     numberOfFloors: z.string().optional(),
-    floorsArea: z.number().optional(),
+    floorsArea: z
+      .number()
+      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .optional(),
   })
   .refine(
     (data) => {
@@ -58,6 +67,22 @@ export const formSchema = z
     },
     {
       message: "enter valid area in Marla",
+      path: ["landArea"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (
+        data.type === "sakni" &&
+        data.mutationType === "تملیک" &&
+        (data.landArea === undefined || data.landArea <= 0)
+      ) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "enter valid area in SQFT",
       path: ["landArea"],
     }
   )
@@ -125,7 +150,7 @@ export const formSchema = z
       return true;
     },
     {
-      message: "enter valid area in Marla",
+      message: "enter valid area in SQFT",
       path: ["floorsArea"],
     }
   );

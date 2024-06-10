@@ -22,7 +22,7 @@ import {
   SelectContent,
   SelectItem,
 } from "../ui/select";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { mutationTypeArray } from "../module/muttaionType";
 import { AllParams, zaraiTaxCalculation } from "../module/TaxCalculation";
 import {
@@ -40,6 +40,10 @@ import {
 } from "@/components/ui/accordion";
 import { formSchema } from "@/schemas/MainFormSchema";
 import HeaderSectionPage from "@/app/compo/headerSection";
+import ZaraiSakniTaxFunction, {
+  UrbanTaxFunction,
+} from "../module/UrbanTaxCalculation";
+import { ConversionDialog } from "./ConversionDialog";
 
 export default function FormCalculatorPage() {
   const [isLandValueVisible, setIsLandValue] = useState(true);
@@ -64,6 +68,7 @@ export default function FormCalculatorPage() {
   const tmaMapAvailableOrNot = form.watch("tmaMapApprovedOrNot");
   const numberOfFloors = form.watch("numberOfFloors");
   const [finalAmountResult, setFinalAmountResult] = useState<any[]>([]);
+  const [displayValue, setDisplayValue] = useState<string>("");
 
   useEffect(() => {
     form.setValue("plotType", "");
@@ -94,6 +99,7 @@ export default function FormCalculatorPage() {
 
   useEffect(() => {
     setFinalAmountResult([]);
+    form.setValue("landArea", 0);
     if (
       mutatonType === "وراثت" ||
       mutatonType === "آڑرہن" ||
@@ -110,6 +116,15 @@ export default function FormCalculatorPage() {
     }
   }, [mutatonType, form.clearErrors, form.trigger]);
 
+  // Helper function to format number with commas
+  const formatNumber = (value: number) => {
+    // Format with commas
+    return value.toLocaleString("en-US");
+  };
+  const parseNumber = (value: string) => {
+    return value.replace(/,/g, "");
+  };
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     //console.log(values);
     setFinalAmountResult([]);
@@ -125,14 +140,16 @@ export default function FormCalculatorPage() {
         setFinalAmountResult(result);
       }
     } else if (values.transferType === "Registery") {
-      console.log(values);
-
-      // const urbanInputParams: AllParams = {
-      //   transferType: values.transferType,
-      //   mutationType: values.mutationType,
-      //   landType: values.type,
-      //   totalAmount: values.landValue,
-      // };
+      //console.log(values);
+      let outPut = [];
+      if (values.type === "sakni" || values.type === "zarai") {
+        outPut = ZaraiSakniTaxFunction(values);
+      } else {
+        outPut = UrbanTaxFunction(values);
+      }
+      if (outPut?.length > 0) {
+        setFinalAmountResult(outPut);
+      }
     }
   }
   return (
@@ -202,11 +219,11 @@ export default function FormCalculatorPage() {
                             </FormControl>
 
                             <SelectContent className="text-nafees">
-                              <ScrollArea className="h-20 w-full">
+                              <ScrollArea className="h-auto w-full">
                                 {mutationTypeArray.map((type) => (
-                                  <>
+                                  <React.Fragment key={type}>
                                     <SelectItem
-                                      key={type}
+                                      //key={type}
                                       value={type}
                                       className="text-nafees font-bold text-lg"
                                       style={{ textAlign: "right" }}
@@ -214,7 +231,7 @@ export default function FormCalculatorPage() {
                                       {type}
                                     </SelectItem>
                                     <Separator className="my-2" />
-                                  </>
+                                  </React.Fragment>
                                 ))}
                               </ScrollArea>
                             </SelectContent>
@@ -256,7 +273,7 @@ export default function FormCalculatorPage() {
                                   <FormControl>
                                     <RadioGroupItem value="sakni" />
                                   </FormControl>
-                                  <FormLabel className="text-nafees md:text-lg text-sm font-semibold">
+                                  <FormLabel className="text-nafees md:text-lg text-xs font-semibold">
                                     سکنی زرعی
                                   </FormLabel>
                                 </FormItem>
@@ -273,7 +290,7 @@ export default function FormCalculatorPage() {
                                     />
                                   </FormControl>
                                   <FormLabel
-                                    className={`text-nafees md:text-lg text-sm font-semibold ${
+                                    className={`text-nafees md:text-lg text-xs font-semibold ${
                                       transferMode === "Intiqal" &&
                                       "text-muted-foreground"
                                     } `}
@@ -281,6 +298,7 @@ export default function FormCalculatorPage() {
                                     اندرون حدود / ریٹنگ ایریا
                                   </FormLabel>
                                 </FormItem>
+                                <ConversionDialog />
                               </div>
                             </RadioGroup>
                           </FormControl>
@@ -388,9 +406,9 @@ export default function FormCalculatorPage() {
                                   <FormItem>
                                     <FormLabel>
                                       <div className="flex gap-x-2 items-center ">
-                                        <span>Covered Area(Marla)</span>
+                                        <span>Covered Area(Sqft)</span>
                                         <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                          (تعمیر شدہ رقبہ مرلہ میں)
+                                          (تعمیر شدہ رقبہ فٹ میں)
                                         </span>
                                       </div>
                                     </FormLabel>
@@ -450,18 +468,16 @@ export default function FormCalculatorPage() {
                                       <FormItem>
                                         <FormLabel>
                                           <div className="flex gap-x-2 items-center ">
-                                            <span>All Floors Area(Marla)</span>
+                                            <span>All Floors Area(Sqft)</span>
                                             <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                              (منازل رقبہ مرلہ میں)
+                                              (منازل رقبہ فٹ میں)
                                             </span>
                                           </div>
                                         </FormLabel>
                                         <FormControl>
                                           <Input
-                                            className="text-nafees"
                                             type="number"
                                             //disabled={!isLandValueVisible}
-                                            placeholder="رقبہ کو مرلہ میں لکھیں"
                                             {...field}
                                             onChange={(e) =>
                                               field.onChange(
@@ -509,6 +525,39 @@ export default function FormCalculatorPage() {
                         />
                       </div>
                     )}
+                    {transferMode === "Registery" &&
+                      areaType === "sakni" &&
+                      mutatonType === "تملیک" && (
+                        <FormField
+                          control={form.control}
+                          name="landArea"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>
+                                <div className="flex gap-x-2 items-center ">
+                                  <span>Plot Area(Marla)</span>
+                                  <span className="text-nafees md:text-md text-sm font-bold text-dooja">
+                                    (کل رقبہ مرلہ میں)
+                                  </span>
+                                </div>
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className="text-nafeed"
+                                  type="number"
+                                  //disabled={!isLandValueVisible}
+                                  placeholder="رقبہ کو مرلہ میں لکھیں"
+                                  {...field}
+                                  onChange={(e) =>
+                                    field.onChange(Number(e.target.value))
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage className="font-semibold text-pehla" />
+                            </FormItem>
+                          )}
+                        />
+                      )}
                     <FormField
                       control={form.control}
                       name="landValue"
@@ -535,7 +584,7 @@ export default function FormCalculatorPage() {
                               </span>
                             </div>
                           </FormLabel>
-                          <FormControl>
+                          {/* <FormControl>
                             <Input
                               type="number"
                               disabled={!isLandValueVisible}
@@ -543,6 +592,30 @@ export default function FormCalculatorPage() {
                               {...field}
                               onChange={(e) =>
                                 field.onChange(Number(e.target.value))
+                              }
+                            />
+                          </FormControl> */}
+                          <FormControl>
+                            <Input
+                              type="text" // Use text input for formatting
+                              disabled={!isLandValueVisible}
+                              placeholder="enter amount in PKR"
+                              {...field}
+                              onChange={(e) => {
+                                const rawValue = e.target.value;
+                                const parsedValue = parseNumber(rawValue);
+                                const numericValue = parseFloat(parsedValue);
+
+                                if (!isNaN(numericValue)) {
+                                  field.onChange(numericValue);
+                                  setDisplayValue(formatNumber(numericValue));
+                                } else {
+                                  setDisplayValue(rawValue);
+                                }
+                              }}
+                              value={displayValue}
+                              onBlur={() =>
+                                setDisplayValue(formatNumber(field.value))
                               }
                             />
                           </FormControl>
@@ -594,16 +667,18 @@ export default function FormCalculatorPage() {
                             <span className="text-sm font-semibold">
                               {key}:
                             </span>{" "}
-                            {finalAmountResult[0][key]}
+                            {formatNumber(finalAmountResult[0][key])}
                           </div>
                         ))}
                       </CardContent>
-                      <CardFooter>
-                        <span className="text-xs font-semibold text-pehla tracking-tighter">
-                          * Applicant will show the tax exemption certificate
-                          for 7E.
-                        </span>
-                      </CardFooter>
+                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" && (
+                        <CardFooter>
+                          <span className="text-xs font-semibold text-pehla tracking-tighter">
+                            * Applicant will show the tax exemption certificate
+                            for 7E.
+                          </span>
+                        </CardFooter>
+                      )}
                     </Card>
                   </AccordionContent>
                 </AccordionItem>
@@ -638,15 +713,17 @@ export default function FormCalculatorPage() {
                             <span className="text-sm font-semibold">
                               {key}:
                             </span>{" "}
-                            {finalAmountResult[1][key]}
+                            {formatNumber(finalAmountResult[1][key])}
                           </div>
                         ))}
                       </CardContent>
-                      <CardFooter>
-                        <span className="text-xs font-semibold text-pehla">
-                          * TAX 7E WILL BE APPLIED.
-                        </span>
-                      </CardFooter>
+                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" && (
+                        <CardFooter>
+                          <span className="text-xs font-semibold text-pehla">
+                            * TAX 7E WILL BE APPLIED.
+                          </span>
+                        </CardFooter>
+                      )}
                     </Card>
                   </AccordionContent>
                 </AccordionItem>
