@@ -107,7 +107,10 @@ export default function FormCalculatorPage() {
       mutatonType === "فک-آڑرہن"
     ) {
       setIsLandValue(false);
+      setDisplayValue("");
       form.setValue("landValue", 1);
+      form.setValue("constructedArea", 0);
+      form.setValue("floorsArea", 0);
       form.clearErrors("landValue"); // clear previous errors
     } else {
       form.setValue("landValue", 0);
@@ -159,7 +162,7 @@ export default function FormCalculatorPage() {
           {/* header section of form */}
           <div className="w-full p-3">
             <HeaderSectionPage
-              header="TAX CALCULATOR FORM"
+              header="FILL TAX FORM"
               subHeader="ٹیکس کیلکولیٹر فارم"
             />
           </div>
@@ -406,9 +409,9 @@ export default function FormCalculatorPage() {
                                   <FormItem>
                                     <FormLabel>
                                       <div className="flex gap-x-2 items-center ">
-                                        <span>Covered Area(Sqft)</span>
+                                        <span>Ground Covered Area(Sqft)</span>
                                         <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                          (تعمیر شدہ رقبہ فٹ میں)
+                                          (زمینی منزل کا تعمیری رقبہ فٹ میں)
                                         </span>
                                       </div>
                                     </FormLabel>
@@ -501,9 +504,9 @@ export default function FormCalculatorPage() {
                             <FormItem>
                               <FormLabel>
                                 <div className="flex gap-x-2 items-center ">
-                                  <span>Plot Area(Marla)</span>
+                                  <span>Plot Area(Sqft)</span>
                                   <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                    (کل رقبہ مرلہ میں)
+                                    (کل رقبہ فٹ میں)
                                   </span>
                                 </div>
                               </FormLabel>
@@ -535,9 +538,9 @@ export default function FormCalculatorPage() {
                             <FormItem>
                               <FormLabel>
                                 <div className="flex gap-x-2 items-center ">
-                                  <span>Plot Area(Marla)</span>
+                                  <span>Plot Area(Sqft)</span>
                                   <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                    (کل رقبہ مرلہ میں)
+                                    (کل رقبہ فٹ میں)
                                   </span>
                                 </div>
                               </FormLabel>
@@ -671,12 +674,20 @@ export default function FormCalculatorPage() {
                           </div>
                         ))}
                       </CardContent>
-                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" && (
+                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" ? (
                         <CardFooter>
-                          <span className="text-xs font-semibold text-pehla tracking-tighter">
+                          <span className="text-md font-semibold text-pehla tracking-tighter">
                             * Applicant will show the tax exemption certificate
                             for 7E.
                           </span>
+                        </CardFooter>
+                      ) : (
+                        <CardFooter>
+                          {mutatonType !== "وراثت" && (
+                            <span className="text-nafees text-md font-semibold text-pehla items-end">
+                              1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
+                            </span>
+                          )}
                         </CardFooter>
                       )}
                     </Card>
@@ -717,11 +728,19 @@ export default function FormCalculatorPage() {
                           </div>
                         ))}
                       </CardContent>
-                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" && (
+                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" ? (
                         <CardFooter>
-                          <span className="text-xs font-semibold text-pehla">
+                          <span className="text-md font-semibold text-pehla">
                             * TAX 7E WILL BE APPLIED.
                           </span>
+                        </CardFooter>
+                      ) : (
+                        <CardFooter>
+                          {mutatonType !== "وراثت" && (
+                            <span className="text-nafees text-md font-semibold text-pehla items-end">
+                              1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
+                            </span>
+                          )}
                         </CardFooter>
                       )}
                     </Card>

@@ -85,7 +85,7 @@ export default function ZaraiSakniTaxFunction(
     ) {
       let objecForTamleekFiler = {};
       let objecForTamleekNonFiler = {};
-      if (inputParams.landArea! <= 20) {
+      if (inputParams.landArea! <= 5440) {
         objecForTamleekFiler = {
           STAMP_DUTY: "3%",
           TMA_TAX: "1.0%",
@@ -255,12 +255,24 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         chargesPlra.charges;
     } else if (inputParams.plotType === "construct") {
       if (inputParams.tmaMapApprovedOrNot === "yes") {
-      } else if (inputParams.tmaMapApprovedOrNot === "no") {
-        let convertTosqft = inputParams.landArea! * marlaToFoot;
-        StampDuty_Fee = Math.round(
-          inputParams.landValue * STAMPDUTY_MAP_NotAvailable
-        );
+        if (
+          inputParams.numberOfFloors !== "" &&
+          inputParams.numberOfFloors === "1"
+        ) {
+          inputParams.landValue =
+            inputParams.landValue + inputParams.landValue / 2;
+        }
 
+        if (
+          inputParams.numberOfFloors !== "" &&
+          Number(inputParams.numberOfFloors) > 1
+        ) {
+          inputParams.landValue =
+            inputParams.landValue +
+            inputParams.landValue / 2 +
+            Math.round(inputParams.landValue * 0.25);
+        }
+        StampDuty_Fee = Math.round(inputParams.landValue * STAMPDUTY_CHARGES);
         TMAtax = Math.round(inputParams.landValue * taxTMA);
         fbr236KForFiler = Math.round(
           inputParams.landValue * filerFbrTaxFor236K
@@ -275,7 +287,15 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           inputParams.landValue * nonFilerFbrTaxFor236C
         );
         tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
-        constructionCharges = Math.round(convertTosqft * CONSTRUCTION_CHARGES);
+        constructionCharges = Math.round(
+          inputParams.constructedArea! * CONSTRUCTION_CHARGES
+        );
+        if (
+          inputParams.numberOfFloors !== "" &&
+          inputParams.numberOfFloors !== "0"
+        ) {
+          constructionCharges += inputParams.floorsArea! * CONSTRUCTION_CHARGES;
+        }
         /// total of all taxes
         totalForFiler =
           StampDuty_Fee +
@@ -296,6 +316,140 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           tax7E +
           registryCharges.charges +
           chargesPlra.charges;
+      } else if (inputParams.tmaMapApprovedOrNot === "no") {
+        //let convertTosqft = inputParams.landArea! * marlaToFoot;
+        StampDuty_Fee = Math.round(
+          inputParams.landValue * STAMPDUTY_MAP_NotAvailable
+        );
+
+        TMAtax = Math.round(inputParams.landValue * taxTMA);
+        fbr236KForFiler = Math.round(
+          inputParams.landValue * filerFbrTaxFor236K
+        );
+        fbr236KForNonFiler = Math.round(
+          inputParams.landValue * nonFilerFbrTaxFor236K
+        );
+        fbr236CForFiler = Math.round(
+          inputParams.landValue * filerFbrTaxFor236C
+        );
+        fbr236CForNonFiler = Math.round(
+          inputParams.landValue * nonFilerFbrTaxFor236C
+        );
+        tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
+        constructionCharges = Math.round(
+          inputParams.landArea! * CONSTRUCTION_CHARGES
+        );
+        /// total of all taxes
+        totalForFiler =
+          StampDuty_Fee +
+          constructionCharges +
+          TMAtax +
+          fbr236KForFiler +
+          fbr236CForFiler +
+          0 +
+          registryCharges.charges +
+          chargesPlra.charges;
+
+        totalForNonFiler =
+          StampDuty_Fee +
+          constructionCharges +
+          TMAtax +
+          fbr236KForNonFiler +
+          fbr236CForNonFiler +
+          tax7E +
+          registryCharges.charges +
+          chargesPlra.charges;
+      }
+    }
+  }
+
+  if (inputParams.mutationType === "تملیک") {
+    if (inputParams.plotType === "empty") {
+      forFiler = {
+        STAMP_DUTY: "1.0 %",
+        CONSTRUCTION_CHARGES: 0,
+        TMA_TAX: "1.0 %",
+        FBR_236K_TAX: 0,
+        FBR_236C_TAX: 0,
+        FBR_7E_TAX: 0,
+        PLRA_CHARGES: chargesPlra.charges,
+        REGISTRY_CHARGES: registryCharges.charges,
+      };
+      forNonFiler = {
+        STAMP_DUTY: "1.0 %",
+        CONSTRUCTION_CHARGES: 0,
+        TMA_TAX: "1.0 %",
+        FBR_236K_TAX: 0,
+        FBR_236C_TAX: 0,
+        FBR_7E_TAX: 0,
+        PLRA_CHARGES: chargesPlra.charges,
+        REGISTRY_CHARGES: registryCharges.charges,
+      };
+      finalArrayResult.push(forFiler);
+      finalArrayResult.push(forNonFiler);
+      return finalArrayResult;
+    } else if (inputParams.plotType === "construct") {
+      if (inputParams.tmaMapApprovedOrNot === "yes") {
+        if (Number(inputParams.numberOfFloors) > 0) {
+          constructionCharges =
+            Math.round(inputParams.constructedArea! * CONSTRUCTION_CHARGES) +
+            Math.round(inputParams.floorsArea! * CONSTRUCTION_CHARGES);
+        } else {
+          constructionCharges = Math.round(
+            inputParams.constructedArea! * CONSTRUCTION_CHARGES
+          );
+        }
+
+        forFiler = {
+          STAMP_DUTY: "1.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
+        forNonFiler = {
+          STAMP_DUTY: "1.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
+        finalArrayResult.push(forFiler);
+        finalArrayResult.push(forNonFiler);
+        return finalArrayResult;
+      } else if (inputParams.tmaMapApprovedOrNot === "no") {
+        constructionCharges = Math.round(
+          inputParams.landArea! * CONSTRUCTION_CHARGES
+        );
+        forFiler = {
+          STAMP_DUTY: "3.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
+        forNonFiler = {
+          STAMP_DUTY: "3.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
+        finalArrayResult.push(forFiler);
+        finalArrayResult.push(forNonFiler);
+        return finalArrayResult;
       }
     }
   }
