@@ -634,7 +634,7 @@ export default function FormCalculatorPage() {
           </div>
         </div>
         {/* final result div */}
-        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 p-5">
+        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 md:p-5 p-2">
           {finalAmountResult?.length > 0 && (
             <>
               <Accordion
@@ -652,7 +652,7 @@ export default function FormCalculatorPage() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Card className="w-[350px]">
+                    <Card className="md:w-[350px] w-full">
                       <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
                         <CardTitle className="text-center text-dooja">
                           TAX FOR FILER
@@ -662,7 +662,7 @@ export default function FormCalculatorPage() {
                         {Object.keys(finalAmountResult[0]).map((key) => (
                           <div
                             key={key}
-                            className="w-full flex items-center justify-between mt-2 px-3 py-2 shadow-sm shadow-dooja/40"
+                            className="w-full flex items-center justify-between mt-2 md:px-3 px-2 py-2 shadow-sm shadow-dooja/40"
                           >
                             <span className="text-sm font-semibold">
                               {key}:
@@ -698,7 +698,7 @@ export default function FormCalculatorPage() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <Card className="w-[350px]">
+                    <Card className="md:w-[350px] w-full">
                       <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
                         <CardTitle className="text-center text-pehla">
                           TAX FOR NON-FILER
@@ -708,7 +708,7 @@ export default function FormCalculatorPage() {
                         {Object.keys(finalAmountResult[1]).map((key) => (
                           <div
                             key={key}
-                            className="w-full flex items-center justify-between mt-2 px-3 py-2 shadow-sm shadow-dooja/40"
+                            className="w-full flex items-center justify-between mt-2 md:px-3 px-2 py-2 shadow-sm shadow-dooja/40"
                           >
                             <span className="text-sm font-semibold">
                               {key}:
