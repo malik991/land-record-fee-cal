@@ -17,8 +17,19 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useState } from "react";
 
 export function ConversionDialog() {
+  const [userInput, setuserInput] = useState<number>(0);
+  const [outPutInFoot, setOutput] = useState<number>(0);
+  function convertMarlaToFoot() {
+    if (userInput > 0) {
+      setOutput(userInput * 272);
+      return;
+    } else {
+      return alert("input should be grater than 0 ");
+    }
+  }
   return (
     <Dialog>
       {/* <Button variant="outline">Edit Profile</Button> */}
@@ -41,33 +52,38 @@ export function ConversionDialog() {
         <DialogHeader>
           <DialogTitle>Land Conversion Calculator</DialogTitle>
           <DialogDescription className="text-nafees text-sm font-semibold text-muted-foreground">
-            زمین کی پیمائش کو مختلف یونٹ میں تبدیل کریں.
+            زمین کی پیمائش کو مرلہ سے فٹ میں تبدیل کریں
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              Marla
             </Label>
             <Input
               id="name"
-              defaultValue="Pedro Duarte"
+              type="number"
+              placeholder="write marla"
+              onChange={(e) => setuserInput(e.target.valueAsNumber)}
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Username
+              SQFT فٹ
             </Label>
             <Input
               id="username"
-              defaultValue="@peduarte"
+              //disabled={true}
+              value={outPutInFoot > 0 ? outPutInFoot : 0}
               className="col-span-3"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" onClick={convertMarlaToFoot}>
+            Convert
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
