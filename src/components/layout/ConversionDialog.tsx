@@ -22,6 +22,7 @@ import { useState } from "react";
 export function ConversionDialog() {
   const [userInput, setuserInput] = useState<number>(0);
   const [outPutInFoot, setOutput] = useState<number>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   function convertMarlaToFoot() {
     if (userInput > 0) {
       setOutput(userInput * 272);
@@ -30,8 +31,15 @@ export function ConversionDialog() {
       return alert("input should be grater than 0 ");
     }
   }
+
+  function handleDialogChange(open: boolean) {
+    setIsOpen(open);
+    if (!open) {
+      setOutput(0); // Reset output when dialog is closed
+    }
+  }
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleDialogChange}>
       {/* <Button variant="outline">Edit Profile</Button> */}
       <TooltipProvider>
         <Tooltip>
@@ -48,7 +56,7 @@ export function ConversionDialog() {
         </Tooltip>
       </TooltipProvider>
 
-      <DialogContent className="md:max-w-[425px] max-w-[325px] m-1 ">
+      <DialogContent className="w-full max-w-lg mx-auto p-4 sm:max-w-md sm:p-6 md:p-8">
         <DialogHeader>
           <DialogTitle>Land Conversion Calculator</DialogTitle>
           <DialogDescription className="text-nafees text-sm font-semibold text-muted-foreground">
@@ -56,8 +64,8 @@ export function ConversionDialog() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="sm:text-right">
               Marla
             </Label>
             <Input
@@ -68,13 +76,13 @@ export function ConversionDialog() {
               className="col-span-3"
             />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="sm:text-right">
               SQFT فٹ
             </Label>
             <Input
               id="username"
-              //disabled={true}
+              readOnly
               value={outPutInFoot > 0 ? outPutInFoot : 0}
               className="col-span-3"
             />
