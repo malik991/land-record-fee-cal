@@ -40,7 +40,7 @@ let marlaToFoot = 272;
 export default function ZaraiSakniTaxFunction(
   inputParams: z.infer<typeof formSchema>
 ) {
-  //console.log(inputParams);
+  console.log(inputParams);
   const finalArrayAmount = [];
   let chargesPlra = {
     charges: inputParams.mutationType === "وراثت" ? 0 : 1300,
@@ -157,6 +157,13 @@ export default function ZaraiSakniTaxFunction(
       finalArrayAmount.push(objecForTamleekFiler);
       finalArrayAmount.push(objecForTamleekNonFiler);
       return finalArrayAmount;
+    } else {
+      StampDuty_Fee = 500;
+      TMAtax = 0;
+      fbr236CForFiler = 0;
+      fbr236CForNonFiler = 0;
+      fbr236KForFiler = 0;
+      fbr236KForNonFiler = 0;
     }
   }
 
@@ -361,9 +368,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           chargesPlra.charges;
       }
     }
-  }
-
-  if (inputParams.mutationType === "تملیک") {
+  } else if (inputParams.mutationType === "تملیک") {
     if (inputParams.plotType === "empty") {
       forFiler = {
         STAMP_DUTY: "1.0 %",
@@ -452,6 +457,17 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         return finalArrayResult;
       }
     }
+  } else {
+    StampDuty_Fee = 500;
+    constructionCharges = 0;
+    TMAtax = 0;
+    fbr236CForFiler = 0;
+    fbr236CForNonFiler = 0;
+    tax7E = 0;
+    fbr236KForFiler = 0;
+    fbr236KForNonFiler = 0;
+    totalForFiler = 500;
+    totalForNonFiler = 500;
   }
 
   const constructionChargesValue =

@@ -100,6 +100,16 @@ export default function FormCalculatorPage() {
   useEffect(() => {
     setFinalAmountResult([]);
     form.setValue("landArea", 0);
+    setDisplayValue("");
+    if (transferMode === "Registery") {
+      form.setValue("landValue", 1);
+      form.setValue("constructedArea", 0);
+      form.setValue("floorsArea", 0);
+      form.setValue("numberOfFloors", "");
+      form.setValue("plotType", "");
+      form.setValue("tmaMapApprovedOrNot", "");
+    }
+
     if (
       mutatonType === "وراثت" ||
       mutatonType === "آڑرہن" ||
@@ -107,10 +117,6 @@ export default function FormCalculatorPage() {
       mutatonType === "فک-آڑرہن"
     ) {
       setIsLandValue(false);
-      setDisplayValue("");
-      form.setValue("landValue", 1);
-      form.setValue("constructedArea", 0);
-      form.setValue("floorsArea", 0);
       form.clearErrors("landValue"); // clear previous errors
     } else {
       form.setValue("landValue", 0);
@@ -637,13 +643,13 @@ export default function FormCalculatorPage() {
           </div>
         </div>
         {/* final result div */}
-        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 md:p-5 p-2">
+        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 md:p-5 ">
           {finalAmountResult?.length > 0 && (
             <>
               <Accordion
                 type="single"
                 collapsible
-                className="w-full shadow-md rounded-md shadow-card-foreground px-4"
+                className="w-full shadow-md rounded-md shadow-card-foreground md:px-4 px-1"
               >
                 <AccordionItem value="item-1">
                   <AccordionTrigger>
@@ -697,7 +703,7 @@ export default function FormCalculatorPage() {
               <Accordion
                 type="single"
                 collapsible
-                className="w-full shadow-md rounded-md shadow-card-foreground px-4"
+                className="w-full shadow-md rounded-md shadow-card-foreground md:px-4 px-1"
               >
                 <AccordionItem value="item-2">
                   <AccordionTrigger>
