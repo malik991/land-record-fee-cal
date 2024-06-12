@@ -36,7 +36,7 @@ export function CarouselHero() {
             <div className="p-1">
               <Card>
                 <CardContent className="flex items-center justify-center md:p-6 p-2 h-[50vh]">
-                  <span className="text-nafees md:text-5xl text-md md:font-semibold font-bold leading-3">
+                  <span className="text-nafees md:text-5xl text-sm md:font-semibold font-bold leading-3">
                     {item.name}
                   </span>
                 </CardContent>
