@@ -19,23 +19,67 @@ export default function InstructionsPage() {
         <div className="lg:w-1/2 w-full p-3">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-dooja">STEP-1</AccordionTrigger>
+              <AccordionTrigger>STEP - 1</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                <div className="flex flex-col items-end gap-y-1">
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm font-semibold">
+                    ٹرانسفر ٹائپ سلیکٹ کریں انتقال یا رجسٹری -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm">
+                    ٭ نوٹ انتقال کا عمل صرف زرعی رقبہ کی حد تک ہے
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm font-normal">
+                    ٭ رجسٹری کا عمل شہری یا اندرون حدود کمیٹی یا ریٹنگ ایریا میں
+                    ممکن ہے
+                  </p>
+                </div>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
-              <AccordionTrigger>Is it styled?</AccordionTrigger>
+              <AccordionTrigger>STEP - 2</AccordionTrigger>
               <AccordionContent>
-                Yes. It comes with default styles that matches the other
-                components&apos; aesthetic.
+                <div className="flex flex-col items-end gap-y-1">
+                  <p className="text-nafees pr-4 md:text-lg text-sm font-semibold">
+                    انتقال کی قسم سلیکٹ کریں بیع یا وراثت -
+                  </p>
+                  <p className="text-nafees pr-4 md:text-lg text-sm font-semibold">
+                    زمین کی قسم سلیکٹ کریں زرعی یا رہائشی یا اندرون حدود کمیٹی -
+                  </p>
+                </div>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
-              <AccordionTrigger>Is it animated?</AccordionTrigger>
+              <AccordionTrigger>STEP - 3</AccordionTrigger>
               <AccordionContent>
-                Yes. It&apos;s animated by default, but you can disable it if
-                you prefer.
+                <div className="flex flex-col items-end gap-y-1">
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    اگر ٹرانسفر ٹائپ انتقال ہے تو صرف رقم کا اندراج کریں -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    کچھ انتقالات میں رقم کی ضرورت نہ ہے -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm font-semibold">
+                    ٹرانسفر ٹائپ رجسٹری کی صورت میں مندرجہ ذیل کا دھیان رکھیں -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    دستیاب رقبہ صرف فٹ میں لکھیں۔ ورنہ نتائج درست نہ ہوں گے۔ -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    رقبہ کو فٹ میں تبدیل کرنے کے لیے الگ سے دیے گئے کیلکولیٹر کا
+                    -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    بلڈنگ کی صورت اگر نقشہ تصدیق شدہ ہے تو منزل سیلیکٹ کرنالازمی
+                    ہے۔
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-noraml">
+                    اگر کوئی منزل نہ ہے تو 0 سلیکٹ کریں -
+                  </p>
+                  <p className="text-nafees md:pr-4 md:text-lg text-sm md:font-semibold font-normal">
+                    اگر منازل ایک یا زائد ہیں تو سب کا تعمیری رقبہ فٹ میں ایک
+                    دفعہ درج کریں -
+                  </p>
+                </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>

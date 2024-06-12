@@ -16,6 +16,13 @@ export function CarouselHero() {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
+  const myArray = [
+    { name: "تمام ٹیکسز لینڈ ریونیو ایکٹ 1967 کے مطابق " },
+    { name: "ایف بی آر فیس بمطابق فئینانس آرڈینینس 2001" },
+    { name: "ضلع کونسل یا ٹی ایم اے فیس" },
+    { name: "اندرون حدود کمیٹی یا زرعی رقبہ کے ٹیکس" },
+  ];
+
   return (
     <Carousel
       plugins={[plugin.current]}
@@ -24,12 +31,14 @@ export function CarouselHero() {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {myArray.map((item, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
-                <CardContent className="flex items-center justify-center p-6 h-[50vh]">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
+                <CardContent className="flex items-center justify-center md:p-6 p-2 h-[50vh]">
+                  <span className="text-nafees md:text-5xl text-md md:font-semibold font-bold leading-3">
+                    {item.name}
+                  </span>
                 </CardContent>
               </Card>
             </div>

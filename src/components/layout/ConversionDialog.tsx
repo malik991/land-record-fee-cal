@@ -78,7 +78,7 @@ export function ConversionDialog() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="sm:text-right">
-              SQFT فٹ
+              SQFT
             </Label>
             <Input
               id="username"
