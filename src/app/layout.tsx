@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import HeaderPage from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -32,7 +33,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <HeaderPage />
-          <main className="max-w-full mx-auto p-5">{children}</main>
+          <main className="max-w-full mx-auto p-5">
+            {children}
+            <Analytics />
+          </main>
           <Footer />
         </ThemeProvider>
       </body>
