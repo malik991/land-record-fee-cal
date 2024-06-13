@@ -3,6 +3,15 @@ import HeaderSectionPage from "./compo/headerSection";
 import InstructionsPage from "@/components/layout/Instructions";
 import FormCalculatorPage from "@/components/layout/CalculatorForm";
 import Head from "next/head";
+import Gallery from "@/components/layout/PicCaresoul";
+import { IImage } from "@/lib/types";
+
+const images: IImage[] = [
+  { url: "/1.jpeg" },
+  { url: "/2.jpeg" },
+  { url: "/hero-image1.png" },
+  // Add more images as needed
+];
 
 export default function Home() {
   return (
@@ -22,17 +31,21 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
           <div className="w-full">
             <HeaderSectionPage
-              header="WELCOME TO LTF"
+              header="LAND TRANSFER FEE"
               subHeader="تخمینہ اراضی فیس"
+              isVisible={true}
             />
           </div>
-          <div className="w-full mx-auto md:px-6 px-9 flex  justify-center">
-            <CarouselHero />
+          {/* <div className="w-full mx-auto md:px-6 px-9 flex  justify-center"> */}
+          <div className="w-full flex items-center justify-center">
+            <Gallery images={images} />
+            {/* <CarouselHero /> */}
           </div>
         </div>
       </section>
-      <InstructionsPage />
+
       <FormCalculatorPage />
+      <InstructionsPage />
     </>
   );
 }

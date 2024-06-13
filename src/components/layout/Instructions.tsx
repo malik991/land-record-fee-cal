@@ -14,6 +14,7 @@ export default function InstructionsPage() {
           <HeaderSectionPage
             header="Instructions"
             subHeader="ہدایات برائے استعمال"
+            isVisible={true}
           />
         </div>
         <div className="lg:w-1/2 w-full p-3">

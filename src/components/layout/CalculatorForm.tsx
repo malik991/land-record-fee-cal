@@ -170,6 +170,7 @@ export default function FormCalculatorPage() {
             <HeaderSectionPage
               header="FILL TAX FORM"
               subHeader="ٹیکس کیلکولیٹر فارم"
+              isVisible={true}
             />
           </div>
           {/* form div */}
