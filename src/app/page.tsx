@@ -7,9 +7,11 @@ import Gallery from "@/components/layout/PicCaresoul";
 import { IImage } from "@/lib/types";
 
 const images: IImage[] = [
+  { url: "/3.webp" },
+  { url: "/4.webp" },
   { url: "/1.jpeg" },
-  { url: "/2.jpeg" },
   { url: "/hero-image1.png" },
+
   // Add more images as needed
 ];
 

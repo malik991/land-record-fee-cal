@@ -113,7 +113,7 @@ const Gallery = ({ images }: GalleryProps) => {
         <CarouselContent className="m-1">{mainImage}</CarouselContent>
       </Carousel>
       <Carousel setApi={setThumbnailApi}>
-        <CarouselContent className="m-1 flex justify-center">
+        <CarouselContent className="m-1 flex justify-center gap-x-0">
           {thumbnailImages}
         </CarouselContent>
       </Carousel>
