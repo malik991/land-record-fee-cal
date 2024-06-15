@@ -16,7 +16,7 @@ interface GalleryProps {
 }
 
 const Gallery = ({ images }: GalleryProps) => {
-  const plugin = React.useRef(Autoplay({ delay: 3000 }));
+  const plugin = React.useRef(Autoplay({ delay: 2500 }));
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);

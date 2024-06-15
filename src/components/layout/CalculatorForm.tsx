@@ -44,6 +44,7 @@ import ZaraiSakniTaxFunction, {
   UrbanTaxFunction,
 } from "../module/UrbanTaxCalculation";
 import { ConversionDialog } from "./ConversionDialog";
+import useScrollToError from "../module/useScrollToError";
 
 export default function FormCalculatorPage() {
   const [isLandValueVisible, setIsLandValue] = useState(true);
@@ -54,11 +55,11 @@ export default function FormCalculatorPage() {
       mutationType: "",
       type: "zarai",
       plotType: "",
-      landArea: 0,
+      landArea: undefined,
       tmaMapApprovedOrNot: "",
-      constructedArea: 0,
+      constructedArea: undefined,
       numberOfFloors: "",
-      floorsArea: 0,
+      floorsArea: undefined,
     },
   });
   const transferMode = form.watch("transferType");
@@ -72,39 +73,40 @@ export default function FormCalculatorPage() {
 
   useEffect(() => {
     form.setValue("plotType", "");
-    form.setValue("landArea", 0);
+    form.setValue("landArea", undefined);
   }, [form.setValue, areaType]);
 
   useEffect(() => {
     if (plotType === "empty") {
       form.setValue("tmaMapApprovedOrNot", "");
-      form.setValue("constructedArea", 0);
-      form.setValue("floorsArea", 0);
+      form.setValue("constructedArea", undefined);
+      form.setValue("floorsArea", undefined);
       form.setValue("numberOfFloors", "");
     } else {
-      form.setValue("constructedArea", 0);
+      form.setValue("constructedArea", undefined);
       form.setValue("numberOfFloors", "");
     }
   }, [plotType, tmaMapAvailableOrNot]);
 
   useEffect(() => {
+    setFinalAmountResult([]);
     form.setValue("type", "zarai");
     form.setValue("tmaMapApprovedOrNot", "");
-    form.setValue("constructedArea", 0);
+    form.setValue("constructedArea", undefined);
     form.setValue("plotType", "");
-    form.setValue("landArea", 0);
+    form.setValue("landArea", undefined);
     form.setValue("numberOfFloors", "");
-    form.setValue("floorsArea", 0);
+    form.setValue("floorsArea", undefined);
   }, [transferMode]);
 
   useEffect(() => {
     setFinalAmountResult([]);
-    form.setValue("landArea", 0);
+    form.setValue("landArea", undefined);
     setDisplayValue("");
     if (transferMode === "Registery") {
       form.setValue("landValue", 1);
-      form.setValue("constructedArea", 0);
-      form.setValue("floorsArea", 0);
+      form.setValue("constructedArea", undefined);
+      form.setValue("floorsArea", undefined);
       form.setValue("numberOfFloors", "");
       form.setValue("plotType", "");
       form.setValue("tmaMapApprovedOrNot", "");
@@ -117,6 +119,7 @@ export default function FormCalculatorPage() {
       mutatonType === "فک-آڑرہن"
     ) {
       setIsLandValue(false);
+      form.setValue("landValue", 1);
       form.clearErrors("landValue"); // clear previous errors
     } else {
       form.setValue("landValue", 0);
@@ -124,6 +127,8 @@ export default function FormCalculatorPage() {
       form.trigger("landValue");
     }
   }, [mutatonType, form.clearErrors, form.trigger]);
+
+  useScrollToError(form.formState.errors); // Use the custom hook
 
   // Helper function to format number with commas
   const formatNumber = (value: number) => {
@@ -233,7 +238,6 @@ export default function FormCalculatorPage() {
                                 {mutationTypeArray.map((type) => (
                                   <React.Fragment key={type}>
                                     <SelectItem
-                                      //key={type}
                                       value={type}
                                       className="text-nafees font-bold text-lg"
                                       style={{ textAlign: "right" }}
@@ -426,11 +430,16 @@ export default function FormCalculatorPage() {
                                       <Input
                                         className="text-nafeed"
                                         type="number"
-                                        placeholder="رقبہ کو مرلہ میں لکھیں"
+                                        placeholder="رقبہ کو فٹ میں لکھیں"
                                         {...field}
-                                        onChange={(e) =>
-                                          field.onChange(Number(e.target.value))
-                                        }
+                                        onChange={(e) => {
+                                          const value = e.target.value;
+                                          field.onChange(
+                                            value === ""
+                                              ? undefined
+                                              : Number(value)
+                                          );
+                                        }}
                                       />
                                     </FormControl>
                                     <FormMessage className="font-semibold text-pehla" />
@@ -487,13 +496,15 @@ export default function FormCalculatorPage() {
                                         <FormControl>
                                           <Input
                                             type="number"
-                                            //disabled={!isLandValueVisible}
                                             {...field}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
+                                              const value = e.target.value;
                                               field.onChange(
-                                                Number(e.target.value)
-                                              )
-                                            }
+                                                value === ""
+                                                  ? undefined
+                                                  : Number(value)
+                                              );
+                                            }}
                                           />
                                         </FormControl>
                                         <FormMessage className="font-semibold text-pehla" />
@@ -521,11 +532,16 @@ export default function FormCalculatorPage() {
                                 <Input
                                   className="text-nafeed"
                                   type="number"
-                                  //disabled={!isLandValueVisible}
-                                  placeholder="رقبہ کو مرلہ میں لکھیں"
+                                  placeholder="رقبہ کو فٹ میں لکھیں"
                                   {...field}
-                                  onChange={(e) =>
-                                    field.onChange(Number(e.target.value))
+                                  onChange={
+                                    (e) => {
+                                      const value = e.target.value;
+                                      field.onChange(
+                                        value === "" ? undefined : Number(value)
+                                      );
+                                    }
+                                    //field.onChange(Number(e.target.value))
                                   }
                                 />
                               </FormControl>
@@ -556,10 +572,16 @@ export default function FormCalculatorPage() {
                                   className="text-nafeed"
                                   type="number"
                                   //disabled={!isLandValueVisible}
-                                  placeholder="رقبہ کو مرلہ میں لکھیں"
+                                  placeholder="رقبہ کو فٹ میں لکھیں"
                                   {...field}
-                                  onChange={(e) =>
-                                    field.onChange(Number(e.target.value))
+                                  onChange={
+                                    (e) => {
+                                      const value = e.target.value;
+                                      field.onChange(
+                                        value === "" ? undefined : Number(value)
+                                      );
+                                    }
+                                    //field.onChange(Number(e.target.value))
                                   }
                                 />
                               </FormControl>

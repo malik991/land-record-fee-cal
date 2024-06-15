@@ -24,18 +24,39 @@ export const formSchema = z
       }),
     plotType: z.string().optional(),
     landArea: z
-      .number()
-      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .union([
+        z.string().transform((val) => (val === "" ? undefined : Number(val))),
+        z
+          .number()
+          .max(999999999999999, {
+            message: "The number cannot exceed 15 digits.",
+          })
+          .optional(),
+      ])
       .optional(),
     tmaMapApprovedOrNot: z.string().optional(),
     constructedArea: z
-      .number()
-      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .union([
+        z.string().transform((val) => (val === "" ? undefined : Number(val))),
+        z
+          .number()
+          .max(999999999999999, {
+            message: "The number cannot exceed 15 digits.",
+          })
+          .optional(),
+      ])
       .optional(),
     numberOfFloors: z.string().optional(),
     floorsArea: z
-      .number()
-      .max(999999999999999, { message: "The number cannot exceed 15 digits." })
+      .union([
+        z.string().transform((val) => (val === "" ? undefined : Number(val))),
+        z
+          .number()
+          .max(999999999999999, {
+            message: "The number cannot exceed 15 digits.",
+          })
+          .optional(),
+      ])
       .optional(),
   })
   .refine(

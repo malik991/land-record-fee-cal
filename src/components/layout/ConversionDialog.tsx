@@ -28,7 +28,7 @@ export function ConversionDialog() {
       setOutput(userInput * 272);
       return;
     } else {
-      return alert("input should be grater than 0 ");
+      return alert("write value of marla");
     }
   }
 
