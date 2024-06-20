@@ -1,4 +1,3 @@
-import { CarouselHero } from "@/components/layout/heroCarousel";
 import HeaderSectionPage from "./compo/headerSection";
 import InstructionsPage from "@/components/layout/Instructions";
 import FormCalculatorPage from "@/components/layout/CalculatorForm";

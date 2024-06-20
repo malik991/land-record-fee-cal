@@ -45,6 +45,8 @@ import ZaraiSakniTaxFunction, {
 } from "../module/UrbanTaxCalculation";
 import { ConversionDialog } from "./ConversionDialog";
 import useScrollToError from "../module/useScrollToError";
+import { CircleHelp } from "lucide-react";
+import ProvideToolTip from "../module/ToolTipProvide";
 
 export default function FormCalculatorPage() {
   const [isLandValueVisible, setIsLandValue] = useState(true);
@@ -190,7 +192,11 @@ export default function FormCalculatorPage() {
                   name="transferType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="">Select Transfer Type</FormLabel>
+                      <div className="flex items-center gap-x-1">
+                        <FormLabel className="">Select Transfer Type</FormLabel>
+                        <ProvideToolTip testDescription="انتقال یا رجسٹری" />
+                      </div>
+
                       <Select onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger>
@@ -221,11 +227,15 @@ export default function FormCalculatorPage() {
                       name="mutationType"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="">
-                            {transferMode === "Intiqal"
-                              ? "Mutation Type"
-                              : "Registry Type"}
-                          </FormLabel>
+                          <div className="flex items-center gap-x-1">
+                            <FormLabel className="">
+                              {transferMode === "Intiqal"
+                                ? "Mutation Type"
+                                : "Registry Type"}
+                            </FormLabel>
+                            <ProvideToolTip testDescription="انتقال یا رجسٹری کی قسم منتخب کریں" />
+                          </div>
+
                           <Select onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger>
@@ -261,11 +271,9 @@ export default function FormCalculatorPage() {
                       render={({ field }) => (
                         <FormItem className="space-y-3">
                           <FormLabel>
-                            <div className="flex gap-x-2 items-center ">
+                            <div className="flex gap-x-1 items-center ">
                               <span>Select Land Type</span>
-                              <span className="text-nafees md:text-lg text-md font-bold text-dooja">
-                                ( زمین کی قسم )
-                              </span>
+                              <ProvideToolTip testDescription=" زمین زرعی ۔ رہائشی یا ریٹنگ ایریا میں ہے۔" />
                             </div>
                           </FormLabel>
                           <FormControl>
@@ -328,11 +336,9 @@ export default function FormCalculatorPage() {
                           render={({ field }) => (
                             <FormItem className="space-y-3">
                               <FormLabel>
-                                <div className="flex gap-x-2 items-center ">
+                                <div className="flex gap-x-1 items-center ">
                                   <span>Plot Type</span>
-                                  <span className="text-nafees md:text-lg text-md font-bold text-dooja">
-                                    ( پلاٹ کا انتخاب )
-                                  </span>
+                                  <ProvideToolTip testDescription="پلاٹ کا انتخاب" />
                                 </div>
                               </FormLabel>
                               <FormControl>
@@ -372,11 +378,9 @@ export default function FormCalculatorPage() {
                             render={({ field }) => (
                               <FormItem className="space-y-3">
                                 <FormLabel>
-                                  <div className="flex gap-x-2 items-center ">
+                                  <div className="flex gap-x-1 items-center ">
                                     <span>Approved TMA Map Available</span>
-                                    <span className="text-nafees md:text-lg text-md font-bold text-dooja">
-                                      ( منظور شدہ نقشہ ہے؟ )
-                                    </span>
+                                    <ProvideToolTip testDescription="کیا آپکے پاس منظور شدہ نقشہ ہے۔" />
                                   </div>
                                 </FormLabel>
                                 <FormControl>
@@ -419,16 +423,14 @@ export default function FormCalculatorPage() {
                                 render={({ field }) => (
                                   <FormItem>
                                     <FormLabel>
-                                      <div className="flex gap-x-2 items-center ">
+                                      <div className="flex gap-x-1 items-center ">
                                         <span>Ground Covered Area(Sqft)</span>
-                                        <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                          (زمینی منزل کا تعمیری رقبہ فٹ میں)
-                                        </span>
+                                        <ProvideToolTip testDescription="زمینی منزل کا تعمیر شدہ رقبہ فٹ میں لکھیں" />
                                       </div>
                                     </FormLabel>
                                     <FormControl>
                                       <Input
-                                        className="text-nafeed"
+                                        className="text-nafees"
                                         type="number"
                                         placeholder="رقبہ کو فٹ میں لکھیں"
                                         {...field}
@@ -451,9 +453,13 @@ export default function FormCalculatorPage() {
                                 name="numberOfFloors"
                                 render={({ field }) => (
                                   <FormItem>
-                                    <FormLabel className="">
-                                      Total Floors
-                                    </FormLabel>
+                                    <div className="flex items-center gap-x-1">
+                                      <FormLabel className="">
+                                        Total Floors
+                                      </FormLabel>
+                                      <ProvideToolTip testDescription="اگر فلور نہ ہے تو 0 سیلیکٹ کریں ورنہ جتنے عمارت کے فلور ہیں وہ سیلیکٹ کریں" />
+                                    </div>
+
                                     <Select onValueChange={field.onChange}>
                                       <FormControl>
                                         <SelectTrigger>
@@ -486,11 +492,9 @@ export default function FormCalculatorPage() {
                                     render={({ field }) => (
                                       <FormItem>
                                         <FormLabel>
-                                          <div className="flex gap-x-2 items-center ">
+                                          <div className="flex gap-x-1 items-center ">
                                             <span>All Floors Area(Sqft)</span>
-                                            <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                              (منازل رقبہ فٹ میں)
-                                            </span>
+                                            <ProvideToolTip testDescription="تمام فلورز کا تعمیری رقبہ فٹ میں اندراج کریں" />
                                           </div>
                                         </FormLabel>
                                         <FormControl>
@@ -523,9 +527,7 @@ export default function FormCalculatorPage() {
                               <FormLabel>
                                 <div className="flex gap-x-2 items-center ">
                                   <span>Plot Area(Sqft)</span>
-                                  <span className="text-nafees md:text-md text-sm font-bold text-dooja">
-                                    (کل رقبہ فٹ میں)
-                                  </span>
+                                  <ProvideToolTip testDescription="رقبہ صرف فٹ میں لکھیں ۔ فٹ میں تبدیل کرنے کا کیلکولیٹر اوپر دیا گیا ہے" />
                                 </div>
                               </FormLabel>
                               <FormControl>
@@ -596,7 +598,7 @@ export default function FormCalculatorPage() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>
-                            <div className="flex gap-x-2 items-center">
+                            <div className="flex gap-x-1 items-center">
                               <span
                                 className={`${
                                   mutatonType === "وراثت" &&
@@ -605,28 +607,13 @@ export default function FormCalculatorPage() {
                               >
                                 Total Amount
                               </span>
-                              <span
-                                className={`text-nafees ${
-                                  mutatonType === "وراثت"
-                                    ? "text-muted-foreground"
-                                    : "md:text-md text-sm font-bold text-dooja"
-                                }`}
-                              >
-                                (مکمل قیمت جتنے میں لین دین ہوا)
-                              </span>
+                              {mutatonType !== "وراثت" &&
+                                mutatonType !== "تملیک" && (
+                                  <ProvideToolTip testDescription="  مکمل قیمت جتنے میں لین دین ہوا" />
+                                )}
                             </div>
                           </FormLabel>
-                          {/* <FormControl>
-                            <Input
-                              type="number"
-                              disabled={!isLandValueVisible}
-                              placeholder="enter amount in PKR"
-                              {...field}
-                              onChange={(e) =>
-                                field.onChange(Number(e.target.value))
-                              }
-                            />
-                          </FormControl> */}
+
                           <FormControl>
                             <Input
                               type="text" // Use text input for formatting
