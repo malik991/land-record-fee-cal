@@ -526,7 +526,7 @@ export default function FormCalculatorPage() {
                               <FormLabel>
                                 <div className="flex gap-x-2 items-center ">
                                   <span>Plot Area(Sqft)</span>
-                                  <ProvideToolTip testDescription="رقبہ صرف فٹ میں لکھیں ۔ فٹ میں تبدیل کرنے کا کیلکولیٹر اوپر دیا گیا ہے" />
+                                  <ProvideToolTip testDescription="مکمل پلاٹ/زمین کے رقبہ کا اندراج کریں۔رقبہ صرف فٹ میں لکھیں ۔ فٹ میں تبدیل کرنے کا کیلکولیٹر اوپر دیا گیا ہے" />
                                 </div>
                               </FormLabel>
                               <FormControl>

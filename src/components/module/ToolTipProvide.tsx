@@ -38,7 +38,7 @@ export default function ProvideToolTip({ testDescription }: ToolTipText) {
     // Keep the tooltip open for a brief period after touch end
     timeoutRef.current = window.setTimeout(() => {
       setIsOpen(false);
-    }, 1000); // Adjust the delay as needed
+    }, 2000); // Adjust the delay as needed
   };
 
   useEffect(() => {
