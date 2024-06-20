@@ -45,7 +45,6 @@ import ZaraiSakniTaxFunction, {
 } from "../module/UrbanTaxCalculation";
 import { ConversionDialog } from "./ConversionDialog";
 import useScrollToError from "../module/useScrollToError";
-import { CircleHelp } from "lucide-react";
 import ProvideToolTip from "../module/ToolTipProvide";
 
 export default function FormCalculatorPage() {
@@ -532,7 +531,7 @@ export default function FormCalculatorPage() {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  className="text-nafeed"
+                                  className="text-nafees"
                                   type="number"
                                   placeholder="رقبہ کو فٹ میں لکھیں"
                                   {...field}
@@ -571,7 +570,7 @@ export default function FormCalculatorPage() {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  className="text-nafeed"
+                                  className="text-nafees"
                                   type="number"
                                   //disabled={!isLandValueVisible}
                                   placeholder="رقبہ کو فٹ میں لکھیں"

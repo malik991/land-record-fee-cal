@@ -40,7 +40,7 @@ let marlaToFoot = 272;
 export default function ZaraiSakniTaxFunction(
   inputParams: z.infer<typeof formSchema>
 ) {
-  console.log(inputParams);
+  //console.log(inputParams);
   const finalArrayAmount = [];
   let chargesPlra = {
     charges: inputParams.mutationType === "وراثت" ? 0 : 1300,

@@ -5,24 +5,63 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { CircleHelp } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
-export interface toolTipText {
+export interface ToolTipText {
   testDescription: string;
 }
 
-export default function ProvideToolTip({ testDescription }: toolTipText) {
-  const [isOpen, setIsopen] = useState(false);
+export default function ProvideToolTip({ testDescription }: ToolTipText) {
+  const [isOpen, setIsOpen] = useState(false);
+  const triggerRef = useRef<HTMLDivElement | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   const handleToggle = () => {
-    setIsopen((prev) => !prev);
+    setIsOpen((prev) => !prev);
   };
-  function handleMouseEnter() {
-    setIsopen(true);
-  }
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
   const handleMouseLeave = () => {
-    setIsopen(false);
+    setIsOpen(false);
   };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior
+    setIsOpen(true);
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    e.preventDefault(); // Prevent default touch behavior
+    // Keep the tooltip open for a brief period after touch end
+    timeoutRef.current = window.setTimeout(() => {
+      setIsOpen(false);
+    }, 1000); // Adjust the delay as needed
+  };
+
+  useEffect(() => {
+    const triggerElement = triggerRef.current;
+
+    if (triggerElement) {
+      triggerElement.addEventListener("touchstart", handleTouchStart, {
+        passive: false,
+      });
+      triggerElement.addEventListener("touchend", handleTouchEnd, {
+        passive: false,
+      });
+
+      return () => {
+        triggerElement.removeEventListener("touchstart", handleTouchStart);
+        triggerElement.removeEventListener("touchend", handleTouchEnd);
+        // Clear any timeout when component unmounts or re-renders
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }
+  }, []);
 
   return (
     <TooltipProvider>
@@ -32,9 +71,10 @@ export default function ProvideToolTip({ testDescription }: toolTipText) {
           onClick={handleToggle}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onTouchStart={handleToggle}
         >
-          <CircleHelp className="w-5 h-5 animate-pulse mb-1 cursor-pointer" />
+          <div ref={triggerRef}>
+            <CircleHelp className="w-5 h-5 mb-1 animate-pulse cursor-pointer" />
+          </div>
         </TooltipTrigger>
         <TooltipContent className="max-w-[200px] p-2">
           <p className="text-nafees text-sm sm:text-base leading-tight md:font-semibold break-words">
