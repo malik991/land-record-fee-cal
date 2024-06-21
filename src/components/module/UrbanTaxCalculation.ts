@@ -46,7 +46,7 @@ export default function ZaraiSakniTaxFunction(
     charges: inputParams.mutationType === "وراثت" ? 0 : 1300,
   };
   let registryCharges = {
-    charges: inputParams.mutationType == "وراثت" ? 0 : 1100,
+    charges: inputParams.mutationType === "وراثت" ? 0 : 1100,
   };
 
   // if land is not urban

@@ -10,13 +10,14 @@ import {
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface GalleryProps {
   images: IImage[];
 }
 
 const Gallery = ({ images }: GalleryProps) => {
-  const plugin = React.useRef(Autoplay({ delay: 2500 }));
+  const plugin = React.useRef(Autoplay({ delay: 2000 }));
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -30,13 +31,9 @@ const Gallery = ({ images }: GalleryProps) => {
         >
           <Image
             src={image.url}
-            //className="p-6 rounded-lg"
             alt={`Carousel Main Image ${index + 1}`}
             quality={75}
             fill
-            //width={500}
-            //height={500}
-
             style={{
               objectFit: "cover",
               borderRadius: "1%",
@@ -108,15 +105,19 @@ const Gallery = ({ images }: GalleryProps) => {
   };
 
   return (
-    <div className="w-full max-w-full mx-auto">
-      <Carousel plugins={[plugin.current]} setApi={setMainApi}>
-        <CarouselContent className="m-1">{mainImage}</CarouselContent>
-      </Carousel>
-      <Carousel setApi={setThumbnailApi}>
-        <CarouselContent className="m-1 flex justify-center gap-x-0">
-          {thumbnailImages}
-        </CarouselContent>
-      </Carousel>
+    <div className="w-full flex flex-col items-center max-w-full mx-auto">
+      <div className="md:max-w-6xl w-full max-w-full mx-auto">
+        <Carousel plugins={[plugin.current]} setApi={setMainApi}>
+          <CarouselContent className="m-1">{mainImage}</CarouselContent>
+        </Carousel>
+      </div>
+      <div className="w-96 ">
+        <Carousel setApi={setThumbnailApi}>
+          <CarouselContent className="m-1 flex justify-center gap-x-0 p-0">
+            {thumbnailImages}
+          </CarouselContent>
+        </Carousel>
+      </div>
     </div>
   );
 };

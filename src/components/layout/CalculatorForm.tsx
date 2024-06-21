@@ -698,7 +698,7 @@ export default function FormCalculatorPage() {
                         </CardFooter>
                       ) : (
                         <CardFooter>
-                          {mutatonType !== "وراثت" && (
+                          {mutatonType !== "وراثت" && areaType !== "zarai" && (
                             <span className="text-nafees text-md font-semibold text-pehla items-end">
                               1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
                             </span>
@@ -751,7 +751,7 @@ export default function FormCalculatorPage() {
                         </CardFooter>
                       ) : (
                         <CardFooter>
-                          {mutatonType !== "وراثت" && (
+                          {mutatonType !== "وراثت" && areaType !== "zarai" && (
                             <span className="text-nafees text-md font-semibold text-pehla items-end">
                               1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
                             </span>

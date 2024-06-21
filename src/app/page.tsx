@@ -4,6 +4,9 @@ import FormCalculatorPage from "@/components/layout/CalculatorForm";
 import Head from "next/head";
 import Gallery from "@/components/layout/PicCaresoul";
 import { IImage } from "@/lib/types";
+import { YouTubeCarousel } from "@/components/layout/YoutubeCarousel";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const images: IImage[] = [
   { url: "/3.webp" },
@@ -47,6 +50,34 @@ export default function Home() {
 
       <FormCalculatorPage />
       <InstructionsPage />
+      <section className="mt-5">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
+          <div className="w-full">
+            <HeaderSectionPage
+              header="Land related Videos"
+              subHeader=""
+              isVisible={true}
+            />
+          </div>
+          <div className="w-full flex items-center justify-center">
+            <YouTubeCarousel />
+          </div>
+          <div className="max-w-sm mx-auto">
+            <Button>
+              <Link
+                href={
+                  "https://www.youtube.com/channel/UCG9OkUvnNpotAUAmSotzrWQ"
+                }
+                target="_blank"
+              >
+                <span className="md:text-lg text-sm font-semibold">
+                  click for more videos
+                </span>
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
