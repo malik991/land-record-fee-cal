@@ -31,7 +31,7 @@ export default function Home() {
           content="land transfer fee, registry fee, deed fee calculate, fbr tax on land, fbr tax on land transfer, fbr 236c, fbr 236k, Punjab land taxes, mutation, deed, land transfer costs"
         />
       </Head>
-      <section className="mt-1">
+      <section className="md:mt-5 mt-2" id="home">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
           <div className="w-full">
             <HeaderSectionPage
@@ -47,10 +47,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <FormCalculatorPage />
-      <InstructionsPage />
-      <section className="mt-5">
+      <section id="calculator">
+        <FormCalculatorPage />
+      </section>
+      <section id="instructions">
+        <InstructionsPage />
+      </section>
+      <section className="mt-5" id="videos">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
           <div className="w-full">
             <HeaderSectionPage

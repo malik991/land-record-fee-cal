@@ -26,7 +26,7 @@ export function YouTubeCarousel() {
       opts={{
         align: "start",
       }}
-      className="w-full md:max-w-4xl max-w-xs relative"
+      className="w-full md:max-w-5xl max-w-xs relative"
     >
       <CarouselContent>
         {videos.map((video, index) => (
