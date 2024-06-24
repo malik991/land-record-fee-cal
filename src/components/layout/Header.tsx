@@ -14,7 +14,10 @@ export default function HeaderPage() {
     { name: "Contact", link: "/#contact" },
   ];
   return (
-    <header className="sticky top-0 z-50 shadow-md shadow-card-foreground transition-shadow duration-300 hover:shadow-lg hover:shadow-card-foreground">
+    <header
+      className="sticky top-0 z-50 bg-white bg-opacity-60 shadow-md 
+    shadow-card-foreground transition-shadow duration-300 hover:shadow-lg hover:shadow-card-foreground backdrop-blur-md"
+    >
       <div className="flex items-center justify-between px-6 pt-4 pb-5 ">
         <nav>
           <div className="flex items-center">
