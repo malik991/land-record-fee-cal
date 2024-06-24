@@ -35,7 +35,6 @@ let totalForNonFiler = 0;
 let TMAtax = 0;
 let tax7E = 0;
 let constructionCharges = 0;
-let marlaToFoot = 272;
 
 export default function ZaraiSakniTaxFunction(
   inputParams: z.infer<typeof formSchema>
@@ -242,9 +241,12 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         inputParams.landValue * nonFilerFbrTaxFor236C
       );
       tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
+
+      constructionCharges = 0;
       /// total of all taxes
       totalForFiler =
         StampDuty_Fee +
+        constructionCharges +
         TMAtax +
         fbr236KForFiler +
         fbr236CForFiler +
@@ -254,6 +256,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
 
       totalForNonFiler =
         StampDuty_Fee +
+        constructionCharges +
         TMAtax +
         fbr236KForNonFiler +
         fbr236CForNonFiler +

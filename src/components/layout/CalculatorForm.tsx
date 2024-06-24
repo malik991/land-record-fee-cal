@@ -78,6 +78,7 @@ export default function FormCalculatorPage() {
   }, [form.setValue, areaType]);
 
   useEffect(() => {
+    setFinalAmountResult([]);
     if (plotType === "empty") {
       form.setValue("tmaMapApprovedOrNot", "");
       form.setValue("constructedArea", undefined);
@@ -429,10 +430,16 @@ export default function FormCalculatorPage() {
                                     </FormLabel>
                                     <FormControl>
                                       <Input
-                                        className="text-nafees"
+                                        className=""
                                         type="number"
                                         placeholder="رقبہ کو فٹ میں لکھیں"
                                         {...field}
+                                        value={
+                                          field.value === undefined ||
+                                          field.value === 0
+                                            ? ""
+                                            : field.value
+                                        }
                                         onChange={(e) => {
                                           const value = e.target.value;
                                           field.onChange(
@@ -499,7 +506,14 @@ export default function FormCalculatorPage() {
                                         <FormControl>
                                           <Input
                                             type="number"
+                                            placeholder="رقبہ کو فٹ میں لکھیں"
                                             {...field}
+                                            value={
+                                              field.value === undefined ||
+                                              field.value === 0
+                                                ? ""
+                                                : field.value
+                                            }
                                             onChange={(e) => {
                                               const value = e.target.value;
                                               field.onChange(
@@ -531,10 +545,16 @@ export default function FormCalculatorPage() {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  className="text-nafees"
+                                  className=""
                                   type="number"
                                   placeholder="رقبہ کو فٹ میں لکھیں"
                                   {...field}
+                                  value={
+                                    field.value === undefined ||
+                                    field.value === 0
+                                      ? ""
+                                      : field.value
+                                  }
                                   onChange={
                                     (e) => {
                                       const value = e.target.value;
@@ -570,11 +590,17 @@ export default function FormCalculatorPage() {
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  className="text-nafees"
+                                  className=""
                                   type="number"
                                   //disabled={!isLandValueVisible}
                                   placeholder="رقبہ کو فٹ میں لکھیں"
                                   {...field}
+                                  value={
+                                    field.value === undefined ||
+                                    field.value === 0
+                                      ? ""
+                                      : field.value
+                                  }
                                   onChange={
                                     (e) => {
                                       const value = e.target.value;
