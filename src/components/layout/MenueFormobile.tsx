@@ -92,7 +92,7 @@ export function DropdownMenuDemo() {
           <DropdownMenuItem>
             <NotebookIcon className="mr-2 h-4 w-4" />
             <span className="pt-1">
-              <Link href={"/"} onClick={handleClick}>
+              <Link href={"/#contact"} onClick={handleClick}>
                 Contact
               </Link>
             </span>
