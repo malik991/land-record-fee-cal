@@ -7,6 +7,7 @@ import { IImage } from "@/lib/types";
 import { YouTubeCarousel } from "@/components/layout/YoutubeCarousel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const images: IImage[] = [
   { url: "/3.webp" },
@@ -78,6 +79,32 @@ export default function Home() {
                 </span>
               </Link>
             </Button>
+          </div>
+        </div>
+      </section>
+      <section className="mt-8" id="contact">
+        <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
+          <div className="w-full">
+            <HeaderSectionPage
+              header="contact us"
+              subHeader="مزید معلومات کیلئے رابطہ کریں"
+              isVisible={true}
+            />
+          </div>
+          <div className="w-full flex items-center justify-center">
+            <div className="flex items-center gap-x-2">
+              <span>
+                <Image
+                  src={"/whatsapp.png"}
+                  alt="whatsapp icon"
+                  width={40}
+                  height={40}
+                />
+              </span>
+              <span className="text-lg font-semibold underline">
+                +92 315 7473 743
+              </span>
+            </div>
           </div>
         </div>
       </section>

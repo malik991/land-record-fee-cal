@@ -1,9 +1,7 @@
 import Image from "next/image";
-import github from "../../../public/github.svg";
 import twitter from "../../../public/twitter.svg";
-import linked from "../../../public/Feed.svg";
 import Link from "next/link";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -35,7 +33,8 @@ export default function Footer() {
                 <Linkedin className="w-6 h-6" />
               </Link>
               <Link href={"https://github.com/malik991"} target="_blank">
-                <Image src={github} alt="github" />
+                {/* <Image src={github} alt="github" /> */}
+                <Github className="w-6 h-6" />
               </Link>
               <Link href={"/"}>
                 <Image src={twitter} alt="twitter" />

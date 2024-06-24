@@ -11,7 +11,7 @@ export default function HeaderPage() {
     { name: "Instructions", link: "/#instructions" },
     { name: "Inheritence" },
     { name: "Videos", link: "/#videos" },
-    { name: "Contact", link: "/" },
+    { name: "Contact", link: "/#contact" },
   ];
   return (
     <header className="sticky top-0 z-50 shadow-md shadow-card-foreground transition-shadow duration-300 hover:shadow-lg hover:shadow-card-foreground">
