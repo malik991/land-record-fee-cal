@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -669,6 +670,10 @@ export default function FormCalculatorPage() {
                     />
                   </div>
                 )}
+                <FormDescription>
+                  *It is an estimated value. The original tax can be determined
+                  by the official DC Valuation table..
+                </FormDescription>
 
                 <Button type="submit" className="w-full">
                   Submit

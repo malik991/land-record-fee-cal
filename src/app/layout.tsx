@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import HeaderPage from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/toaster";
+import AuthProvider from "@/lib/authProvider";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
@@ -26,19 +28,22 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
       </head>
       <body className={roboto.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <HeaderPage />
-          <main className="max-w-full mx-auto p-5">
-            {children}
-            <Analytics />
-          </main>
-          <Footer />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <HeaderPage />
+            <main className="max-w-full mx-auto p-5">
+              {children}
+              <Toaster />
+              <Analytics />
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,15 +1,69 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/Logo.svg";
 import { ModeToggle } from "./ThemeToggle";
 import { Button } from "../ui/button";
+import { Loader } from "lucide-react";
 import { DropdownMenuDemo } from "./MenueFormobile";
+import { useSession, signOut } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+interface authParams {
+  name: string;
+  status: string;
+}
 
 export default function HeaderPage() {
+  const session = useSession();
+  const userData = session.data?.user;
+  let userName: any = userData?.name;
+  if (userName && userName.includes(" ")) {
+    userName = userName.split(" ")[0];
+  }
+  function UserAuthentication({ name, status }: authParams) {
+    if (status === "loading") {
+      return <Loader className="w-5 h-5 animate-spin" />;
+    } else if (status === "authenticated") {
+      return (
+        <>
+          <div className="flex items-center gap-x-1">
+            <Avatar>
+              <AvatarImage
+                src={
+                  userData?.image
+                    ? userData?.image!
+                    : "https://github.com/shadcn.png"
+                }
+                alt="@shadcn"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span className="whitespace-nowrap italic pt-2">Hello, {name}</span>
+          </div>
+
+          <Button onClick={() => signOut({ callbackUrl: "/signin" })}>
+            Logout
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button variant={"outline"}>
+            <Link href={"/signin"}>Login</Link>
+          </Button>
+          <Button variant={"destructive"}>
+            <Link href={"/signup"}>Register</Link>
+          </Button>
+        </>
+      );
+    }
+  }
   const navArray = [
     { name: "Tax Calculator", link: "/#calculator" },
     { name: "Instructions", link: "/#instructions" },
-    { name: "Inheritence" },
+    { name: "Inheritence | وراثت", link: "/Inheritance" },
     { name: "Videos", link: "/#videos" },
     { name: "Contact", link: "/#contact" },
   ];
@@ -51,9 +105,8 @@ export default function HeaderPage() {
           </div>
         </nav>
         <nav className="flex items-center gap-x-2">
-          <div className="hidden md:flex items-center space-x-2">
-            <Button variant={"outline"}>Login</Button>
-            <Button variant={"destructive"}>Register</Button>
+          <div className="hidden md:flex items-center space-x-5">
+            <UserAuthentication name={userName} status={session?.status} />
           </div>
           <div className="md:hidden block">
             <DropdownMenuDemo />
