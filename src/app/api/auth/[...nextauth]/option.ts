@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
           const getUser = await UserModel.findOne({
             email: credentials.email,
           });
-          console.log("credential: ", credentials.email);
+          //console.log("credential: ", credentials.email);
           if (!getUser) {
             throw new Error("no user found");
           }

@@ -17,7 +17,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Loader } from "lucide-react";
 import { useState } from "react";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
@@ -60,8 +59,8 @@ export default function SigninPage() {
         title: "✔ Login Successfully",
         description: "Please refresh if your required page is not visible.",
       });
-      router.replace("/Inheritance");
     }
+    router.replace("/Inheritance");
   };
   return (
     <section className="md:mt-8 my:9">
