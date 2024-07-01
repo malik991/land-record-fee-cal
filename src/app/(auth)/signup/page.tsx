@@ -22,6 +22,7 @@ import PasswordInputPage from "@/components/layout/PasswordField";
 import Image from "next/image";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import SocialButtonPage from "@/components/layout/SocialButton";
 
 export default function SignupPage() {
   const { toast } = useToast();
@@ -157,36 +158,19 @@ export default function SignupPage() {
           </Form>
         </div>
         <div className="w-full mt-2 flex flex-col gap-y-2">
-          <Button
-            variant={"outline"}
-            type="button"
-            className="w-full flex gap-3"
-            onClick={() => signIn("google", { callbackUrl: "/Inheritance" })}
-          >
-            <Image
-              src={"/google.png"}
-              alt="google png"
-              width={28}
-              height={28}
-              style={{ width: "auto", height: "auto" }}
-            />
-            Login with google
-          </Button>
-          <Button
-            variant={"outline"}
-            type="button"
-            className="w-full flex gap-3"
-          >
-            <Image
-              className="pl-4"
-              src={"/facebook-logo.png"}
-              width={32}
-              height={32}
-              alt="facebook logo"
-              style={{ width: "auto", height: "auto" }}
-            />
-            <span className="text-sm">Login with Facebook</span>
-          </Button>
+          <div className="my-3">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-gray-500">
+              OR
+            </span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+          <SocialButtonPage
+            btnDescription="SignUp with google"
+            btnImage="/google.png"
+            disableOrNot={false}
+            providerName="google"
+          />
         </div>
         <div className="text-center mt-4">
           <p>

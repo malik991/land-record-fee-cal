@@ -119,7 +119,7 @@ const VerifyAccountPage = () => {
                     <Loader className="mr-2 h-4 w-4 animate-spin" /> please wait
                   </>
                 ) : (
-                  "Sign up"
+                  "Submit"
                 )}
               </Button>
             </form>

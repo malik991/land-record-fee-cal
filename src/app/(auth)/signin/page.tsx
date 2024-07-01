@@ -21,6 +21,7 @@ import { signIn } from "next-auth/react";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import SocialButtonPage from "@/components/layout/SocialButton";
+import { Separator } from "@/components/ui/separator";
 export default function SigninPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubitting] = useState(false);
@@ -131,6 +132,14 @@ export default function SigninPage() {
           </Form>
         </div>
         <div className="w-full mt-2 flex flex-col gap-y-2">
+          <div className="my-3">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-gray-500">
+              OR
+            </span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+
           <SocialButtonPage
             btnDescription="Login with google"
             btnImage="/google.png"
