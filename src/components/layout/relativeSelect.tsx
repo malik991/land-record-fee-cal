@@ -74,7 +74,7 @@ export function ComboboxForm() {
       title: "آپکے وارثان منتخب ہو رہے ہیں۔",
       description: (
         <div>
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <pre className="mt-2 md:w-[340px] w-[300px] rounded-md bg-slate-950 p-4">
             <code className="text-white">
               وارثان: {JSON.stringify(updatedHeirs, null, 2)}
             </code>

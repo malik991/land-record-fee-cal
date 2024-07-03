@@ -22,8 +22,8 @@ export default function InheritancePage() {
             <p className="text-nafees md:text-lg text-pehla font-semibold">
               نوٹ - متوفی کی وفات کے وقت جو زندہ تھا صرف اس وارث کو چنیں۔
             </p>
-            <p className="text-nafees text-lg text-pehla font-semibold whitespace-nowrap">
-              نوٹ - اگر متوفی کا بیٹا ہے تو بھائی یا بہن مت چنیں۔
+            <p className="text-nafees text-lg text-pehla font-semibold">
+              نوٹ - اگر متوفی کا بیٹا ہے تو متوفی کے بھائی یا بہن مت چنیں۔
             </p>
             <p className="text-nafees md:text-lg text-pehla font-semibold">
               نوٹ - اگر متوفی کا بیٹا نہ ہے مگر والد متوفی کے بعد زندہ تھا یہ ہے

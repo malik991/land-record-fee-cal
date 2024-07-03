@@ -35,9 +35,10 @@ export default function RootLayout({
             <HeaderPage />
             <main className="max-w-full mx-auto p-5">
               {children}
-              <Toaster />
+
               <Analytics />
             </main>
+            <Toaster />
             <Footer />
           </ThemeProvider>
         </AuthProvider>
