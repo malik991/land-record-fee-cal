@@ -158,12 +158,8 @@ export default function SignupPage() {
           </Form>
         </div>
         <div className="w-full mt-2 flex flex-col gap-y-2">
-          <div className="my-3">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-gray-500">
-              OR
-            </span>
-            <div className="flex-grow border-t border-gray-300"></div>
+          <div className="mx-auto my-2 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+            OR
           </div>
           <SocialButtonPage
             btnDescription="SignUp with google"

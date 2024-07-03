@@ -25,15 +25,12 @@ const Gallery = ({ images }: GalleryProps) => {
   const mainImage = useMemo(
     () =>
       images.map((image, index) => (
-        <CarouselItem
-          key={index}
-          className="relative aspect-square w-full h-96"
-        >
+        <CarouselItem key={index} className="relative w-full h-96 rounded-md">
           <Image
             src={image.url}
             alt={`Carousel Main Image ${index + 1}`}
             quality={75}
-            fill
+            fill={true}
             style={{
               objectFit: "cover",
               borderRadius: "1%",

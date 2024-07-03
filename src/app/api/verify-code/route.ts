@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { _id, verifyCode } = await req.json();
+
   if (!_id || !mongoose.Types.ObjectId.isValid(_id)) {
     return Response.json(
       {
@@ -33,6 +34,8 @@ export async function POST(req: NextRequest) {
       new Date(checkUserStatus.verifyCodeExpiry) > new Date();
     if (checkCodeExpiry && isCodeVerified) {
       checkUserStatus.isVerified = true;
+      //checkUserStatus.verifyCode = "";
+      //checkUserStatus.verifyCodeExpiry = null;
       await checkUserStatus.save();
       return NextResponse.json(
         {
@@ -58,13 +61,6 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-    return NextResponse.json(
-      {
-        success: true,
-        message: "code verified",
-      },
-      { status: 201 }
-    );
   } catch (error: any) {
     console.error("Error in signup API: ", error);
     return NextResponse.json(

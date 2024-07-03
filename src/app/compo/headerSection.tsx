@@ -26,7 +26,7 @@ export default function HeaderSectionPage({
           {isVisible && <Separator className="mb-1 bg-slate-300 md:w-1/2" />}
 
           <div>
-            <h2 className="text-nafees font-semibold lg:text-4xl text-2xl leading-3">
+            <h2 className="text-nafees font-semibold lg:text-4xl text-xl leading-3">
               {subHeader}
             </h2>
           </div>
