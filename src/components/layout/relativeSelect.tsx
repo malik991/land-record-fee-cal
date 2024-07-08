@@ -41,7 +41,7 @@ const relativeNames = [
   { label: "دادا", value: "dada" },
   { label: "دادی", value: "dadi" },
   { label: "بیٹا", value: "beta" },
-  { label: "بیٹی", value: "byti" },
+  { label: "بیٹی", value: "beti" },
   { label: "بھائی", value: "bhai" },
   { label: "بہن", value: "behan" },
 ] as const;

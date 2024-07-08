@@ -36,6 +36,7 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import InheritanceCal, {
   InheritanceProps,
+  HeirWithShare,
 } from "../module/InheritanceCalculation";
 
 interface legalHeirsProps {
@@ -126,7 +127,8 @@ export const FormSchemaHeir = z.object({
 });
 
 function ProfileForm({ heirs, className }: ProfileFormProps) {
-  const [result, setResult] = React.useState<string | null>(null);
+  const [result, setResult] = React.useState<HeirWithShare[] | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
   const [heirsList, setHeirsList] = React.useState(heirs);
   const [dialogOpen, setdialogOpen] = React.useState(false);
   const defaultValues = {
@@ -154,7 +156,14 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
     };
 
     const calculatedResult = InheritanceCal(inputParams);
-    setResult(calculatedResult.summary);
+
+    if ("errorUsbah" in calculatedResult) {
+      setError(calculatedResult.errorUsbah);
+      setResult(null);
+    } else {
+      setError(null);
+      setResult(calculatedResult.allHeirs);
+    }
     setdialogOpen(true);
     //console.log("all data: ", data.heirs, " land ", data.land);
     // toast({
@@ -322,8 +331,26 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
               </DialogDescription>
             </DialogHeader>
             <div className="p-4 flex flex-col items-center">
-              <h4 className="font-medium leading-none">Calculation Result</h4>
-              <p className="mt-2 text-sm text-muted-foreground">{result}</p>
+              <h4 className="font-medium leading-none underline">Result</h4>
+              <div className="mt-5 text-sm text-muted-foreground">
+                {error ? (
+                  <div className="text-red-600">{error}</div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="font-bold">Heir</div>
+                    <div className="font-bold">Share</div>
+                    <div className="font-bold">K-M-F</div>
+                    {result &&
+                      result.map((heir) => (
+                        <React.Fragment key={heir.heir}>
+                          <div>{heir.heir}</div>
+                          <div>{heir.share}</div>
+                          <div>{heir.landArea}</div>
+                        </React.Fragment>
+                      ))}
+                  </div>
+                )}
+              </div>
             </div>
           </DialogContent>
         </Dialog>

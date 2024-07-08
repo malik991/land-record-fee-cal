@@ -26,7 +26,7 @@ export default function InheritancePage() {
               نوٹ - اگر متوفی کا بیٹا ہے تو متوفی کے بھائی یا بہن مت چنیں۔
             </p>
             <p className="text-nafees md:text-lg text-pehla font-semibold">
-              نوٹ - اگر متوفی کا بیٹا نہ ہے مگر والد متوفی کے بعد زندہ تھا یہ ہے
+              نوٹ - اگر متوفی کا بیٹا نہ ہے مگر والد متوفی کے بعد زندہ تھا یا ہے
               تب بھی بھائی یا بہن مت چنیں۔
             </p>
           </div>

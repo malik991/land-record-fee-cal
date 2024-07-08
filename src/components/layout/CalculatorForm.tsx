@@ -47,6 +47,9 @@ import ZaraiSakniTaxFunction, {
 import { ConversionDialog } from "./ConversionDialog";
 import useScrollToError from "../module/useScrollToError";
 import ProvideToolTip from "../module/ToolTipProvide";
+import InheritanceCal, {
+  InheritanceProps,
+} from "../module/InheritanceCalculation";
 
 export default function FormCalculatorPage() {
   const [isLandValueVisible, setIsLandValue] = useState(true);
@@ -144,6 +147,24 @@ export default function FormCalculatorPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     //console.log(values);
+    ////////////////////////
+    const inputParams: InheritanceProps = {
+      allHeirs: [
+        { heir: "beti", quantity: 1 },
+        { heir: "abu", quantity: 1 },
+        { heir: "bewah", quantity: 1 },
+        { heir: "ami", quantity: 1 },
+        { heir: "beta", quantity: 2 },
+        //{ heir: "shohar", quantity: 1 },
+        //{ heir: "bhai", quantity: 1 },
+        //{ heir: "behan", quantity: 1 },
+      ],
+      landArea: { kanal: 1, marla: 0, foot: 0 },
+    };
+
+    const calculatedResult = InheritanceCal(inputParams);
+
+    /////////////////////////////
     setFinalAmountResult([]);
     if (values.transferType === "Intiqal") {
       const inputParams: AllParams = {
@@ -683,7 +704,7 @@ export default function FormCalculatorPage() {
           </div>
         </div>
         {/* final result div */}
-        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 md:p-5 ">
+        <div className="lg:w-[800px] w-full flex md:flex-row flex-col items-center justify-center md:gap-x-6 gap-y-6 md:p-2 ">
           {finalAmountResult?.length > 0 && (
             <>
               <Accordion
@@ -722,7 +743,7 @@ export default function FormCalculatorPage() {
                       </CardContent>
                       {mutatonType !== "تملیک" && mutatonType !== "وراثت" ? (
                         <CardFooter>
-                          <span className="text-md font-semibold text-pehla tracking-tighter">
+                          <span className="text-md font-semibold text-pehla tracking-tighter md:whitespace-nowrap">
                             * Applicant will show the tax exemption certificate
                             for 7E.
                           </span>
@@ -731,7 +752,7 @@ export default function FormCalculatorPage() {
                         <CardFooter>
                           {mutatonType !== "وراثت" && areaType !== "zarai" && (
                             <span className="text-nafees text-md font-semibold text-pehla items-end">
-                              1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
+                              مکمل رقم یا شیڈول ریٹ کا فیصد
                             </span>
                           )}
                         </CardFooter>
@@ -740,6 +761,7 @@ export default function FormCalculatorPage() {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+
               <Accordion
                 type="single"
                 collapsible
@@ -749,7 +771,7 @@ export default function FormCalculatorPage() {
                   <AccordionTrigger>
                     <div className="flex items-center justify-center space-x-3">
                       <span className="text-lg font-semibold tracking-tight">
-                        FOR NON-FILER
+                        FOR FRESH-FILER
                       </span>
                       <span className="pt-1">👇</span>
                     </div>
@@ -758,7 +780,7 @@ export default function FormCalculatorPage() {
                     <Card className="md:w-[350px] w-full">
                       <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
                         <CardTitle className="text-center text-pehla">
-                          TAX FOR NON-FILER
+                          TAX FOR Fresh-FILER
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="">
@@ -784,7 +806,61 @@ export default function FormCalculatorPage() {
                         <CardFooter>
                           {mutatonType !== "وراثت" && areaType !== "zarai" && (
                             <span className="text-nafees text-md font-semibold text-pehla items-end">
-                              1٪ مکمل رقم یا شیڈول ریٹ کا ایک فیصد
+                              مکمل رقم یا شیڈول ریٹ کا فیصد
+                            </span>
+                          )}
+                        </CardFooter>
+                      )}
+                    </Card>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full shadow-md rounded-md shadow-card-foreground md:px-4 px-1"
+              >
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>
+                    <div className="flex items-center justify-center space-x-3">
+                      <span className="text-lg font-semibold tracking-tight">
+                        FOR NON-FILER
+                      </span>
+                      <span className="pt-1">👇</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <Card className="md:w-[350px] w-full">
+                      <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
+                        <CardTitle className="text-center text-pehla">
+                          TAX FOR NON-FILER
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="">
+                        {Object.keys(finalAmountResult[2]).map((key) => (
+                          <div
+                            key={key}
+                            className="w-full flex items-center justify-between mt-2 md:px-3 px-2 py-2 shadow-sm shadow-dooja/40"
+                          >
+                            <span className="text-sm font-semibold">
+                              {key}:
+                            </span>{" "}
+                            {formatNumber(finalAmountResult[2][key])}
+                          </div>
+                        ))}
+                      </CardContent>
+                      {mutatonType !== "تملیک" && mutatonType !== "وراثت" ? (
+                        <CardFooter>
+                          <span className="text-md font-semibold text-pehla">
+                            * TAX 7E WILL BE APPLIED.
+                          </span>
+                        </CardFooter>
+                      ) : (
+                        <CardFooter>
+                          {mutatonType !== "وراثت" && areaType !== "zarai" && (
+                            <span className="text-nafees text-md font-semibold text-pehla items-end">
+                              مکمل رقم یا شیڈول ریٹ کا فیصد
                             </span>
                           )}
                         </CardFooter>

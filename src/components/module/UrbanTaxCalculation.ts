@@ -15,6 +15,11 @@ const nonFilerFbrTaxFor236CString =
   process.env.NEXT_PUBLIC_nonFilerFbrTaxFor236C!;
 const fbrTaxFor7EString = process.env.NEXT_PUBLIC_fbrTaxFor7E!;
 
+const freshfilerFbrTaxFor236KString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236KFresh!;
+const freshfilerFbrTaxFor236CString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236CFresh!;
+
 const taxTMA = Number(taxTMAString);
 const CONSTRUCTION_CHARGES = Number(CONSTRUCTION_CHARGES_String);
 const STAMPDUTY_MAP_NotAvailable = Number(STAMPDUTY_MAP_NotAvailable_String);
@@ -24,6 +29,8 @@ const filerFbrTaxFor236C = Number(filerFbrTaxFor236CString);
 const nonFilerFbrTaxFor236K = Number(nonFilerFbrTaxFor236KString);
 const nonFilerFbrTaxFor236C = Number(nonFilerFbrTaxFor236CString);
 const fbrTaxFor7E = Number(fbrTaxFor7EString);
+const FreshFilerFbrTax236C = Number(freshfilerFbrTaxFor236CString);
+const FreshFilerFbrTax236K = Number(freshfilerFbrTaxFor236KString);
 
 let StampDuty_Fee = 500;
 let fbr236KForFiler = 0;
@@ -32,9 +39,12 @@ let fbr236CForFiler = 0;
 let fbr236CForNonFiler = 0;
 let totalForFiler = 0;
 let totalForNonFiler = 0;
+let totalForFreshFiler = 0;
 let TMAtax = 0;
 let tax7E = 0;
 let constructionCharges = 0;
+let fbr236KForFreshFiler = 0;
+let fbr236CForFreshFiler = 0;
 
 export default function ZaraiSakniTaxFunction(
   inputParams: z.infer<typeof formSchema>
@@ -66,10 +76,16 @@ export default function ZaraiSakniTaxFunction(
       fbr236KForNonFiler = Math.round(
         inputParams.landValue * nonFilerFbrTaxFor236K
       );
+      fbr236KForFreshFiler = Math.round(
+        inputParams.landValue * FreshFilerFbrTax236K
+      );
 
       fbr236CForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236C);
       fbr236CForNonFiler = Math.round(
         inputParams.landValue * nonFilerFbrTaxFor236C
+      );
+      fbr236CForFreshFiler = Math.round(
+        inputParams.landValue * FreshFilerFbrTax236C
       );
 
       if (
@@ -84,8 +100,18 @@ export default function ZaraiSakniTaxFunction(
     ) {
       let objecForTamleekFiler = {};
       let objecForTamleekNonFiler = {};
+      let objecForTamleekFreshFiler = {};
       if (inputParams.landArea! <= 5440) {
         objecForTamleekFiler = {
+          STAMP_DUTY: "3%",
+          TMA_TAX: "1.0%",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
+        objecForTamleekFreshFiler = {
           STAMP_DUTY: "3%",
           TMA_TAX: "1.0%",
           FBR_236K_TAX: 0,
@@ -104,6 +130,7 @@ export default function ZaraiSakniTaxFunction(
           REGISTRY_CHARGES: registryCharges.charges,
         };
         finalArrayAmount.push(objecForTamleekFiler);
+        finalArrayAmount.push(objecForTamleekFreshFiler);
         finalArrayAmount.push(objecForTamleekNonFiler);
         return finalArrayAmount;
       } else {
@@ -116,6 +143,15 @@ export default function ZaraiSakniTaxFunction(
           PLRA_CHARGES: chargesPlra.charges,
           COMPARISON_CHARGES: 100,
         };
+        objecForTamleekFreshFiler = {
+          MUTATION_FEE: 500,
+          TMA_TAX: 0,
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          COMPARISON_CHARGES: 100,
+        };
         objecForTamleekNonFiler = {
           MUTATION_FEE: 500,
           TMA_TAX: 0,
@@ -126,6 +162,7 @@ export default function ZaraiSakniTaxFunction(
           COMPARISON_CHARGES: 100,
         };
         finalArrayAmount.push(objecForTamleekFiler);
+        finalArrayAmount.push(objecForTamleekFreshFiler);
         finalArrayAmount.push(objecForTamleekNonFiler);
         return finalArrayAmount;
       }
@@ -135,7 +172,17 @@ export default function ZaraiSakniTaxFunction(
     ) {
       let objecForTamleekFiler = {};
       let objecForTamleekNonFiler = {};
+      let objecForTamleekFreshFiler = {};
       objecForTamleekFiler = {
+        MUTATION_CHARGES: 500,
+        TMA_TAX: 0,
+        FBR_236K_TAX: 0,
+        FBR_236C_TAX: 0,
+        FBR_7E_TAX: 0,
+        PLRA_CHARGES: chargesPlra.charges,
+        COMAPERISON_CHARGES: 100,
+      };
+      objecForTamleekFreshFiler = {
         MUTATION_CHARGES: 500,
         TMA_TAX: 0,
         FBR_236K_TAX: 0,
@@ -154,6 +201,7 @@ export default function ZaraiSakniTaxFunction(
         COMAPERISON_CHARGES: 100,
       };
       finalArrayAmount.push(objecForTamleekFiler);
+      finalArrayAmount.push(objecForTamleekFreshFiler);
       finalArrayAmount.push(objecForTamleekNonFiler);
       return finalArrayAmount;
     } else {
@@ -163,6 +211,9 @@ export default function ZaraiSakniTaxFunction(
       fbr236CForNonFiler = 0;
       fbr236KForFiler = 0;
       fbr236KForNonFiler = 0;
+      fbr236KForFreshFiler = 0;
+      fbr236CForFreshFiler = 0;
+      tax7E = 0;
     }
   }
 
@@ -172,6 +223,15 @@ export default function ZaraiSakniTaxFunction(
     fbr236KForFiler +
     fbr236CForFiler +
     0 +
+    registryCharges.charges +
+    chargesPlra.charges;
+
+  totalForFreshFiler =
+    StampDuty_Fee +
+    TMAtax +
+    fbr236KForFreshFiler +
+    fbr236CForFreshFiler +
+    tax7E +
     registryCharges.charges +
     chargesPlra.charges;
 
@@ -194,6 +254,16 @@ export default function ZaraiSakniTaxFunction(
     REGISTRY_CHARGES: registryCharges.charges,
     TOATAL_PAYABLE_TAX: totalForFiler,
   };
+  let forFreshFiler = {
+    STAMP_DUTY: StampDuty_Fee,
+    TMA_TAX: TMAtax,
+    FBR_236K_TAX: fbr236KForFreshFiler,
+    FBR_236C_TAX: fbr236CForFreshFiler,
+    FBR_7E_TAX: tax7E,
+    PLRA_CHARGES: chargesPlra.charges,
+    REGISTRY_CHARGES: registryCharges.charges,
+    TOATAL_PAYABLE_TAX: totalForNonFiler,
+  };
   let forNonFiler = {
     STAMP_DUTY: StampDuty_Fee,
     TMA_TAX: TMAtax,
@@ -206,6 +276,7 @@ export default function ZaraiSakniTaxFunction(
   };
 
   finalArrayAmount.push(forFiler);
+  finalArrayAmount.push(forFreshFiler);
   finalArrayAmount.push(forNonFiler);
   return finalArrayAmount;
 }
@@ -220,6 +291,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
   };
   let forFiler = {};
   let forNonFiler = {};
+  let forFreshFiler = {};
 
   // if plot is empty
   if (
@@ -236,9 +308,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
       fbr236KForNonFiler = Math.round(
         inputParams.landValue * nonFilerFbrTaxFor236K
       );
+      fbr236KForFreshFiler = Math.round(
+        inputParams.landValue * FreshFilerFbrTax236K
+      );
+
       fbr236CForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236C);
       fbr236CForNonFiler = Math.round(
         inputParams.landValue * nonFilerFbrTaxFor236C
+      );
+      fbr236CForFreshFiler = Math.round(
+        inputParams.landValue * FreshFilerFbrTax236C
       );
       tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
 
@@ -254,6 +333,15 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         registryCharges.charges +
         chargesPlra.charges;
 
+      totalForFreshFiler =
+        StampDuty_Fee +
+        constructionCharges +
+        TMAtax +
+        fbr236KForFreshFiler +
+        fbr236CForFreshFiler +
+        tax7E +
+        registryCharges.charges +
+        chargesPlra.charges;
       totalForNonFiler =
         StampDuty_Fee +
         constructionCharges +
@@ -296,6 +384,12 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         fbr236CForNonFiler = Math.round(
           inputParams.landValue * nonFilerFbrTaxFor236C
         );
+        fbr236CForFreshFiler = Math.round(
+          inputParams.landValue * FreshFilerFbrTax236C
+        );
+        fbr236KForFreshFiler = Math.round(
+          inputParams.landValue * FreshFilerFbrTax236K
+        );
         tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
         constructionCharges = Math.round(
           inputParams.constructedArea! * CONSTRUCTION_CHARGES
@@ -314,6 +408,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           fbr236KForFiler +
           fbr236CForFiler +
           0 +
+          registryCharges.charges +
+          chargesPlra.charges;
+
+        totalForFreshFiler =
+          StampDuty_Fee +
+          constructionCharges +
+          TMAtax +
+          fbr236KForFreshFiler +
+          fbr236CForFreshFiler +
+          tax7E +
           registryCharges.charges +
           chargesPlra.charges;
 
@@ -345,6 +449,12 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         fbr236CForNonFiler = Math.round(
           inputParams.landValue * nonFilerFbrTaxFor236C
         );
+        fbr236CForFreshFiler = Math.round(
+          inputParams.landValue * FreshFilerFbrTax236C
+        );
+        fbr236KForFreshFiler = Math.round(
+          inputParams.landValue * FreshFilerFbrTax236K
+        );
         tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
         constructionCharges = Math.round(
           inputParams.landArea! * CONSTRUCTION_CHARGES
@@ -357,6 +467,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           fbr236KForFiler +
           fbr236CForFiler +
           0 +
+          registryCharges.charges +
+          chargesPlra.charges;
+
+        totalForFreshFiler =
+          StampDuty_Fee +
+          constructionCharges +
+          TMAtax +
+          fbr236KForFreshFiler +
+          fbr236CForFreshFiler +
+          tax7E +
           registryCharges.charges +
           chargesPlra.charges;
 
@@ -383,6 +503,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         PLRA_CHARGES: chargesPlra.charges,
         REGISTRY_CHARGES: registryCharges.charges,
       };
+      forFreshFiler = {
+        STAMP_DUTY: "1.0 %",
+        CONSTRUCTION_CHARGES: 0,
+        TMA_TAX: "1.0 %",
+        FBR_236K_TAX: 0,
+        FBR_236C_TAX: 0,
+        FBR_7E_TAX: 0,
+        PLRA_CHARGES: chargesPlra.charges,
+        REGISTRY_CHARGES: registryCharges.charges,
+      };
       forNonFiler = {
         STAMP_DUTY: "1.0 %",
         CONSTRUCTION_CHARGES: 0,
@@ -394,6 +524,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
         REGISTRY_CHARGES: registryCharges.charges,
       };
       finalArrayResult.push(forFiler);
+      finalArrayResult.push(forFreshFiler);
       finalArrayResult.push(forNonFiler);
       return finalArrayResult;
     } else if (inputParams.plotType === "construct") {
@@ -418,6 +549,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           PLRA_CHARGES: chargesPlra.charges,
           REGISTRY_CHARGES: registryCharges.charges,
         };
+        forFreshFiler = {
+          STAMP_DUTY: "1.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
         forNonFiler = {
           STAMP_DUTY: "1.0 %",
           CONSTRUCTION_CHARGES: constructionCharges,
@@ -429,6 +570,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           REGISTRY_CHARGES: registryCharges.charges,
         };
         finalArrayResult.push(forFiler);
+        finalArrayResult.push(forFreshFiler);
         finalArrayResult.push(forNonFiler);
         return finalArrayResult;
       } else if (inputParams.tmaMapApprovedOrNot === "no") {
@@ -445,6 +587,16 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           PLRA_CHARGES: chargesPlra.charges,
           REGISTRY_CHARGES: registryCharges.charges,
         };
+        forFreshFiler = {
+          STAMP_DUTY: "3.0 %",
+          CONSTRUCTION_CHARGES: constructionCharges,
+          TMA_TAX: "1.0 %",
+          FBR_236K_TAX: 0,
+          FBR_236C_TAX: 0,
+          FBR_7E_TAX: 0,
+          PLRA_CHARGES: chargesPlra.charges,
+          REGISTRY_CHARGES: registryCharges.charges,
+        };
         forNonFiler = {
           STAMP_DUTY: "3.0 %",
           CONSTRUCTION_CHARGES: constructionCharges,
@@ -456,6 +608,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
           REGISTRY_CHARGES: registryCharges.charges,
         };
         finalArrayResult.push(forFiler);
+        finalArrayResult.push(forFreshFiler);
         finalArrayResult.push(forNonFiler);
         return finalArrayResult;
       }
@@ -469,6 +622,8 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
     tax7E = 0;
     fbr236KForFiler = 0;
     fbr236KForNonFiler = 0;
+    fbr236KForFreshFiler = 0;
+    fbr236CForFreshFiler = 0;
     totalForFiler = 500;
     totalForNonFiler = 500;
   }
@@ -487,6 +642,19 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
     REGISTRY_CHARGES: registryCharges.charges,
     TOATAL_PAYABLE_TAX: totalForFiler,
   };
+
+  forFreshFiler = {
+    STAMP_DUTY: StampDuty_Fee,
+    CONSTRUCTION_CHARGES: constructionChargesValue,
+    TMA_TAX: TMAtax,
+    FBR_236K_TAX: fbr236KForFreshFiler,
+    FBR_236C_TAX: fbr236CForFreshFiler,
+    FBR_7E_TAX: tax7E,
+    PLRA_CHARGES: chargesPlra.charges,
+    REGISTRY_CHARGES: registryCharges.charges,
+    TOATAL_PAYABLE_TAX: totalForNonFiler,
+  };
+
   forNonFiler = {
     STAMP_DUTY: StampDuty_Fee,
     CONSTRUCTION_CHARGES: constructionChargesValue,
@@ -499,6 +667,9 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
     TOATAL_PAYABLE_TAX: totalForNonFiler,
   };
   finalArrayResult.push(forFiler);
+  finalArrayResult.push(forFreshFiler);
   finalArrayResult.push(forNonFiler);
+  console.log(finalArrayResult);
+
   return finalArrayResult;
 }
