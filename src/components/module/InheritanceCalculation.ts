@@ -38,10 +38,12 @@ type InheritanceError = {
 
 ///////////////////////////////////////////////
 
-export default function InheritanceCal(
+export function InheritanceCal(
   inputParams: InheritanceProps
 ): InheritanceResult | ErrorForUsbah {
   const getUsbah = findUsbah(inputParams);
+  console.log("usbah is: ", getUsbah);
+
   if (getUsbah === "") {
     return { errorUsbah: "please contact at +92-315-7473743 for this problem" };
   }
@@ -116,17 +118,40 @@ export function calculateEveryHeirShare(
       individualShares
     );
   }
+  if (usbahPresentOrNot === "abu") {
+    if (!isExistOrNot("ami", allHeirs) && !isExistOrNot("beta", allHeirs)) {
+      fatherShare = distributeShare(
+        allHeirs,
+        "abu",
+        totalEstate / 6,
+        individualShares
+      );
+    }
+    if (isExistOrNot("ami", allHeirs) && hasValidByti(allHeirs)) {
+      fatherShare = distributeShare(
+        allHeirs,
+        "abu",
+        totalEstate / 6,
+        individualShares
+      );
+    }
+  }
+
   if (usbahPresentOrNot !== "beta") {
-    daughters = distributeShare(
-      allHeirs,
-      "beti",
-      hasValidByti(allHeirs) ? totalEstate / 2 : totalEstate * (2 / 3),
-      individualShares
-    );
+    if (isExistOrNot("beti", allHeirs)) {
+      daughters = distributeShare(
+        allHeirs,
+        "beti",
+        hasValidByti(allHeirs) ? totalEstate / 2 : totalEstate * (2 / 3),
+        individualShares
+      );
+    }
   }
 
   let remainingEstate =
     totalEstate - (widowShare + motherShare + fatherShare + daughters);
+
+  //console.log(remainingEstate, "daughter: ", daughters);
 
   distributeRemainingShares(
     allHeirs,
@@ -141,7 +166,9 @@ export function calculateEveryHeirShare(
   }
   if (usbahPresentOrNot === "abu") {
     if (!isExistOrNot("beti", allHeirs) && !isExistOrNot("beta", allHeirs)) {
-      totalFemaleUsbahShare = individualShares["ami"] || 0;
+      if (isExistOrNot("ami", allHeirs)) {
+        totalFemaleUsbahShare = individualShares["ami"] || 0;
+      }
     }
     totalMaleUsbahShare = individualShares["abu"] || 0;
   }
@@ -150,7 +177,7 @@ export function calculateEveryHeirShare(
   const totalDistributed =
     widowShare +
     motherShare +
-    fatherShare +
+    (usbahPresentOrNot === "abu" ? 0 : fatherShare) +
     daughters +
     totalMaleUsbahShare +
     totalFemaleUsbahShare;
@@ -168,61 +195,6 @@ export function calculateEveryHeirShare(
   });
 
   return individualShares;
-
-  // allHeirs.forEach((heir) => {
-  //   if (heir.heir === "bewah") {
-  //     widowShare = (totalEstate / 8) * heir.quantity;
-  //     remainingEstate -= widowShare;
-  //     individualShares[heir.heir] = widowShare;
-  //   } else if (heir.heir === "ami") {
-  //     motherShare = (totalEstate / 6) * heir.quantity;
-  //     remainingEstate -= motherShare;
-  //     individualShares[heir.heir] = motherShare;
-  //   } else if (heir.heir === "abu") {
-  //     fatherShare = (totalEstate / 6) * heir.quantity;
-  //     remainingEstate -= fatherShare;
-  //     individualShares[heir.heir] = fatherShare;
-  //   }
-  // });
-
-  // const sonsExist = allHeirs.filter((heir) => heir.heir === "beta");
-  // const daughtersExist = allHeirs.filter((heir) => heir.heir === "beti");
-  // const sons = sonsExist[0].quantity;
-  // const daughters = daughtersExist[0].quantity;
-  // const totalShares = sons * 2 + daughters;
-
-  // const shareAmount = remainingEstate / totalShares;
-
-  // const totalSonShare = shareAmount * 2 * sons; // / marlaToSquareFeet;
-  // const totalDaughterShare = shareAmount * daughters; // / marlaToSquareFeet;
-
-  // allHeirs.forEach((heir) => {
-  //   if (heir.heir === "beta") {
-  //     individualShares[heir.heir] = totalSonShare;
-  //   } else if (heir.heir === "beti") {
-  //     individualShares[heir.heir] = totalDaughterShare;
-  //   }
-  // });
-
-  // const totalDistributed =
-  //   widowShare + motherShare + fatherShare + totalSonShare + totalDaughterShare;
-
-  // if (Math.abs(totalDistributed - totalEstate) > 1e-10) {
-  //   return {
-  //     error: "Total distributed shares do not equal the original estate",
-  //     totalDistributed: totalDistributed.toFixed(2),
-  //     totalEstate: totalEstate.toFixed(2),
-  //   };
-  // }
-
-  // Object.entries(individualShares).forEach(([key, value]) => {
-  //   individualShares[key] = value / marlaToSquareFeet;
-  //   // console.log(`${key}: ${individualShares[key]}`);
-  // });
-
-  // return {
-  //   ...individualShares,
-  // };
 }
 
 // distributed shares in zul farooz
@@ -234,9 +206,16 @@ function distributeShare(
 ): number {
   const heir = allHeirs.find((h) => h.heir === heirName);
   if (heir) {
-    const share = shareFraction * heir.quantity;
-    individualShares[heirName] = share;
-    return share;
+    individualShares[heirName] = shareFraction;
+    return shareFraction;
+    // if (heir.heir !== "beti") {
+    //   const share = shareFraction * heir.quantity;
+    //   individualShares[heirName] = share;
+    //   return share;
+    // } else {
+    //   individualShares[heirName] = shareFraction;
+    //   return shareFraction;
+    // }
   }
   return 0;
 }
@@ -252,6 +231,7 @@ function distributeRemainingShares(
     const daughters = allHeirs.find((h) => h.heir === "beti")?.quantity || 0;
 
     const totalShares = sons * 2 + daughters;
+    //console.log(totalShares);
 
     if (totalShares === 0) return;
 
@@ -259,15 +239,17 @@ function distributeRemainingShares(
 
     if (sons > 0) {
       individualShares["beta"] = shareAmount * 2 * sons;
-      //console.log(individualShares["beta"] / 272);
     }
     if (daughters > 0) {
       individualShares["beti"] = shareAmount * daughters;
-      //console.log(individualShares["beti"] / 272);
     }
   }
   if (usbahPresentOrNot === "abu") {
-    if (!isExistOrNot("beta", allHeirs) && !isExistOrNot("beti", allHeirs)) {
+    if (
+      !isExistOrNot("beta", allHeirs) &&
+      !isExistOrNot("beti", allHeirs) &&
+      isExistOrNot("ami", allHeirs)
+    ) {
       const abu = allHeirs.find((h) => h.heir === "abu")?.quantity || 0;
       const ami = allHeirs.find((h) => h.heir === "ami")?.quantity || 0;
 
@@ -286,10 +268,8 @@ function distributeRemainingShares(
         //console.log(individualShares["ami"] / 272);
       }
     } else {
-      individualShares["abu"] = remainingEstate;
+      individualShares["abu"] += remainingEstate;
     }
-
-    //console.log(individualShares["abu"] / 272);
   }
 }
 

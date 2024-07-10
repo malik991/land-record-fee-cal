@@ -34,10 +34,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import InheritanceCal, {
+import {
   InheritanceProps,
   HeirWithShare,
 } from "../module/InheritanceCalculation";
+
+import { Loader } from "lucide-react";
+import ContactPage from "./contact";
 
 interface legalHeirsProps {
   heirs: string[];
@@ -129,6 +132,7 @@ export const FormSchemaHeir = z.object({
 function ProfileForm({ heirs, className }: ProfileFormProps) {
   const [result, setResult] = React.useState<HeirWithShare[] | null>(null);
   const [error, setError] = React.useState<string | null>(null);
+  const [loadBtn, setLoadBtn] = React.useState(false);
   const [heirsList, setHeirsList] = React.useState(heirs);
   const [dialogOpen, setdialogOpen] = React.useState(false);
   const defaultValues = {
@@ -144,18 +148,33 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
     defaultValues,
   });
 
-  const onSubmit = (data: z.infer<typeof FormSchemaHeir>) => {
+  const onSubmit = async (data: z.infer<typeof FormSchemaHeir>) => {
+    setLoadBtn(true);
     const submittedQuantities = heirsList.map((heir, index) => ({
       heir,
       quantity: data.heirs[index].quantity,
     }));
-    //const landData = data.land;
     const inputParams: InheritanceProps = {
       allHeirs: submittedQuantities,
       landArea: data.land,
     };
 
-    const calculatedResult = InheritanceCal(inputParams);
+    //const calculatedResult = InheritanceCal(inputParams);
+    const response = await fetch("/api/inheritance", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputParams),
+    });
+    if (!response.ok) {
+      setLoadBtn(false);
+      throw new Error("Network response was not ok");
+    }
+
+    const calculatedResult = await response.json();
+    setLoadBtn(false);
+    //console.log(calculatedResult);
 
     if ("errorUsbah" in calculatedResult) {
       setError(calculatedResult.errorUsbah);
@@ -318,8 +337,15 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
         </ScrollArea>
 
         {heirsList?.length > 0 && (
-          <Button type="submit" className="w-full">
-            Calculate
+          <Button type="submit" disabled={loadBtn} className="w-full">
+            {loadBtn ? (
+              <div className="flex items-center space-x-2">
+                <Loader className="w-5 h-5 animate-spin" />
+                <span>Please wait...</span>
+              </div>
+            ) : (
+              "Calculate"
+            )}
           </Button>
         )}
         <Dialog open={dialogOpen} onOpenChange={setdialogOpen}>
@@ -327,28 +353,35 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
             <DialogHeader>
               <DialogTitle>Final Result</DialogTitle>
               <DialogDescription>
-                All individual&#39;s heir name and thier shares.
+                <div className="flex md:flex-row flex-col md:gap-x-2 gap-y-1 items-center">
+                  <span className="text-lg">for more detail:</span>
+                  <ContactPage />
+                </div>
               </DialogDescription>
             </DialogHeader>
             <div className="p-4 flex flex-col items-center">
-              <h4 className="font-medium leading-none underline">Result</h4>
+              <h1 className="text-nafees font-semibold lg:text-4xl text-xl leading-3">
+                وارثان کے حصے
+              </h1>
               <div className="mt-5 text-sm text-muted-foreground">
                 {error ? (
                   <div className="text-red-600">{error}</div>
                 ) : (
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="font-bold">Heir</div>
-                    <div className="font-bold">Share</div>
-                    <div className="font-bold">K-M-F</div>
-                    {result &&
-                      result.map((heir) => (
-                        <React.Fragment key={heir.heir}>
-                          <div>{heir.heir}</div>
-                          <div>{heir.share}</div>
-                          <div>{heir.landArea}</div>
-                        </React.Fragment>
-                      ))}
-                  </div>
+                  <ScrollArea className="h-72 md:w-64 w-48 rounded-md border">
+                    <div className="p-6 grid grid-cols-2 gap-4">
+                      <div className="font-bold text-lg">Heir</div>
+                      {/* <div className="font-bold">Share</div> */}
+                      <div className="font-bold text-lg">K-M-F</div>
+                      {result &&
+                        result.map((heir) => (
+                          <React.Fragment key={heir.heir}>
+                            <div>{heir.heir}</div>
+                            {/* <div>{heir.share}</div> */}
+                            <div>{heir.landArea}</div>
+                          </React.Fragment>
+                        ))}
+                    </div>
+                  </ScrollArea>
                 )}
               </div>
             </div>

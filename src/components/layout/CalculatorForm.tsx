@@ -47,7 +47,8 @@ import ZaraiSakniTaxFunction, {
 import { ConversionDialog } from "./ConversionDialog";
 import useScrollToError from "../module/useScrollToError";
 import ProvideToolTip from "../module/ToolTipProvide";
-import InheritanceCal, {
+import {
+  InheritanceCal,
   InheritanceProps,
 } from "../module/InheritanceCalculation";
 
@@ -148,21 +149,21 @@ export default function FormCalculatorPage() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     //console.log(values);
     ////////////////////////
-    const inputParams: InheritanceProps = {
-      allHeirs: [
-        { heir: "beti", quantity: 1 },
-        { heir: "abu", quantity: 1 },
-        { heir: "bewah", quantity: 1 },
-        { heir: "ami", quantity: 1 },
-        { heir: "beta", quantity: 2 },
-        //{ heir: "shohar", quantity: 1 },
-        //{ heir: "bhai", quantity: 1 },
-        //{ heir: "behan", quantity: 1 },
-      ],
-      landArea: { kanal: 1, marla: 0, foot: 0 },
-    };
+    // const inputParams: InheritanceProps = {
+    //   allHeirs: [
+    //     { heir: "beti", quantity: 1 },
+    //     { heir: "abu", quantity: 1 },
+    //     { heir: "bewah", quantity: 1 },
+    //     { heir: "ami", quantity: 1 },
+    //     { heir: "beta", quantity: 2 },
+    //     //{ heir: "shohar", quantity: 1 },
+    //     //{ heir: "bhai", quantity: 1 },
+    //     //{ heir: "behan", quantity: 1 },
+    //   ],
+    //   landArea: { kanal: 1, marla: 0, foot: 0 },
+    // };
 
-    const calculatedResult = InheritanceCal(inputParams);
+    // const calculatedResult = InheritanceCal(inputParams);
 
     /////////////////////////////
     setFinalAmountResult([]);
