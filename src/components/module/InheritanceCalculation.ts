@@ -83,8 +83,6 @@ export function calculateEveryHeirShare(
   usbahPresentOrNot: string,
   allHeirs: { heir: string; quantity: number }[]
 ): InheritanceShares | InheritanceError {
-  console.log(usbahPresentOrNot);
-
   const marlaToSquareFeet = 272.25;
   const individualShares: InheritanceShares = {};
   let fatherShare: number = 0;
@@ -108,6 +106,21 @@ export function calculateEveryHeirShare(
       totalEstate / 6,
       individualShares
     );
+  }
+  if (
+    (hasValidOneUncleOrAunt("bhai", allHeirs) &&
+      !isExistOrNot("behan", allHeirs)) ||
+    (hasValidOneUncleOrAunt("behan", allHeirs) &&
+      !isExistOrNot("bahi", allHeirs))
+  ) {
+    if (!isExistOrNot("beta", allHeirs) && !isExistOrNot("beti", allHeirs)) {
+      motherShare = distributeShare(
+        allHeirs,
+        "ami",
+        totalEstate / 3,
+        individualShares
+      );
+    }
   }
 
   if (usbahPresentOrNot !== "abu") {
@@ -172,6 +185,11 @@ export function calculateEveryHeirShare(
     }
     totalMaleUsbahShare = individualShares["abu"] || 0;
   }
+  if (usbahPresentOrNot === "bhai") {
+    totalFemaleUsbahShare = individualShares["behan"] || 0;
+    totalMaleUsbahShare = individualShares["bhai"] || 0;
+  }
+
   //console.log(totalMaleUsbahShare, totalFemaleUsbahShare);
 
   const totalDistributed =
@@ -269,6 +287,24 @@ function distributeRemainingShares(
       }
     } else {
       individualShares["abu"] += remainingEstate;
+    }
+  }
+  if (usbahPresentOrNot === "bhai") {
+    const brothers = allHeirs.find((h) => h.heir === "bhai")?.quantity || 0;
+    const sisters = allHeirs.find((h) => h.heir === "behan")?.quantity || 0;
+
+    const totalShares = brothers * 2 + sisters;
+    //console.log(totalShares);
+
+    if (totalShares === 0) return;
+
+    const shareAmount = remainingEstate / totalShares;
+
+    if (brothers > 0) {
+      individualShares["bhai"] = shareAmount * 2 * brothers;
+    }
+    if (sisters > 0) {
+      individualShares["behan"] = shareAmount * sisters;
     }
   }
 }
@@ -379,9 +415,7 @@ function findUsbah(inputParams: InheritanceProps): string {
       } else if (
         (check.heir === "bhai" || check.heir === "behan") &&
         !isExistOrNot("abu", inputParams.allHeirs) &&
-        (isExistOrNot("shohar", inputParams.allHeirs) ||
-          isExistOrNot("bewah", inputParams.allHeirs)) &&
-        !isExistOrNot("ami", inputParams.allHeirs)
+        !hasBeta(inputParams.allHeirs)
       ) {
         usbah = check.heir;
         break;
@@ -410,5 +444,15 @@ function isExistOrNot(
   allHeirs: { heir: string; quantity: number }[]
 ): boolean {
   const result = allHeirs.some((heir) => heir.heir === `${memberName}`);
+  return result;
+}
+
+function hasValidOneUncleOrAunt(
+  memberName: string,
+  allHeirs: { heir: string; quantity: number }[]
+): boolean {
+  const uncleOrAunt = allHeirs.find((heir) => heir.heir === `${memberName}`);
+  const result = uncleOrAunt ? uncleOrAunt.quantity <= 1 : false;
+
   return result;
 }
