@@ -54,11 +54,10 @@ export function DrawerDialogLegalHeirs({ heirs }: legalHeirsProps) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button
-            variant="outline"
-            className="w-full text-nafees text-lg font-semibold"
-          >
-            منتخب کردہ وارثان دیکھیں
+          <Button variant="default" className="w-1/2">
+            <span className="w-full text-nafees p-3 text-lg font-semibold">
+              منتخب کردہ وارثان دیکھیں
+            </span>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
@@ -82,8 +81,10 @@ export function DrawerDialogLegalHeirs({ heirs }: legalHeirsProps) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="text-nafees text-lg font-semibold">
-          منتخب کردہ وارثان دیکھیں
+        <Button variant="default" className="w-full">
+          <span className="w-full p-3 text-nafees text-lg font-semibold">
+            منتخب کردہ وارثان دیکھیں
+          </span>
         </Button>
       </DrawerTrigger>
       <DrawerContent>

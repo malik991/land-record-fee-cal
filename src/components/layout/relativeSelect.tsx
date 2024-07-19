@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown, Trash2 } from "lucide-react";
+import { Check, ChevronsUpDown, Trash2, UserPlus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -172,8 +172,11 @@ export function ComboboxForm() {
               )}
             />
 
-            <Button className="w-full" type="submit">
-              Submit
+            <Button className="w-full flex items-center gap-x-2" type="submit">
+              <span>
+                <UserPlus className="w-4 h-4" />
+              </span>
+              <span className="mt-2">Add-Heirs</span>
             </Button>
           </form>
         </Form>
