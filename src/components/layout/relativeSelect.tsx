@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, Trash2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,7 +22,6 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
 import {
   Popover,
@@ -32,6 +31,18 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { DrawerDialogLegalHeirs } from "./LegalHeitsDetail";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const relativeNames = [
   { label: "والد", value: "abu" },
@@ -82,6 +93,10 @@ export function ComboboxForm() {
         </div>
       ),
     });
+  }
+
+  function handleDelete(index: number) {
+    setHeirs((prev) => prev.filter((_, i) => i !== index));
   }
 
   return (
@@ -165,8 +180,46 @@ export function ComboboxForm() {
       </div>
 
       {getHeirs.length > 0 && (
-        <div className="w-full text-center">
-          <DrawerDialogLegalHeirs heirs={getHeirs} />
+        <div className="flex flex-col gap-y-3">
+          {getHeirs.map((heir, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-2 items-center justify-center text-center p-2 rounded-md shadow-sm shadow-card-foreground transition-shadow duration-300 hover:shadow-md hover:shadow-card-foreground"
+            >
+              <span className="text-pretty font-bold">
+                {heir.toUpperCase()}
+              </span>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <span className="flex items-center justify-center">
+                    <Button variant="outline" size="icon">
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </span>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your selected Heirs.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => handleDelete(index)}>
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          ))}
+          <div className="w-full text-center">
+            <DrawerDialogLegalHeirs heirs={getHeirs} />
+          </div>
         </div>
       )}
     </div>
