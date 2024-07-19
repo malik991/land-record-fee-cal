@@ -6,13 +6,12 @@ import { IImage } from "@/lib/types";
 import { YouTubeCarousel } from "@/components/layout/YoutubeCarousel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Image from "next/image";
 import ContactPage from "@/components/layout/contact";
 
 const images: IImage[] = [
-  { url: "/3.webp" },
   { url: "/4.webp" },
   { url: "/1.jpeg" },
+  { url: "/3.webp" },
   { url: "/hero-image1.png" },
 
   // Add more images as needed

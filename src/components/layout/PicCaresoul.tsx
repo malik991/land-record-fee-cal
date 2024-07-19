@@ -10,7 +10,6 @@ import {
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface GalleryProps {
   images: IImage[];
