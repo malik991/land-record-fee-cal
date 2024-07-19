@@ -81,18 +81,18 @@ export function ComboboxForm() {
     }
     const updatedHeirs = [...getHeirs, data.relative];
     setHeirs(updatedHeirs);
-    toast({
-      title: "آپکے وارثان منتخب ہو رہے ہیں۔",
-      description: (
-        <div>
-          <pre className="mt-2 md:w-[340px] w-[300px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">
-              وارثان: {JSON.stringify(updatedHeirs, null, 2)}
-            </code>
-          </pre>
-        </div>
-      ),
-    });
+    // toast({
+    //   title: "آپکے وارثان منتخب ہو رہے ہیں۔",
+    //   description: (
+    //     <div>
+    //       <pre className="mt-2 md:w-[340px] w-[300px] rounded-md bg-slate-950 p-4">
+    //         <code className="text-white">
+    //           وارثان: {JSON.stringify(updatedHeirs, null, 2)}
+    //         </code>
+    //       </pre>
+    //     </div>
+    //   ),
+    // });
   }
 
   function handleDelete(index: number) {
@@ -200,7 +200,7 @@ export function ComboboxForm() {
                     </Button>
                   </span>
                 </AlertDialogTrigger>
-                <AlertDialogContent>
+                <AlertDialogContent className="w-1/2 max-w-md mx-auto md:max-w-lg">
                   <AlertDialogHeader>
                     <AlertDialogTitle>
                       Are you absolutely sure?
@@ -220,7 +220,7 @@ export function ComboboxForm() {
               </AlertDialog>
             </div>
           ))}
-          <div className="w-full text-center">
+          <div className="w-full text-center mt-5">
             <DrawerDialogLegalHeirs heirs={getHeirs} />
           </div>
         </div>
