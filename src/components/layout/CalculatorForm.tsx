@@ -781,7 +781,7 @@ export default function FormCalculatorPage() {
                     <Card className="md:w-[350px] w-full">
                       <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
                         <CardTitle className="text-center text-pehla">
-                          TAX FOR Fresh-FILER
+                          TAX FOR FRESH-FILER
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="">

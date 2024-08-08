@@ -134,7 +134,7 @@ export function zaraiTaxCalculation(inputParams: AllParams): any {
     FBR_236C_TAX: fbr236CForFreshFiler,
     FBR_7E_TAX: tax7E,
     PLRA_CHARGES: chargesPlra,
-    TOATAL_PAYABLE_TAX: totalForNonFiler,
+    TOATAL_PAYABLE_TAX: totalForFreshFiler,
   };
 
   let forNonFiler = {

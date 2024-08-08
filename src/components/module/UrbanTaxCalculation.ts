@@ -652,7 +652,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
     FBR_7E_TAX: tax7E,
     PLRA_CHARGES: chargesPlra.charges,
     REGISTRY_CHARGES: registryCharges.charges,
-    TOATAL_PAYABLE_TAX: totalForNonFiler,
+    TOATAL_PAYABLE_TAX: totalForFreshFiler,
   };
 
   forNonFiler = {
@@ -669,7 +669,7 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
   finalArrayResult.push(forFiler);
   finalArrayResult.push(forFreshFiler);
   finalArrayResult.push(forNonFiler);
-  console.log(finalArrayResult);
+  //console.log(finalArrayResult);
 
   return finalArrayResult;
 }
