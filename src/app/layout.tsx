@@ -11,10 +11,33 @@ import AuthProvider from "@/lib/authProvider";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
-  title: "Land Transfer Fee",
+  metadataBase: new URL("https://landtaxshare.com"),
+  title: {
+    default: "Land Transfer Tax and Inheritance Share",
+    template: "%s - Land Transfer Tax and Inheritance Share",
+  },
   description:
-    "calculate the government tax fee when a person perform a mutation or registry in punjab certain amount of taxes he or she needs to be paid. so every kind of taxes like fbr fees, fbr taxes related or board of revenue or bor related fees or texas and all other taxes or fees which needs to be paind are mentioned here as per land revenue act 1967 and finance act 2001.",
-  metadataBase: new URL("https://alrehmanai-land-transfer-fee.vercel.app/"),
+    "Land Transfer Fee calculator and inheritance share for Punjab. Easily calculate the government tax fee for land mutations and register deeds.",
+  keywords:
+    "land, deeds, intiqal fees, plra, registry deed fees, mutation tax, zammeen intiqal fees, varasat, hiba, tamleek, inheritance share",
+  twitter: {
+    card: "summary_large_image",
+  },
+  openGraph: {
+    title: "Land Transfer Tax and Inheritance Share",
+    description:
+      "Land Transfer Fee calculator and inheritance share for Punjab. Easily calculate the government tax fee for land mutations and register deeds.",
+    url: "https://landtaxshare.com/",
+    siteName: "land tranfer fees and inheritance share",
+    images: [
+      {
+        url: "https://landtaxshare.com/opengraph-image.png", // Must be an absolute URL
+        alt: "Land transfer fee",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

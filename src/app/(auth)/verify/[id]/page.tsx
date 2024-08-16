@@ -43,7 +43,6 @@ const VerifyAccountPage = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsSubitting(true);
     try {
-      console.log(params.id, " ", data.pin);
       const res = await axios.post("/api/verify-code", {
         _id: params.id,
         verifyCode: data.pin,

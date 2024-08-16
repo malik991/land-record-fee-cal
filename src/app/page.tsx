@@ -17,44 +17,6 @@ const images: IImage[] = [
   // Add more images as needed
 ];
 
-export const metadata = {
-  title: "Land Transfer Fee Calculator - Punjab",
-  description:
-    "Welcome to the Land Transfer Fee calculator for Punjab. Easily calculate the government tax fee for land mutations and deeds.",
-  keywords:
-    "land transfer fee 2024, land transfer fee 2025, FBR tax, registry fee, deed fee calculate, fbr tax on land, fbr tax on land transfer, fbr 236c, fbr 236k, Punjab land taxes, mutation, deed, land transfer costs",
-  openGraph: {
-    title: "Land Transfer Fee Calculator - Punjab",
-    description:
-      "Welcome to the Land Transfer Fee calculator for Punjab. Easily calculate the government tax fee for land mutations and deeds.",
-    url: "https://alrehmanai-land-transfer-fee.vercel.app/",
-    type: "website",
-    images: [
-      {
-        url: "/hero-image1.png",
-        width: 800,
-        height: 600,
-        alt: "Land Transfer Fee Calculator",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@malik991",
-    title: "Land Transfer Fee Calculator - Punjab",
-    description:
-      "Welcome to the Land Transfer Fee calculator for Punjab. Easily calculate the government tax fee for land mutations and deeds.",
-    image: "/hero-image1.png",
-  },
-  structuredData: {
-    "@context": "https://alrehmanai-land-transfer-fee.vercel.app/",
-    "@type": "WebSite",
-    name: "Land Transfer Fee Calculator - Punjab",
-    url: "https://yourwebsite.com",
-  },
-  metadataBase: new URL("https://alrehmanai-land-transfer-fee.vercel.app/"),
-};
-
 export default function Home() {
   return (
     <>
