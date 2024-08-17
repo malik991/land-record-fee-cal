@@ -2,6 +2,7 @@ import Image from "next/image";
 import twitter from "../../../public/twitter.svg";
 import Link from "next/link";
 import { Linkedin, Github } from "lucide-react";
+import logo1 from "../../../public/logo1-compress.png";
 
 export default function Footer() {
   return (
@@ -12,18 +13,26 @@ export default function Footer() {
             className="flex md:flex-row flex-col md:justify-between
          justify-center items-center md:gap-y-0 gap-y-4"
           >
-            <div>
-              <span className="text-lg text-gray-500">
-                Made with 💖 by{" "}
+            <div className="flex items-center justify-center gap-x-1">
+              <span className="text-lg text-gray-500">Made with 💖 by </span>
+              <div className="flex items-center gap-x-1 mt-1">
+                <Link href="/">
+                  <Image
+                    src={logo1}
+                    alt="alrehman-ai logo"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
                 <a
-                  href="https://www.linkedin.com/in/mubashar-hassan-sci/"
+                  href="https://alrehmanai.netlify.app/"
                   target="_blank"
                   className="hover:underline text-primary"
                 >
                   Al-Rehman
                 </a>{" "}
-                © {new Date().getFullYear()}
-              </span>
+                <span>© {new Date().getFullYear()}</span>
+              </div>
             </div>
             <div className="flex items-center gap-x-3">
               <Link
@@ -36,7 +45,7 @@ export default function Footer() {
                 {/* <Image src={github} alt="github" /> */}
                 <Github className="w-6 h-6" />
               </Link>
-              <Link href={"/"}>
+              <Link href={"https://twitter.com/malik9914"}>
                 <Image src={twitter} alt="twitter" />
               </Link>
             </div>
