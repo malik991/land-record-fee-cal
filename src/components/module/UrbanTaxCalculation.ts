@@ -262,7 +262,7 @@ export default function ZaraiSakniTaxFunction(
     FBR_7E_TAX: tax7E,
     PLRA_CHARGES: chargesPlra.charges,
     REGISTRY_CHARGES: registryCharges.charges,
-    TOATAL_PAYABLE_TAX: totalForNonFiler,
+    TOATAL_PAYABLE_TAX: totalForFreshFiler,
   };
   let forNonFiler = {
     STAMP_DUTY: StampDuty_Fee,

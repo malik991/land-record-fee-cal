@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s - Land Transfer Tax and Inheritance Share",
   },
   description:
-    "Land Transfer Fee calculator and inheritance share for Punjab. Easily calculate the government tax fee for land mutations and register deeds.",
+    "Land Transfer Fee calculator and inheritance share for Punjab Pakistan. Easily calculate the government tax fee for land mutations and register deeds.",
   keywords:
     "land, deeds, intiqal fees, plra, registry deed fees, mutation tax, zammeen intiqal fees, varasat, hiba, tamleek, inheritance share",
   twitter: {
