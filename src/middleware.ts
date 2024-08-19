@@ -17,8 +17,9 @@ export async function middleware(request: NextRequest) {
 
   if (
     !token &&
-    (url.pathname.startsWith("/Inheritance") ||
-      url.pathname.startsWith("/profile"))
+    //(url.pathname.startsWith("/Inheritance") ||
+    url.pathname.startsWith("/profile")
+    //)
   ) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }

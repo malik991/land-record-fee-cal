@@ -49,8 +49,6 @@ const relativeNames = [
   { label: "بیوہ", value: "bewah" },
   { label: "والدہ", value: "ami" },
   { label: "شوہر", value: "shohar" },
-  { label: "دادا", value: "dada" },
-  { label: "دادی", value: "dadi" },
   { label: "بیٹا", value: "beta" },
   { label: "بیٹی", value: "beti" },
   { label: "بھائی", value: "bhai" },
@@ -202,9 +200,7 @@ export function ComboboxForm() {
                 </AlertDialogTrigger>
                 <AlertDialogContent className="w-1/2 max-w-md mx-auto md:max-w-lg">
                   <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                     <AlertDialogDescription>
                       This action cannot be undone. This will permanently delete
                       your selected Heirs.
