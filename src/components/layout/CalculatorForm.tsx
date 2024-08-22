@@ -834,7 +834,7 @@ export default function FormCalculatorPage() {
                   <AccordionContent>
                     <Card className="md:w-[350px] w-full">
                       <CardHeader className="bg-slate-100 m-2 rounded-lg py-3">
-                        <CardTitle className="text-center text-pehla">
+                        <CardTitle className="text-center text-dooja">
                           TAX FOR NON-FILER
                         </CardTitle>
                       </CardHeader>
