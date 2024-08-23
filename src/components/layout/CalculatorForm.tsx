@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import {
   Form,
   FormControl,
@@ -196,13 +197,16 @@ export default function FormCalculatorPage() {
       <div className="max-w-7xl mx-auto flex flex-col items-center p-3 gap-y-7">
         <div className="w-full flex flex-col items-center justify-center gap-y-4">
           {/* header section of form */}
-          <div className="w-full p-3">
+          <div className="w-full">
             <HeaderSectionPage
-              header="FILL TAX FORM"
+              header="FILL THE FORM"
               subHeader="ٹیکس کیلکولیٹر فارم"
               isVisible={true}
             />
           </div>
+          <Badge variant="destructive" className="font-semibold text-lg">
+            2024-2025
+          </Badge>
           {/* form div */}
           <div className="lg:w-1/2 w-full p-3 rounded-lg shadow-md shadow-card-foreground transition-shadow duration-300 hover:shadow-xl hover:shadow-card-foreground ">
             <Form {...form}>
