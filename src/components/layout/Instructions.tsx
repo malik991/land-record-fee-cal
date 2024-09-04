@@ -9,7 +9,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function InstructionsPage() {
   return (
-    <section className="mt-2">
+    <section className="lg:mt-6 mt-3">
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-y-2">
         <div className="w-full">
           <HeaderSectionPage

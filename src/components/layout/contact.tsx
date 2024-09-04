@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function ContactPage() {
   return (
-    <div className="flex flex-col items-center gap-y-2">
+    <div className="flex flex-col items-start gap-y-2">
       <div className="flex items-center gap-x-2">
         <a
           href="https://wa.me/923157473743"
@@ -26,7 +26,7 @@ export default function ContactPage() {
           +92 315 7473 743
         </a>
       </div>
-      <div>
+      <div className="pl-2">
         <Link
           className="text-pehla text-lg font-semibold"
           href="https://calendly.com/mutation-fee-inheritance-share/15min"

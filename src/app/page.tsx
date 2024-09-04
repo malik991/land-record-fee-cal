@@ -41,7 +41,7 @@ export default function Home() {
       <section id="instructions">
         <InstructionsPage />
       </section>
-      <section className="mt-5" id="videos">
+      <section className="lg:mt-10 mt-3" id="videos">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
           <div className="w-full">
             <HeaderSectionPage
@@ -69,7 +69,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="mt-8" id="contact">
+      <section className="lg:mt-10 mt-6" id="contact">
         <div className="max-w-6xl mx-auto flex flex-col items-center justify-center gap-y-3">
           <div className="w-full">
             <HeaderSectionPage
@@ -78,7 +78,7 @@ export default function Home() {
               isVisible={true}
             />
           </div>
-          <div className="w-full flex items-center justify-center">
+          <div className="lg:mt-3 w-full flex items-center justify-center">
             <ContactPage />
           </div>
         </div>
