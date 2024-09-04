@@ -45,7 +45,7 @@ export function ConversionDialog() {
         <Tooltip>
           <TooltipTrigger asChild>
             <DialogTrigger asChild>
-              <CalculatorIcon className="w-8 h-8 ml-2 cursor-pointer" />
+              <CalculatorIcon className="w-8 h-8 animate-bounce ml-2 cursor-pointer" />
             </DialogTrigger>
           </TooltipTrigger>
           <TooltipContent>

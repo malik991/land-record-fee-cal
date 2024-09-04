@@ -5,11 +5,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export default function InstructionsPage() {
   return (
     <section className="mt-2">
-      <div className="max-w-6xl mx-auto flex flex-col items-center gap-y-1">
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-y-2">
         <div className="w-full">
           <HeaderSectionPage
             header="Instructions"
@@ -17,6 +18,20 @@ export default function InstructionsPage() {
             isVisible={true}
           />
         </div>
+        <div className="lg:w-1/2 w-full h-full rounded-md mt-2">
+          <AspectRatio ratio={16 / 9} className="bg-muted">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/AnAzmsmx9tE?si=50UcwPKGrefDBeq_"
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-md"
+            ></iframe>
+          </AspectRatio>
+        </div>
+
         <div className="lg:w-1/2 w-full p-3">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">

@@ -48,6 +48,7 @@ import ZaraiSakniTaxFunction, {
 import { ConversionDialog } from "./ConversionDialog";
 import useScrollToError from "../module/useScrollToError";
 import ProvideToolTip from "../module/ToolTipProvide";
+import CalculateFiscalYear from "@/components/module/CalculateFiscalYear";
 import {
   InheritanceCal,
   InheritanceProps,
@@ -205,7 +206,7 @@ export default function FormCalculatorPage() {
             />
           </div>
           <Badge variant="destructive" className="font-semibold text-lg">
-            2024-2025
+            {CalculateFiscalYear()}
           </Badge>
           {/* form div */}
           <div className="lg:w-1/2 w-full p-3 rounded-lg shadow-md shadow-card-foreground transition-shadow duration-300 hover:shadow-xl hover:shadow-card-foreground ">
