@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   },
   // Include the custom meta tag using the "other" property
   other: {
-    "next-size-adjust": "auto",
+    "next-size-adjust": "auto", // Correctly adding the meta tag
   },
 };
 
