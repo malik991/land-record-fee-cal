@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -11,7 +12,7 @@ import AuthProvider from "@/lib/authProvider";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  adjustFontFallback: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -51,6 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <Head>
+        {/* Add the meta tag to satisfy W3C */}
+        <meta name="next-size-adjust" content="auto" />
+      </Head>
       <body className={roboto.className}>
         <AuthProvider>
           <ThemeProvider
