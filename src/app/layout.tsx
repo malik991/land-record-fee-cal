@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -43,6 +42,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  // Include the custom meta tag using the "other" property
+  other: {
+    "next-size-adjust": "auto",
+  },
 };
 
 export default function RootLayout({
@@ -52,10 +55,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <Head>
-        {/* Add the meta tag to satisfy W3C */}
-        <meta name="next-size-adjust" content="auto" />
-      </Head>
       <body className={roboto.className}>
         <AuthProvider>
           <ThemeProvider
