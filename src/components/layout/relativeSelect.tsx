@@ -116,6 +116,8 @@ export function ComboboxForm() {
                         <Button
                           variant="outline"
                           role="combobox"
+                          aria-controls="relative-list"
+                          aria-expanded={open}
                           className={cn(
                             "md:w-[250px] w-full justify-between text-nafees text-lg font-semibold",
                             !field.value && "text-muted-foreground"
@@ -136,7 +138,7 @@ export function ComboboxForm() {
 
                         <ScrollArea className="h-72 w-full rounded-md border">
                           <CommandList className="max-h-[500px] text-nafees text-xl font-semibold overflow-hidden text-center items-center">
-                            <CommandEmpty>Not Found.</CommandEmpty>
+                            <CommandEmpty>Not Found</CommandEmpty>
                             <CommandGroup>
                               {relativeNames.map((relative) => (
                                 <CommandItem

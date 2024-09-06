@@ -37,8 +37,7 @@ export function YouTubeCarousel() {
                   <div className="w-full h-full overflow-hidden rounded-lg">
                     <iframe
                       src={video.url}
-                      width="100%"
-                      height="100%"
+                      className="rounded-md h-full w-full"
                       title={`youtube video ${index + 1}`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

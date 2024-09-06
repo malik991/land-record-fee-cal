@@ -18,9 +18,9 @@ export default function HeaderSectionPage({
         <div className="w-full flex flex-col items-center gap-y-2">
           {isVisible && (
             <div className="">
-              <h1 className="lg:text-4xl text-2xl text-pehla uppercase font-semibold tracking-tighter">
+              <h2 className="lg:text-4xl text-2xl text-pehla uppercase font-semibold tracking-tighter">
                 {header}
-              </h1>
+              </h2>
             </div>
           )}
           {isVisible && <Separator className="mb-1 bg-slate-300 md:w-1/2" />}

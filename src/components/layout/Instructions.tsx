@@ -21,13 +21,11 @@ export default function InstructionsPage() {
         <div className="lg:w-1/2 w-full h-full rounded-md mt-2">
           <AspectRatio ratio={16 / 9} className="bg-muted">
             <iframe
-              width="100%"
-              height="100%"
               src="https://www.youtube.com/embed/AnAzmsmx9tE?si=50UcwPKGrefDBeq_"
               title="YouTube video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="rounded-md"
+              className="rounded-md h-full w-full"
             ></iframe>
           </AspectRatio>
         </div>

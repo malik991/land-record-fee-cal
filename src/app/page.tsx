@@ -54,18 +54,13 @@ export default function Home() {
             <YouTubeCarousel />
           </div>
           <div className="max-w-sm mx-auto">
-            <Button>
-              <Link
-                href={
-                  "https://www.youtube.com/channel/UCG9OkUvnNpotAUAmSotzrWQ"
-                }
-                target="_blank"
-              >
-                <span className="md:text-lg text-sm font-semibold">
-                  click for more videos
-                </span>
-              </Link>
-            </Button>
+            <Link
+              href="https://www.youtube.com/channel/UCG9OkUvnNpotAUAmSotzrWQ"
+              target="_blank"
+              className="inline-block px-4 py-2 bg-pehla text-white rounded-md hover:bg-indigo-300 md:text-lg text-sm font-semibold"
+            >
+              Click For More Videos
+            </Link>
           </div>
         </div>
       </section>
