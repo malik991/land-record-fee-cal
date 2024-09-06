@@ -8,7 +8,11 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/lib/authProvider";
 
-const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  adjustFontFallback: false,
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://landtaxshare.com"),
