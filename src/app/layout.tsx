@@ -12,7 +12,7 @@ import AuthProvider from "@/lib/authProvider";
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  adjustFontFallback: true,
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   // Include the custom meta tag using the "other" property
-  other: {
-    "next-size-adjust": "auto", // Correctly adding the meta tag
-  },
+  // other: {
+  //   "next-size-adjust": "auto", // Correctly adding the meta tag
+  // },
 };
 
 export default function RootLayout({
