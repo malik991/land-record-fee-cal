@@ -9,9 +9,10 @@ import ContactPage from "@/components/layout/contact";
 
 const images: IImage[] = [
   { url: "/4.webp" },
+  { url: "/memo1.jpg" },
   { url: "/1.jpeg" },
   { url: "/3.webp" },
-  { url: "/hero-image1.png" },
+  { url: "/memo2.jpg" },
 
   // Add more images as needed
 ];
@@ -28,10 +29,9 @@ export default function Home() {
               isVisible={true}
             />
           </div>
-          <div className="w-full flex items-center justify-center">
-            <Gallery images={images} />
-            {/* <CarouselHero /> */}
-          </div>
+
+          <Gallery images={images} />
+          {/* <CarouselHero /> */}
         </div>
       </section>
       <section id="calculator">

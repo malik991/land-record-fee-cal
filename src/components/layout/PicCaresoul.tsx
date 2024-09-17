@@ -16,7 +16,7 @@ interface GalleryProps {
 }
 
 const Gallery = ({ images }: GalleryProps) => {
-  const plugin = React.useRef(Autoplay({ delay: 2000 }));
+  const plugin = React.useRef(Autoplay({ delay: 3000 }));
   const [mainApi, setMainApi] = useState<CarouselApi>();
   const [thumbnailApi, setThumbnailApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -24,17 +24,14 @@ const Gallery = ({ images }: GalleryProps) => {
   const mainImage = useMemo(
     () =>
       images.map((image, index) => (
-        <CarouselItem key={index} className="relative w-full h-96 rounded-md">
-          <Image
-            src={image.url}
+        <CarouselItem
+          key={index}
+          // className="relative h-full rounded-xl overflow-hidden"
+        >
+          <img
+            src={image?.url}
             alt={`Carousel Main Image ${index + 1}`}
-            quality={75}
-            fill={true}
-            style={{
-              objectFit: "cover",
-              borderRadius: "1%",
-            }}
-            priority={true}
+            className="w-full h-full object-cover rounded-lg"
           />
         </CarouselItem>
       )),
@@ -101,10 +98,10 @@ const Gallery = ({ images }: GalleryProps) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center max-w-full mx-auto">
-      <div className="md:max-w-6xl w-full max-w-full mx-auto">
+    <div className="w-full flex flex-col items-center gap-y-3">
+      <div className="w-full rounded-xl border p-2">
         <Carousel plugins={[plugin.current]} setApi={setMainApi}>
-          <CarouselContent className="m-1">{mainImage}</CarouselContent>
+          <CarouselContent className="">{mainImage}</CarouselContent>
         </Carousel>
       </div>
       <div className="w-96 ">
