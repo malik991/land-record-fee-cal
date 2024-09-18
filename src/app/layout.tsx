@@ -64,6 +64,25 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            {/* Add structured data for videos */}
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "VideoObject",
+                  name: "intiqal ya registry fees ka online calculator.land mutation transfer fee 2024-2025",
+                  description:
+                    "want to know how to calculate the land mutation or registry fee in Punjab Pakistan according to update land revenue act. intiqal ki fees ya registry k waqat kitni fees lagti hy ab khud calculate karain. online land fee calculator.",
+                  thumbnailUrl:
+                    "https://i9.ytimg.com/vi/AnAzmsmx9tE/mqdefault.jpg?v=66d7415a&sqp=CMCTpbcG&rs=AOn4CLBRqv3msvZgAcuNSZ8Evo1eb53bgQ",
+                  uploadDate: "2024-09-03T00:00:00Z",
+                  contentUrl: "https://www.youtube.com/watch?v=AnAzmsmx9tE",
+                  embedUrl:
+                    "https://www.youtube.com/embed/AnAzmsmx9tE?si=50UcwPKGrefDBeq_",
+                }),
+              }}
+            />
             <HeaderPage />
             <main className="max-w-full mx-auto p-5">
               {children}

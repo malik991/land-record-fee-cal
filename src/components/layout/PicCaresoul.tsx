@@ -26,13 +26,24 @@ const Gallery = ({ images }: GalleryProps) => {
       images.map((image, index) => (
         <CarouselItem
           key={index}
-          // className="relative h-full rounded-xl overflow-hidden"
+          className="relative w-full h-96 md:h-screen flex justify-center items-center"
         >
-          <img
+          <div className="relative w-full h-full">
+            <Image
+              src={image.url}
+              fill
+              style={{ objectFit: "cover" }}
+              alt={`hero images ${index + 1}`}
+              className="rounded-lg"
+              priority
+            />
+          </div>
+
+          {/* <img
             src={image?.url}
             alt={`Carousel Main Image ${index + 1}`}
             className="w-full h-full object-cover rounded-lg"
-          />
+          /> */}
         </CarouselItem>
       )),
     [images]
@@ -100,7 +111,11 @@ const Gallery = ({ images }: GalleryProps) => {
   return (
     <div className="w-full flex flex-col items-center gap-y-3">
       <div className="w-full rounded-xl border p-2">
-        <Carousel plugins={[plugin.current]} setApi={setMainApi}>
+        <Carousel
+          className="w-full"
+          plugins={[plugin.current]}
+          setApi={setMainApi}
+        >
           <CarouselContent className="">{mainImage}</CarouselContent>
         </Carousel>
       </div>
