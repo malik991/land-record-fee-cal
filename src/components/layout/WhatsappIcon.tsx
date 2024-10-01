@@ -39,7 +39,7 @@ const WhatsappIcon: React.FC = () => {
             <div className="w-full flex items-center justify-between bg-green-500 rounded-t-3xl p-5">
               <h2 className="font-semibold text-lg">Welcom To LTF</h2>
               <div className="cursor-pointer" onClick={toggleChatBox}>
-                <CircleX className="w-7 h-7" />
+                <CircleX />
               </div>
             </div>
             <div className="joinchat__message">
