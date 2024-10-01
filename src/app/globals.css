@@ -76,3 +76,16 @@
       @apply bg-background text-foreground;
     }
   }
+
+  .joinchat__message {
+    position: relative;
+    min-height: 56px;
+    padding: 15px 20px;
+    margin: 10px 10px 10px;
+    border-radius: 26px;
+    background: #fff;
+    color: #4a4a4a;
+    word-break: break-word;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    transform: translateZ(0);
+}
