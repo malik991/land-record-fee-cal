@@ -22,16 +22,16 @@ export const metadata: Metadata = {
     template: "%s - Land Transfer Tax and Inheritance Share",
   },
   description:
-    "Land Transfer Fee calculator and inheritance share for Punjab Pakistan. Easily calculate the government tax fee for land mutations and register deeds.",
+    "Land or property Transfer Fees calculator and inheritance share for Punjab Pakistan. Easily calculate the government tax fee for land mutations and register deeds.",
   keywords:
-    "land, deeds, intiqal fees, plra, registry deed fees, mutation tax, zammeen intiqal fees, varasat, hiba, tamleek, inheritance share",
+    "land transfer tax calculator,property transfer fee calculator,land transfer tax,land transfer fees calculator,land transfer fee,warasti calculator, intiqal fees,inheritence tax, plra,land registry fee calculator,وراثتی انتقال کی فیس,property transfer tax calculator,property transfer fee,property share calculator,land transfer tax rate, registry deed fees, mutation tax, zammeen intiqal fees, varasat, hiba, tamleek, inheritance share",
   twitter: {
     card: "summary_large_image",
   },
   openGraph: {
     title: "Land Transfer Tax and Inheritance Share",
     description:
-      "Land Transfer Fee calculator and inheritance share for Punjab. Easily calculate the government tax fee for land mutations and register deeds.",
+      "Land Transfer Fees calculator and inheritance share for Punjab. Easily calculate the government tax fee for land mutations and register deeds.",
     url: "https://landtaxshare.com/",
     siteName: "land tranfer fees and inheritance share",
     images: [
