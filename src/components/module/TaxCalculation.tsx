@@ -54,7 +54,7 @@ export function zaraiTaxCalculation(inputParams: AllParams): any {
   let totalForFreshFiler = 0;
   let TMAtax = 0;
   let tax7E = 0;
-  let chargesPlra = 900;
+  let chargesPlra = 1200;
   let fbr236KForFreshFiler = 0;
   let fbr236CForFreshFiler = 0;
 

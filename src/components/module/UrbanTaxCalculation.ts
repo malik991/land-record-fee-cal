@@ -51,8 +51,12 @@ export default function ZaraiSakniTaxFunction(
 ) {
   //console.log(inputParams);
   const finalArrayAmount = [];
+  const getChargesForPlra = inputParams.landValue
+    ? plraChargesAmount(inputParams.landValue)
+    : 0;
+
   let chargesPlra = {
-    charges: inputParams.mutationType === "وراثت" ? 0 : 1300,
+    charges: inputParams.mutationType === "وراثت" ? 0 : getChargesForPlra,
   };
   let registryCharges = {
     charges: inputParams.mutationType === "وراثت" ? 0 : 1100,
@@ -283,8 +287,11 @@ export default function ZaraiSakniTaxFunction(
 
 export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
   const finalArrayResult = [];
+  const getChargesForPlra = inputParams.landValue
+    ? plraChargesAmount(inputParams.landValue)
+    : 0;
   let chargesPlra = {
-    charges: inputParams.mutationType === "وراثت" ? 0 : 1300,
+    charges: inputParams.mutationType === "وراثت" ? 0 : getChargesForPlra,
   };
   let registryCharges = {
     charges: inputParams.mutationType == "وراثت" ? 0 : 1100,
@@ -672,4 +679,14 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
   //console.log(finalArrayResult);
 
   return finalArrayResult;
+}
+
+function plraChargesAmount(landValue: any) {
+  //console.log("land value input: ", landValue);
+
+  if (landValue && landValue <= 3000000) {
+    return 3000;
+  } else {
+    return landValue * 0.001;
+  }
 }
