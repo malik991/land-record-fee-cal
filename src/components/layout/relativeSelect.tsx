@@ -176,7 +176,11 @@ export function ComboboxForm() {
               <span>
                 <UserPlus className="w-4 h-4" />
               </span>
-              <span className="mt-2">Add-Heirs</span>
+              <div className="flex flex-row gap-1 items-center">
+                <span className="text-sm">Add Heir / </span>
+                <span className="text-base text-nafees">وارث شامل کریں</span>
+              </div>
+              {/* <span className="mt-1 font-bold">Add-Heirs</span> */}
             </Button>
           </form>
         </Form>

@@ -54,22 +54,27 @@ export function DrawerDialogLegalHeirs({ heirs }: legalHeirsProps) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="default" className="w-1/2">
-            <span className="w-full text-nafees p-3 text-lg font-semibold">
-              منتخب کردہ وارثان دیکھیں
+          <Button variant="default" className="w-full">
+            <span className="w-full text-nafees p-3 text-xl font-semibold tracking-widest">
+              تعداد وارثان و رقبہ لکیھں۔
             </span>
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Your Selected Legal Heirs</DialogTitle>
-            <DialogDescription className="flex flex-col items-end gap-y-1">
-              <span className="pr-2 text-nafees text-lg text-pehla font-semibold whitespace-nowrap">
-                تمام وارثان کی تعداد لکیھں۔
-              </span>
-              <span className="pr-2 text-lg text-nafees text-pehla font-semibold whitespace-nowrap">
-                اگر متوفی کا بیٹا ہے تو بھائی یا بہن مت چنیں۔
-              </span>
+            <DialogTitle className="text-center text-base text-muted-foreground">
+              Your Selected Legal Heirs are:
+            </DialogTitle>
+            <DialogDescription>
+              <div className="w-full text-right bg-amber-50 border border-amber-200 rounded-md p-3 space-y-2 text-amber-800 md:text-[16px] text-sm font-semibold text-nafees">
+                <ol className="list-decimal list-inside space-y-1">
+                  <li>تمام وارثان کی تعداد لکیھں۔</li>
+                  <li>رقبہ کو کنال مرلہ اور فٹ میں لکھیں۔</li>
+                  <li>
+                    رقبہ کی فیلڈ کو خالی مت چھوڑیں- خالی کی جگہ 0 یا صفر لکھیں۔
+                  </li>
+                </ol>
+              </div>
             </DialogDescription>
           </DialogHeader>
           <ProfileForm heirs={heirs} />
@@ -82,21 +87,26 @@ export function DrawerDialogLegalHeirs({ heirs }: legalHeirsProps) {
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button variant="default" className="w-full">
-          <span className="w-full p-3 text-nafees text-lg font-semibold">
-            منتخب کردہ وارثان دیکھیں
+          <span className="w-full p-3 text-nafees text-lg font-semibold tracking-widest">
+            تعداد وارثان و رقبہ لکیھں۔
           </span>
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Your Selected Legal Heirs</DrawerTitle>
-          <DrawerDescription className="flex flex-col items-end gap-y-2">
-            <span className="pr-2 text-nafees text-lg text-pehla font-semibold whitespace-nowrap">
-              تمام وارثان کی تعداد لکیھں۔
-            </span>
-            <span className="pr-2 text-lg text-nafees text-pehla font-semibold whitespace-nowrap">
-              اگر متوفی کا بیٹا ہے تو بھائی یا بہن مت چنیں۔
-            </span>
+          <DrawerTitle className="text-center text-base text-muted-foreground">
+            Your Selected Legal Heirs
+          </DrawerTitle>
+          <DrawerDescription>
+            <div className="w-full text-right bg-amber-50 border border-amber-200 rounded-md p-3 space-y-2 text-amber-800 md:text-[16px] text-sm font-semibold text-nafees">
+              <ol className="list-decimal list-inside space-y-1">
+                <li>تمام وارثان کی تعداد لکیھں۔</li>
+                <li>رقبہ کو کنال مرلہ اور فٹ میں لکھیں۔</li>
+                <li>
+                  رقبہ کی فیلڈ کو خالی مت چھوڑیں- خالی کی جگہ 0 یا صفر لکھیں۔
+                </li>
+              </ol>
+            </div>
           </DrawerDescription>
         </DrawerHeader>
         <ProfileForm heirs={heirs} className="px-4" />
@@ -345,44 +355,87 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
                 <span>Please wait...</span>
               </div>
             ) : (
-              "Calculate"
+              "Calculate Shares"
             )}
           </Button>
         )}
         <Dialog open={dialogOpen} onOpenChange={setdialogOpen}>
-          <DialogContent className="max-w-[350px] md:max-w-lg mx-auto">
-            <DialogHeader>
-              <DialogTitle>Final Result</DialogTitle>
-              <DialogDescription>
-                <div className="flex md:flex-row flex-col md:gap-x-2 gap-y-1 items-center">
-                  <span className="text-lg">for more detail:</span>
-                  <ContactPage />
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-            <div className="p-4 flex flex-col items-center">
-              <h1 className="text-nafees font-semibold lg:text-4xl text-xl leading-3">
-                وارثان کے حصے
-              </h1>
-              <div className="mt-5 text-sm text-muted-foreground">
+          <DialogContent className="max-w-[400px] md:max-w-lg mx-auto p-0 overflow-hidden">
+            <div className="flex flex-col">
+              <div className="bg-pehla text-primary-foreground p-4 text-center">
+                <h2 className="text-xl font-bold tracking-wide">
+                  🏠 وارثان کے حصے (Final Result)
+                </h2>
+                <p className="text-base opacity-80 mt-1 text-nafees tracking-wider font-semibold">
+                  تقسیم کا خلاصہ نیچے دیا گیا ہے۔
+                </p>
+              </div>
+              <div className="p-4 flex flex-col gap-y-4">
                 {error ? (
-                  <div className="text-red-600">{error}</div>
-                ) : (
-                  <ScrollArea className="h-72 md:w-64 w-48 rounded-md border">
-                    <div className="p-6 grid grid-cols-2 gap-4">
-                      <div className="font-bold text-lg">Heir</div>
-                      {/* <div className="font-bold">Share</div> */}
-                      <div className="font-bold text-lg">K-M-F</div>
-                      {result &&
-                        result.map((heir) => (
-                          <React.Fragment key={heir.heir}>
-                            <div>{heir.heir}</div>
-                            {/* <div>{heir.share}</div> */}
-                            <div>{heir.landArea}</div>
-                          </React.Fragment>
-                        ))}
+                  <div className="text-red-600 text-center">{error}</div>
+                ) : result ? (
+                  <>
+                    <ScrollArea className="h-72 w-full rounded-md border border-muted shadow-inner">
+                      <div className="divide-y divide-muted p-2">
+                        {result.map((heir, index) => {
+                          const [kanal, marla, foot] = (
+                            heir.landArea ?? "0-0-0"
+                          ).split("-");
+
+                          return (
+                            <div
+                              key={heir.heir}
+                              className={cn(
+                                "rounded border border-muted p-3 flex flex-col shadow hover:shadow-md transition mt-2",
+                                index % 2 === 0 ? "bg-dooja/20" : "bg-pehla/20"
+                              )}
+                            >
+                              {/* Card Header */}
+                              <div className="flex justify-between items-center border-b pb-2 mb-2">
+                                <span className="font-bold text-primary flex items-center gap-1 text-lg">
+                                  👤 {heir.heir}
+                                </span>
+                                <span className="text-xs font-semibold text-muted-foreground">
+                                  K-M-F
+                                </span>
+                              </div>
+                              {/* Card Body */}
+                              <div className="flex justify-around text-center">
+                                <div className="flex flex-col">
+                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
+                                    {kanal}
+                                  </span>
+                                  <span className="text-xs">Kanal</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
+                                    {marla}
+                                  </span>
+                                  <span className="text-xs">Marla</span>
+                                </div>
+                                <div className="flex flex-col">
+                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
+                                    {foot}
+                                  </span>
+                                  <span className="text-xs">Foot</span>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </ScrollArea>
+                    <div className="flex justify-center text-muted-foreground text-lg mt-2 text-nafees tracking-wider">
+                      مزید تفصیلات کے لیے نیچے دیے گئے بٹن پر کلک کریں
                     </div>
-                  </ScrollArea>
+                    <div className="flex justify-center">
+                      <ContactPage />
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center text-muted-foreground">
+                    کوئی ڈیٹا دستیاب نہیں
+                  </div>
                 )}
               </div>
             </div>
