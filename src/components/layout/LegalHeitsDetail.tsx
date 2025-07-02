@@ -1,14 +1,12 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import html2pdf from "html2pdf.js";
 import { useRef } from "react";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import logo1 from "../../../public/logo1-compress.png";
 import {
   Form,
   FormControl,
@@ -43,8 +41,6 @@ import {
 } from "../module/InheritanceCalculation";
 
 import { Loader } from "lucide-react";
-import ContactPage from "./contact";
-import Image from "next/image";
 
 interface legalHeirsProps {
   heirs: string[];
@@ -475,8 +471,9 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
               <div className="border-t p-4 flex justify-center bg-white relative z-10">
                 <Button
                   variant="secondary"
-                  onClick={() => {
+                  onClick={async () => {
                     if (pdfRef.current) {
+                      const html2pdf = (await import("html2pdf.js")).default;
                       html2pdf()
                         .set({
                           margin: 0.5,
