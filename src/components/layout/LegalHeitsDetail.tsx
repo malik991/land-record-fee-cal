@@ -1,11 +1,14 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import html2pdf from "html2pdf.js";
+import { useRef } from "react";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import logo1 from "../../../public/logo1-compress.png";
 import {
   Form,
   FormControl,
@@ -41,6 +44,7 @@ import {
 
 import { Loader } from "lucide-react";
 import ContactPage from "./contact";
+import Image from "next/image";
 
 interface legalHeirsProps {
   heirs: string[];
@@ -216,6 +220,8 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
     setHeirsList((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const pdfRef = useRef<HTMLDivElement>(null); // for pdf generation
+
   return (
     <Form {...form}>
       <form
@@ -361,82 +367,134 @@ function ProfileForm({ heirs, className }: ProfileFormProps) {
         )}
         <Dialog open={dialogOpen} onOpenChange={setdialogOpen}>
           <DialogContent className="max-w-[400px] md:max-w-lg mx-auto p-0 overflow-hidden">
-            <div className="flex flex-col">
-              <div className="bg-pehla text-primary-foreground p-4 text-center">
-                <h2 className="text-xl font-bold tracking-wide">
-                  🏠 وارثان کے حصے (Final Result)
+            <div className="flex flex-col h-[90vh] overflow-hidden relative">
+              {/* Header */}
+              <div
+                className="p-4 text-center border-b"
+                style={{ backgroundColor: "#f13a01", color: "#ffffff" }}
+              >
+                <h2 className="text-xl font-bold tracking-wide flex items-center justify-center gap-2">
+                  {/* <Image
+                    src={logo1}
+                    alt="logo"
+                    width={32}
+                    height={32}
+                    className="object-contain"
+                  /> */}
+                  🏠 وارثان کے حصے
                 </h2>
-                <p className="text-base opacity-80 mt-1 text-nafees tracking-wider font-semibold">
-                  تقسیم کا خلاصہ نیچے دیا گیا ہے۔
+                <p className="text-base opacity-90 mt-1 text-nafees tracking-wider font-semibold">
+                  تقسیم کا خلاصہ
                 </p>
               </div>
-              <div className="p-4 flex flex-col gap-y-4">
-                {error ? (
-                  <div className="text-red-600 text-center">{error}</div>
-                ) : result ? (
-                  <>
-                    <ScrollArea className="h-72 w-full rounded-md border border-muted shadow-inner">
-                      <div className="divide-y divide-muted p-2">
-                        {result.map((heir, index) => {
-                          const [kanal, marla, foot] = (
-                            heir.landArea ?? "0-0-0"
-                          ).split("-");
 
-                          return (
-                            <div
-                              key={heir.heir}
-                              className={cn(
-                                "rounded border border-muted p-3 flex flex-col shadow hover:shadow-md transition mt-2",
-                                index % 2 === 0 ? "bg-dooja/20" : "bg-pehla/20"
-                              )}
-                            >
-                              {/* Card Header */}
-                              <div className="flex justify-between items-center border-b pb-2 mb-2">
-                                <span className="font-bold text-primary flex items-center gap-1 text-lg">
-                                  👤 {heir.heir}
-                                </span>
-                                <span className="text-xs font-semibold text-muted-foreground">
-                                  K-M-F
-                                </span>
-                              </div>
-                              {/* Card Body */}
-                              <div className="flex justify-around text-center">
-                                <div className="flex flex-col">
-                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
-                                    {kanal}
-                                  </span>
-                                  <span className="text-xs">Kanal</span>
-                                </div>
-                                <div className="flex flex-col">
-                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
-                                    {marla}
-                                  </span>
-                                  <span className="text-xs">Marla</span>
-                                </div>
-                                <div className="flex flex-col">
-                                  <span className="bg-emerald-100 text-emerald-700 rounded px-1">
-                                    {foot}
-                                  </span>
-                                  <span className="text-xs">Foot</span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </ScrollArea>
-                    <div className="flex justify-center text-muted-foreground text-lg mt-2 text-nafees tracking-wider">
-                      مزید تفصیلات کے لیے نیچے دیے گئے بٹن پر کلک کریں
-                    </div>
-                    <div className="flex justify-center">
-                      <ContactPage />
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center text-muted-foreground">
-                    کوئی ڈیٹا دستیاب نہیں
+              {/* Scrollable heir cards */}
+              <ScrollArea className="flex-1 relative">
+                <div
+                  ref={pdfRef}
+                  className="relative space-y-4 p-6 bg-white text-black rounded shadow max-w-xl mx-auto border min-h-[842px]" // 842px ~ A4 page height at 96dpi
+                  // className="space-y-4 flex flex-col relative p-4"
+                >
+                  {/* Watermark */}
+                  <div
+                    className="absolute inset-0 flex justify-center items-center pointer-events-none select-none"
+                    style={{
+                      opacity: 0.12,
+                      fontSize: "6rem",
+                      color: "#347433",
+                      transform: "rotate(-30deg)",
+                      zIndex: 50,
+                    }}
+                  >
+                    LAND TAX SHARE
                   </div>
-                )}
+
+                  {result?.map((heir, index) => {
+                    const [kanal, marla, foot] = (
+                      heir.landArea ?? "0-0-0"
+                    ).split("-");
+
+                    return (
+                      <div
+                        key={heir.heir}
+                        className={cn(
+                          "rounded border p-3 transition relative z-10 shadow",
+                          index % 2 === 0 ? "bg-white" : "bg-emerald-50"
+                        )}
+                        style={{ borderColor: "#f13a01" }}
+                      >
+                        <div
+                          className="flex justify-between items-center mb-2 font-semibold text-lg border-b pb-1 tracking-wide"
+                          style={{ color: "#f13a01" }}
+                        >
+                          👤 {heir.heir}
+                          <span className="text-xs text-muted-foreground font-sans">
+                            K-M-F
+                          </span>
+                        </div>
+                        <div className="flex justify-around text-center text-sm font-sans mt-2">
+                          <div className="flex flex-col">
+                            <span
+                              className="font-bold text-xl"
+                              style={{ color: "#f13a01" }}
+                            >
+                              {kanal}
+                            </span>
+                            <span className="text-xs">Kanal</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span
+                              className="font-bold text-xl"
+                              style={{ color: "#f13a01" }}
+                            >
+                              {marla}
+                            </span>
+                            <span className="text-xs">Marla</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span
+                              className="font-bold text-xl"
+                              style={{ color: "#f13a01" }}
+                            >
+                              {foot}
+                            </span>
+                            <span className="text-xs">Foot</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  <div className="text-center text-xl font-semibold m-2 p-2 text-muted-foreground font-sans relative z-10">
+                    Generated by Land Tax Share
+                  </div>
+                </div>
+              </ScrollArea>
+
+              {/* Footer with download button (excluded from pdf) */}
+              <div className="border-t p-4 flex justify-center bg-white relative z-10">
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    if (pdfRef.current) {
+                      html2pdf()
+                        .set({
+                          margin: 0.5,
+                          filename: "inheritance-shares.pdf",
+                          html2canvas: { scale: 2 },
+                          jsPDF: {
+                            orientation: "portrait",
+                            unit: "in",
+                            format: "letter",
+                          },
+                        })
+                        .from(pdfRef.current)
+                        .save();
+                    }
+                  }}
+                >
+                  📥 Download as PDF
+                </Button>
               </div>
             </div>
           </DialogContent>
