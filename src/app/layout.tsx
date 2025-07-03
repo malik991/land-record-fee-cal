@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/lib/authProvider";
+import NewsBanner from "@/components/layout/NewsBanner";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -84,6 +85,7 @@ export default function RootLayout({
               }}
             />
             <HeaderPage />
+            <NewsBanner />
             <main className="max-w-full mx-auto p-5">
               {children}
 
