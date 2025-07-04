@@ -50,7 +50,7 @@ export default function NewsBanner() {
               <p className="text-sm md:text-base leading-relaxed text-center">
                 FBR has increased taxes <strong>(236-C & 236-K)</strong> from{" "}
                 <strong>1.5%</strong>
-                to <strong>11.5%</strong> for filers, late filers, and
+                to <strong>18.5%</strong> for filers, late filers, and
                 non-filers for 2025–2026.
               </p>
             </div>

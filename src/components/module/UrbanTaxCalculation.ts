@@ -19,6 +19,26 @@ const freshfilerFbrTaxFor236KString =
   process.env.NEXT_PUBLIC_filerFbrTaxFor236KFresh!;
 const freshfilerFbrTaxFor236CString =
   process.env.NEXT_PUBLIC_filerFbrTaxFor236CFresh!;
+const aboveFiftyMillion236KfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236KFiftyMillion!;
+const aboveHunderedMillion236KfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236KHundredMillion!;
+const aboveFiftyMillion236CfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236CFiftyMillion!;
+const aboveHunderedMillion236CfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236CHundredMillion!;
+const aboveFiftyMillion236KNonfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_nonFilerFbrTaxFor236KFiftyMillion!;
+const aboveHunderedMillion236KNonfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_nonFilerFbrTaxFor236KHundredMillion!;
+const freshAboveFiftyMillion236CfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236CFiftyMillionFresh!;
+const freshAboveHunderedMillion236CfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236CHundredMillionFresh!;
+const freshAboveFiftyMillion236KfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236KFiftyMillionFresh!;
+const freshAboveHunderedMillion236KfilerFbrTaxForString =
+  process.env.NEXT_PUBLIC_filerFbrTaxFor236KHundredMillionFresh!;
 
 const taxTMA = Number(taxTMAString);
 const CONSTRUCTION_CHARGES = Number(CONSTRUCTION_CHARGES_String);
@@ -31,6 +51,63 @@ const nonFilerFbrTaxFor236C = Number(nonFilerFbrTaxFor236CString);
 const fbrTaxFor7E = Number(fbrTaxFor7EString);
 const FreshFilerFbrTax236C = Number(freshfilerFbrTaxFor236CString);
 const FreshFilerFbrTax236K = Number(freshfilerFbrTaxFor236KString);
+// above and below 50 million and 100 million
+const aboveFiftyMillion236KfilerFbrTaxFor = Number(
+  aboveFiftyMillion236KfilerFbrTaxForString
+);
+const aboveHunderedMillion236KfilerFbrTaxFor = Number(
+  aboveHunderedMillion236KfilerFbrTaxForString
+);
+const aboveFiftyMillion236CfilerFbrTaxFor = Number(
+  aboveFiftyMillion236CfilerFbrTaxForString
+);
+const aboveHunderedMillion236CfilerFbrTaxFor = Number(
+  aboveHunderedMillion236CfilerFbrTaxForString
+);
+const aboveFiftyMillion236KNonfilerFbrTaxFor = Number(
+  aboveFiftyMillion236KNonfilerFbrTaxForString
+);
+const aboveHunderedMillion236KNonfilerFbrTaxFor = Number(
+  aboveHunderedMillion236KNonfilerFbrTaxForString
+);
+const FreshFilerFbrTax236KfiftyMillion = Number(
+  freshAboveFiftyMillion236KfilerFbrTaxForString
+);
+const FreshFilerFbrTax236KhundredMillion = Number(
+  freshAboveHunderedMillion236KfilerFbrTaxForString
+);
+const FreshFilerFbrTax236CfiftyMillion = Number(
+  freshAboveFiftyMillion236CfilerFbrTaxForString
+);
+const FreshFilerFbrTax236ChundredMillion = Number(
+  freshAboveHunderedMillion236CfilerFbrTaxForString
+);
+
+if (
+  isNaN(STAMPDUTY_CHARGES) ||
+  isNaN(taxTMA) ||
+  isNaN(filerFbrTaxFor236K) ||
+  isNaN(filerFbrTaxFor236C) ||
+  isNaN(nonFilerFbrTaxFor236K) ||
+  isNaN(nonFilerFbrTaxFor236C) ||
+  isNaN(fbrTaxFor7E) ||
+  isNaN(FreshFilerFbrTax236C) ||
+  isNaN(FreshFilerFbrTax236K) ||
+  isNaN(aboveFiftyMillion236KfilerFbrTaxFor) ||
+  isNaN(aboveHunderedMillion236KfilerFbrTaxFor) ||
+  isNaN(aboveFiftyMillion236CfilerFbrTaxFor) ||
+  isNaN(aboveHunderedMillion236CfilerFbrTaxFor) ||
+  isNaN(aboveFiftyMillion236KNonfilerFbrTaxFor) ||
+  isNaN(aboveHunderedMillion236KNonfilerFbrTaxFor) ||
+  isNaN(FreshFilerFbrTax236KfiftyMillion) ||
+  isNaN(FreshFilerFbrTax236KhundredMillion) ||
+  isNaN(FreshFilerFbrTax236CfiftyMillion) ||
+  isNaN(FreshFilerFbrTax236ChundredMillion)
+) {
+  throw new Error(
+    "One or more environment variables are not defined or not valid numbers in taxCalculation.tsx"
+  );
+}
 
 let StampDuty_Fee = 500;
 let fbr236KForFiler = 0;
@@ -46,9 +123,37 @@ let constructionCharges = 0;
 let fbr236KForFreshFiler = 0;
 let fbr236CForFreshFiler = 0;
 
+// choose correct tax rates based on totalAmount
+let appliedFiler236KTaxRate = filerFbrTaxFor236K;
+let appliedNonFiler236KTaxRate = nonFilerFbrTaxFor236K;
+let appliedFreshFiler236KTaxRate = FreshFilerFbrTax236K;
+
+let appliedFiler236CTaxRate = filerFbrTaxFor236C;
+let appliedNonFiler236CTaxRate = nonFilerFbrTaxFor236C;
+let appliedFreshFiler236CTaxRate = FreshFilerFbrTax236C;
+
 export default function ZaraiSakniTaxFunction(
   inputParams: z.infer<typeof formSchema>
 ) {
+  if (inputParams.landValue > 100000000) {
+    // console.log("Above 100 million");
+
+    appliedFiler236KTaxRate = aboveHunderedMillion236KfilerFbrTaxFor;
+    appliedNonFiler236KTaxRate = aboveHunderedMillion236KNonfilerFbrTaxFor;
+    appliedFiler236CTaxRate = aboveHunderedMillion236CfilerFbrTaxFor;
+    appliedNonFiler236CTaxRate = nonFilerFbrTaxFor236C;
+    appliedFreshFiler236KTaxRate = FreshFilerFbrTax236KhundredMillion;
+    appliedFreshFiler236CTaxRate = FreshFilerFbrTax236ChundredMillion;
+  } else if (inputParams.landValue > 50000000) {
+    // console.log("Above 50 million");
+
+    appliedFiler236KTaxRate = aboveFiftyMillion236KfilerFbrTaxFor;
+    appliedNonFiler236KTaxRate = aboveFiftyMillion236KNonfilerFbrTaxFor;
+    appliedFiler236CTaxRate = aboveFiftyMillion236CfilerFbrTaxFor;
+    appliedNonFiler236CTaxRate = nonFilerFbrTaxFor236C;
+    appliedFreshFiler236KTaxRate = FreshFilerFbrTax236KfiftyMillion;
+    appliedFreshFiler236CTaxRate = FreshFilerFbrTax236CfiftyMillion;
+  }
   //console.log(inputParams);
   const finalArrayAmount = [];
   const getChargesForPlra = inputParams.landValue
@@ -76,20 +181,24 @@ export default function ZaraiSakniTaxFunction(
         TMAtax = Math.round(inputParams.landValue * taxTMA);
       }
 
-      fbr236KForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236K);
+      fbr236KForFiler = Math.round(
+        inputParams.landValue * appliedFiler236KTaxRate
+      );
       fbr236KForNonFiler = Math.round(
-        inputParams.landValue * nonFilerFbrTaxFor236K
+        inputParams.landValue * appliedNonFiler236KTaxRate
       );
       fbr236KForFreshFiler = Math.round(
-        inputParams.landValue * FreshFilerFbrTax236K
+        inputParams.landValue * appliedFreshFiler236KTaxRate
       );
 
-      fbr236CForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236C);
+      fbr236CForFiler = Math.round(
+        inputParams.landValue * appliedFiler236CTaxRate
+      );
       fbr236CForNonFiler = Math.round(
-        inputParams.landValue * nonFilerFbrTaxFor236C
+        inputParams.landValue * appliedNonFiler236CTaxRate
       );
       fbr236CForFreshFiler = Math.round(
-        inputParams.landValue * FreshFilerFbrTax236C
+        inputParams.landValue * appliedFreshFiler236CTaxRate
       );
 
       if (
@@ -286,6 +395,25 @@ export default function ZaraiSakniTaxFunction(
 }
 
 export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
+  if (inputParams.landValue > 100000000) {
+    // console.log("Above 100 million");
+
+    appliedFiler236KTaxRate = aboveHunderedMillion236KfilerFbrTaxFor;
+    appliedNonFiler236KTaxRate = aboveHunderedMillion236KNonfilerFbrTaxFor;
+    appliedFiler236CTaxRate = aboveHunderedMillion236CfilerFbrTaxFor;
+    appliedNonFiler236CTaxRate = nonFilerFbrTaxFor236C;
+    appliedFreshFiler236KTaxRate = FreshFilerFbrTax236KhundredMillion;
+    appliedFreshFiler236CTaxRate = FreshFilerFbrTax236ChundredMillion;
+  } else if (inputParams.landValue > 50000000) {
+    // console.log("Above 50 million");
+
+    appliedFiler236KTaxRate = aboveFiftyMillion236KfilerFbrTaxFor;
+    appliedNonFiler236KTaxRate = aboveFiftyMillion236KNonfilerFbrTaxFor;
+    appliedFiler236CTaxRate = aboveFiftyMillion236CfilerFbrTaxFor;
+    appliedNonFiler236CTaxRate = nonFilerFbrTaxFor236C;
+    appliedFreshFiler236KTaxRate = FreshFilerFbrTax236KfiftyMillion;
+    appliedFreshFiler236CTaxRate = FreshFilerFbrTax236CfiftyMillion;
+  }
   const finalArrayResult = [];
   const getChargesForPlra = inputParams.landValue
     ? plraChargesAmount(inputParams.landValue)
@@ -311,20 +439,24 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
       //if (inputParams.mutationType !== "تبادلہ") {
       TMAtax = Math.round(inputParams.landValue * taxTMA);
       //}
-      fbr236KForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236K);
+      fbr236KForFiler = Math.round(
+        inputParams.landValue * appliedFiler236KTaxRate
+      );
       fbr236KForNonFiler = Math.round(
-        inputParams.landValue * nonFilerFbrTaxFor236K
+        inputParams.landValue * appliedNonFiler236KTaxRate
       );
       fbr236KForFreshFiler = Math.round(
-        inputParams.landValue * FreshFilerFbrTax236K
+        inputParams.landValue * appliedFreshFiler236KTaxRate
       );
 
-      fbr236CForFiler = Math.round(inputParams.landValue * filerFbrTaxFor236C);
+      fbr236CForFiler = Math.round(
+        inputParams.landValue * appliedFiler236CTaxRate
+      );
       fbr236CForNonFiler = Math.round(
-        inputParams.landValue * nonFilerFbrTaxFor236C
+        inputParams.landValue * appliedNonFiler236CTaxRate
       );
       fbr236CForFreshFiler = Math.round(
-        inputParams.landValue * FreshFilerFbrTax236C
+        inputParams.landValue * appliedFreshFiler236CTaxRate
       );
       tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
 
@@ -445,22 +577,22 @@ export function UrbanTaxFunction(inputParams: z.infer<typeof formSchema>) {
 
         TMAtax = Math.round(inputParams.landValue * taxTMA);
         fbr236KForFiler = Math.round(
-          inputParams.landValue * filerFbrTaxFor236K
+          inputParams.landValue * appliedFiler236KTaxRate
         );
         fbr236KForNonFiler = Math.round(
-          inputParams.landValue * nonFilerFbrTaxFor236K
+          inputParams.landValue * appliedNonFiler236KTaxRate
         );
         fbr236CForFiler = Math.round(
-          inputParams.landValue * filerFbrTaxFor236C
+          inputParams.landValue * appliedFiler236CTaxRate
         );
         fbr236CForNonFiler = Math.round(
-          inputParams.landValue * nonFilerFbrTaxFor236C
+          inputParams.landValue * appliedNonFiler236CTaxRate
         );
         fbr236CForFreshFiler = Math.round(
-          inputParams.landValue * FreshFilerFbrTax236C
+          inputParams.landValue * appliedFreshFiler236CTaxRate
         );
         fbr236KForFreshFiler = Math.round(
-          inputParams.landValue * FreshFilerFbrTax236K
+          inputParams.landValue * appliedFreshFiler236KTaxRate
         );
         tax7E = Math.round(inputParams.landValue * fbrTaxFor7E);
         constructionCharges = Math.round(
