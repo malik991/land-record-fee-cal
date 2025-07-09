@@ -87,8 +87,8 @@ export function DropdownMenuDemo() {
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
             <span className="pt-1">
-              <Link href={"/#instructions"} onClick={handleClick}>
-                Instructions
+              <Link href={"/blog"} onClick={handleClick}>
+                Blogs
               </Link>
             </span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
