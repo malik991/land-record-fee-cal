@@ -2,7 +2,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import Link from "next/link";
 import type { Metadata } from "next";
 import BlogHeroImage from "@/components/hooks/BlogHeroImage";
-
+import AuthorSignature from "@/components/layout/AuthorSignature";
 export async function generateMetadata({
   params,
 }: {
@@ -57,6 +57,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
   if (!slug) throw new Error("Slug is undefined");
 
   const post = await getPostBySlug(slug); // ✅ Must pass params.slug
+  if (!post?.frontmatter?.title) {
+    throw new Error("Post title is undefined");
+  }
+  const [englishHeading, urduHeading] = post.frontmatter.title.split(" - ");
 
   return (
     <div className="prose mx-auto p-6">
@@ -65,10 +69,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
         alt={post.frontmatter.title}
       />
 
-      <h1>{post.frontmatter.title}</h1>
-      <p className="text-gray-500 text-sm">{post.frontmatter.date}</p>
+      <h1 className="text-2xl text-center font-semibold">{englishHeading}</h1>
+      <p className="text-gray-500 text-sm text-center">
+        {post.frontmatter.date}
+      </p>
+      <h2 className="text-nafees text-2xl font-semibold text-center mb-4">
+        {urduHeading}
+      </h2>
       <article>{post.compiled}</article>
-      <Link href="/blog" className="text-blue-600 underline">
+      <AuthorSignature />
+
+      <Link
+        href="/blog"
+        className="text-blue-600 underline text-center block mt-10"
+      >
         ← Back to Blog
       </Link>
     </div>

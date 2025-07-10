@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import Urdu from "@/components/mdx/Urdu";
+import UrduLink from "@/components/mdx/UrduLink";
 
 export interface BlogPost {
   slug: string;
@@ -52,6 +54,10 @@ export async function getPostBySlug(slug: string) {
 
   const { content: compiled } = await compileMDX({
     source: content,
+    components: {
+      Urdu, // ✅ register your Urdu component
+      UrduLink, // ✅ register your UrduLink component
+    },
     options: {
       scope: data,
       mdxOptions: {
