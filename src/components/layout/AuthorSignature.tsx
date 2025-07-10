@@ -1,21 +1,29 @@
 import Link from "next/link";
+import Image from "next/image";
 
 // components/AuthorSignature.tsx
 export default function AuthorSignature() {
   return (
     <div className="mt-10 border-t pt-6 flex flex-col">
       <div className="flex items-center gap-4">
-        <img
-          src="/images/blog/author.png" // Add a small profile image in /public/images/
-          alt="Author"
-          className="w-12 h-12 rounded-full object-contain"
-        />
+        <div className="relative w-14 h-14 rounded-full overflow-hidden border border-pehla shadow-md">
+          <Image
+            src="/images/blog/author.png" // ⬅️ Place this image in /public/images/
+            alt="Malik Mubashar Hassan"
+            fill
+            className="object-contain"
+            sizes="56px"
+          />
+        </div>
         <div>
           <p className="text-base font-semibold text-gray-800">
             Malik Mubashar Hassan
           </p>
           <p className="text-sm text-gray-600">
             Incharge Land Record & Legal Tech Writer
+          </p>
+          <p className="text-xs text-muted-foreground italic">
+            Author of this article
           </p>
         </div>
       </div>
