@@ -17,12 +17,31 @@ export async function generateMetadata({
       title: post.frontmatter.title,
       description: post.frontmatter.description,
       type: "article",
+      images: [
+        {
+          url:
+            post.frontmatter.coverImage &&
+            post.frontmatter.coverImage.startsWith("http")
+              ? post.frontmatter.coverImage
+              : post.frontmatter.coverImage
+              ? `https://landtaxshare.com${post.frontmatter.coverImage}`
+              : "https://landtaxshare.com/images/blog/default.jpeg",
+          alt: post.frontmatter.title,
+        },
+      ],
     },
-    // twitter: {
-    //   card: "summary",
-    //   title: post.frontmatter.title,
-    //   description: post.frontmatter.description,
-    // },
+    twitter: {
+      card: "summary",
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      images:
+        post.frontmatter.coverImage &&
+        post.frontmatter.coverImage.startsWith("http")
+          ? post.frontmatter.coverImage
+          : post.frontmatter.coverImage
+          ? `https://landtaxshare.com${post.frontmatter.coverImage}`
+          : "https://landtaxshare.com/images/blog/default.jpeg",
+    },
   };
 }
 
