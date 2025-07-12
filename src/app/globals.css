@@ -77,6 +77,11 @@
     }
   }
 
+  .section-spacing {
+  margin-bottom: 3rem; /* same as mb-12 */
+}
+
+
   .joinchat__message {
     position: relative;
     min-height: 56px;

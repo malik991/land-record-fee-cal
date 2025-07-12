@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import Urdu from "@/components/mdx/Urdu";
 import UrduLink from "@/components/mdx/UrduLink";
+import BlogImage from "@/components/layout/BlogImage";
 
 export interface BlogPost {
   slug: string;
@@ -14,6 +15,7 @@ export interface BlogPost {
     date: string;
     description: string;
     coverImage?: string;
+    tags?: string[];
   };
   content: string;
   filePath?: string; // add this
@@ -37,6 +39,7 @@ export function getAllPosts(): BlogPost[] {
           date: data.date,
           description: data.description,
           coverImage: data.coverImage,
+          tags: data.tags || [], // ✅ Include tags safely
         },
         content,
         filePath: fullPath, // add this
@@ -57,6 +60,7 @@ export async function getPostBySlug(slug: string) {
     components: {
       Urdu, // ✅ register your Urdu component
       UrduLink, // ✅ register your UrduLink component
+      BlogImage, // ✅ register your BlogImage component
     },
     options: {
       scope: data,

@@ -16,9 +16,7 @@ export default function AuthorSignature() {
           />
         </div>
         <div>
-          <p className="text-base font-semibold text-gray-800">
-            Malik Mubashar Hassan
-          </p>
+          <p className="text-base font-semibold">Malik Mubashar Hassan</p>
           <p className="text-sm text-gray-600">
             Incharge Land Record & Legal Tech Writer
           </p>
