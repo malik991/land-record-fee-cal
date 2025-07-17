@@ -7,6 +7,7 @@ import { YouTubeCarousel } from "@/components/layout/YoutubeCarousel";
 import Link from "next/link";
 import ContactPage from "@/components/layout/contact";
 import WhatsappIcon from "@/components/layout/WhatsappIcon";
+import FloatingFaq from "@/components/layout/FloatingFaq";
 
 const images: IImage[] = [
   { url: "/4.webp" },
@@ -81,6 +82,7 @@ export default function Home() {
 
       {/* whatsapp icon  */}
       <WhatsappIcon />
+      <FloatingFaq />
     </>
   );
 }

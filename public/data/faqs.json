@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+     "category": "Taxes",
+    "question_en": "Which is better for land transfer: sale or gift?",
+    "answer_en": "It depends on your situation. Sale involves a buyer and seller, while gift is a donation with different legal consequences.",
+    "question_ur": "زمین منتقلی کے لیے بیع بہتر ہے یا ہبہ؟",
+    "answer_ur": "یہ آپ کی صورتحال پر منحصر ہے۔ بیع میں خریدار اور فروخت کنندہ شامل ہوتے ہیں جبکہ ہبہ تحفہ ہوتا ہے، دونوں کے قانونی اثرات مختلف ہوتے ہیں۔"
+  },
+  {
+    "id": 2,
+    "category": "Transfer",
+    "question_en": "What is the current FBR tax rate?",
+    "answer_en": "In 2025–2026, the FBR tax rate has been increased from 1.5% to up to 18.5% depending on filer status.",
+    "question_ur": "FBR ٹیکس کی موجودہ شرح کیا ہے؟",
+    "answer_ur": "2025-2026 میں ایف بی آر کی ٹیکس کی شرح 1.5٪ سے لے کر 18.5٪ تک کر دی گئی ہے۔یہ فائلر کی حیثیت پر منحصر ہر۔"
+  },
+  {
+    "id": 3,
+    "category": "Fees",
+    "question_en": "What are the current land record fees?",
+    "answer_en": "Land record fees vary by province and type of transaction. Check with local authorities for accurate rates.",
+    "question_ur": "زمین ریکارڈ فیس کیا ہیں؟",
+    "answer_ur": "زمین ریکارڈ فیس صوبے اور لین دین کی نوعیت کے لحاظ سے مختلف ہوتی ہیں۔ درست نرخوں کے لیے مقامی حکام سے رابطہ کریں۔"
+  },
+  {
+    "id": 4,
+    "category": "General",
+    "question_en": "How can I contact the land record office?",
+    "answer_en": "You can contact the land record office through their official website or visit in person during working hours.",
+    "question_ur": "زمین ریکارڈ دفتر سے رابطہ کیسے کریں؟",
+    "answer_ur": "آپ زمین ریکارڈ دفتر سے ان کی سرکاری ویب سائٹ کے ذریعے یا کام کے اوقات میں ذاتی طور پر جا کر رابطہ کر سکتے ہیں۔"
+  },
+  {
+    "id": 5,
+    "category": "General",
+    "question_en": "What documents are required for land transfer?",
+    "answer_en": "Documents typically include proof of ownership, identity verification, and any applicable tax clearance certificates.",
+    "question_ur": "زمین منتقلی کے لیے کون سے دستاویزات درکار ہیں؟",
+    "answer_ur": "دستاویزات میں عام طور پر ملکیت کا ثبوت، شناخت کی تصدیق، اور کوئی بھی قابل اطلاق ٹیکس کلیئرنس سرٹیفکیٹ شامل ہوتے ہیں۔"
+  },
+  {
+    "id": 6,
+    "category": "Transfer",
+    "question_en": "What is the process for transferring land ownership?",
+    "answer_en": "The process involves submitting required documents, paying applicable fees, and registering the transfer with the land record office.",
+    "question_ur": "زمین کی ملکیت کی منتقلی کا عمل کیا ہے؟",
+    "answer_ur": "عمل میں درکار دستاویزات جمع کرانا، قابل اطلاق فیس ادا کرنا، اور زمین ریکارڈ دفتر میں منتقلی کو رجسٹر کرنا شامل ہے۔"
+  },
+  {
+    "id": 7,
+    "category": "Taxes",
+    "question_en": "How can I check my land tax status?",
+    "answer_en": "You can check your land tax status online through the provincial revenue department's website or by visiting their office.",
+    "question_ur": "میں اپنی زمین کے ٹیکس کی حیثیت کیسے چیک کر سکتا ہوں؟",
+    "answer_ur": "آپ صوبائی ریونیو ڈیپارٹمنٹ کی ویب سائٹ پر آن لائن یا ان کے دفتر میں جا کر اپنی زمین کے ٹیکس کی حیثیت چیک کر سکتے ہیں۔"
+  },
+  {
+    "id": 8,
+    "category": "Fees",
+    "question_en": "Are there any exemptions from land transfer fees?",
+    "answer_en": "Exemptions may apply for certain categories like inheritance or government projects. Check with local authorities for details.",
+    "question_ur": "زمین منتقلی کی فیس سے کوئی استثنیٰ ہے؟",
+    "answer_ur": "کچھ زمرے جیسے وراثت یا حکومتی منصوبوں کے لیے استثنیٰ ہو سکتا ہے۔ تفصیلات کے لیے مقامی حکام سے رابطہ کریں۔"
+  },
+  {
+    "id": 9,
+    "category": "General",
+    "question_en": "What is the role of the land record office?",
+    "answer_en": "The land record office maintains records of land ownership, transfers, and related transactions to ensure legal clarity.",
+    "question_ur": "زمین ریکارڈ دفتر کا کردار کیا ہے؟",
+    "answer_ur": "زمین ریکارڈ دفتر زمین کی ملکیت، منتقلی، اور متعلقہ لین دین کے ریکارڈ کو برقرار رکھتا ہے تاکہ قانونی وضاحت کو یقینی بنایا جا سکے۔"
+  }
+]
