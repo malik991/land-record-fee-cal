@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Head from "next/head";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -9,6 +8,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/lib/authProvider";
 import NewsBanner from "@/components/layout/NewsBanner";
+import FontPreload from "@/components/FontPreload";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -57,6 +57,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      {/* ✅ Preload custom font */}
+      <FontPreload />
       <body className={roboto.className}>
         <AuthProvider>
           <ThemeProvider
