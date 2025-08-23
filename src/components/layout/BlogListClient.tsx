@@ -28,7 +28,7 @@ export default function BLogListClient({ posts }: { posts: any[] }) {
 
   // 🔍 Filtered posts based on search + tag
   const filteredPosts = useMemo(() => {
-    return posts.filter((post) => {
+    const result = posts.filter((post) => {
       const matchesSearch =
         post.frontmatter.title.toLowerCase().includes(search.toLowerCase()) ||
         post.frontmatter.description
@@ -43,6 +43,13 @@ export default function BLogListClient({ posts }: { posts: any[] }) {
 
       return matchesSearch && matchesTag;
     });
+
+    // 📌 Sort by date (latest first)
+    return result.sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+    );
   }, [posts, search, selectedTag]);
 
   // pagination logic
