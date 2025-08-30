@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import BlogHeroImage from "@/components/hooks/BlogHeroImage";
 import AuthorSignature from "@/components/layout/AuthorSignature";
+import BlogViewTracker from "@/components/hooks/BlogViewTracker";
+
 export async function generateMetadata({
   params,
 }: {
@@ -64,6 +66,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="prose mx-auto p-6">
+      {/* 👇 Call tracker here */}
+      <BlogViewTracker slug={slug} />
       <BlogHeroImage
         src={post.frontmatter.coverImage}
         alt={post.frontmatter.title}
