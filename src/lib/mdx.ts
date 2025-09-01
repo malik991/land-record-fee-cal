@@ -7,6 +7,8 @@ import rehypeHighlight from "rehype-highlight";
 import Urdu from "@/components/mdx/Urdu";
 import UrduLink from "@/components/mdx/UrduLink";
 import BlogImage from "@/components/layout/BlogImage";
+import myDbConnection from "./dbConnect";
+import BlogModel from "@/model/blog.model";
 
 export interface BlogPost {
   slug: string;
@@ -18,10 +20,54 @@ export interface BlogPost {
     tags?: string[];
   };
   content: string;
+  views?: number; // add this
   filePath?: string; // add this
 }
 
-export function getAllPosts(): BlogPost[] {
+export async function getAllPosts(): Promise<BlogPost[]> {
+  const dir = path.join(process.cwd(), "src/content/blog");
+  const files = fs.readdirSync(dir);
+
+  // 1. Load MDX posts
+  const mdxPosts = files
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => {
+      const slug = file.replace(/\.mdx$/, "");
+      const fullPath = path.join(dir, file);
+      const raw = fs.readFileSync(fullPath, "utf8");
+      const { data, content } = matter(raw);
+      return {
+        slug,
+        frontmatter: {
+          title: data.title,
+          date: data.date,
+          description: data.description,
+          coverImage: data.coverImage,
+          tags: data.tags || [],
+        },
+        content,
+        filePath: fullPath,
+      };
+    });
+
+  // 2. Fetch views from MongoDB
+  await myDbConnection();
+  const viewsDocs = await BlogModel.find({}, "slug views").lean();
+
+  // Convert to { slug: views }
+  const viewsMap: Record<string, number> = {};
+  viewsDocs.forEach((doc: any) => {
+    viewsMap[doc.slug] = doc.views;
+  });
+
+  // 3. Merge MDX + Views
+  return mdxPosts.map((post) => ({
+    ...post,
+    views: viewsMap[post.slug] || 0,
+  }));
+}
+
+export function getAllPostsNoDB(): BlogPost[] {
   const dir = path.join(process.cwd(), "src/content/blog");
   const files = fs.readdirSync(dir);
 

@@ -116,9 +116,14 @@ export default function BLogListClient({ posts }: { posts: any[] }) {
                   <h2 className="text-lg font-semibold">
                     {post.frontmatter.title}
                   </h2>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    {format(new Date(post.frontmatter.date), "MMMM d, yyyy")}
-                  </p>
+                  <div className="flex items-center space-x-2 mt-2">
+                    <p className="text-xs text-muted-foreground mb-2">
+                      {format(new Date(post.frontmatter.date), "MMMM d, yyyy")}
+                    </p>
+                    <p className="text-xs font-semibold text-pehla text-muted-foreground mb-2">
+                      👁 {post.views} views
+                    </p>
+                  </div>
                   <p className="text-muted-foreground text-sm line-clamp-2">
                     {post.frontmatter.description}
                   </p>

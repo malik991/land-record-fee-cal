@@ -1,4 +1,4 @@
-import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { getAllPostsNoDB, getPostBySlug } from "@/lib/mdx";
 import Link from "next/link";
 import type { Metadata } from "next";
 import BlogHeroImage from "@/components/hooks/BlogHeroImage";
@@ -47,8 +47,8 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  const posts = getAllPosts();
+export function generateStaticParams() {
+  const posts = getAllPostsNoDB();
 
   return posts.map((post) => ({ slug: post.slug }));
 }
