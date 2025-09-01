@@ -30,3 +30,20 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+// export async function GET() {
+//   try {
+//     await myDbConnection();
+
+//     // Only return slug + views
+//     const blogs = await BlogModel.find({}, "slug views").lean();
+
+//     return NextResponse.json(blogs, { status: 200 });
+//   } catch (error) {
+//     console.error("Error fetching blog views:", error);
+//     return NextResponse.json(
+//       { error: "Failed to fetch views" },
+//       { status: 500 }
+//     );
+//   }
+// }
