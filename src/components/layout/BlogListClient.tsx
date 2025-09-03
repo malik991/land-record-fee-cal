@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import ViewToggle from "./ViewToggle";
 
 const POSTS_PER_PAGE = 8;
 
@@ -120,9 +121,11 @@ export default function BLogListClient({ posts }: { posts: any[] }) {
                     <p className="text-xs text-muted-foreground mb-2">
                       {format(new Date(post.frontmatter.date), "MMMM d, yyyy")}
                     </p>
-                    <p className="text-xs font-semibold text-pehla text-muted-foreground mb-2">
-                      👁 {post.views} views
-                    </p>
+                    <div className="flex space-x-1 items-center text-xs font-semibold text-pehla text-muted-foreground mb-2">
+                      {/* 👁 {post.views} views */}
+                      <ViewToggle views={post.views} />
+                      <p>views</p>
+                    </div>
                   </div>
                   <p className="text-muted-foreground text-sm line-clamp-2">
                     {post.frontmatter.description}
