@@ -22,10 +22,12 @@ export default function ViewToggle({ views }: { views: number }) {
         >
           {showViews ? (
             <>
-              <EyeOff size={14} className="mr-1" /> {views}
+              <Eye size={14} className="mr-1" />
             </>
           ) : (
-            <Eye size={14} className="mr-1 animate-pulse" />
+            <>
+              <EyeOff size={14} className="mr-1 animate-pulse" /> {views}
+            </>
           )}
         </button>
       </TooltipWrapper>
