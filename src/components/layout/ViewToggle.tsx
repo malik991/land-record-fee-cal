@@ -3,6 +3,15 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import TooltipWrapper from "./TooltipWrapper";
 
+function formatViews(views: number): string {
+  if (views >= 1_000_000) {
+    return (views / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+  } else if (views >= 1_000) {
+    return (views / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
+  }
+  return views.toString();
+}
+
 export default function ViewToggle({ views }: { views: number }) {
   const [showViews, setShowViews] = useState(false);
 
@@ -26,7 +35,8 @@ export default function ViewToggle({ views }: { views: number }) {
             </>
           ) : (
             <>
-              <EyeOff size={14} className="mr-1 animate-pulse" /> {views}
+              <EyeOff size={14} className="mr-1 animate-pulse" />{" "}
+              {formatViews(views)}
             </>
           )}
         </button>
